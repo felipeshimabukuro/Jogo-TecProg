@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Jogo\\x64\\Debug\\Ente.obj",
+            "outputs": [
+                "Jogo\\x64\\Debug\\Ente.h.obj.dt.module.json",
+                "Jogo\\x64\\Debug\\Ente.h.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}
