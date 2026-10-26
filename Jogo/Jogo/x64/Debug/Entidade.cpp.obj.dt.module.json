@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "Jogo\\x64\\Debug\\Entidade.obj",
+            "outputs": [
+                "Jogo\\x64\\Debug\\Entidade.cpp.obj.dt.module.json",
+                "Jogo\\x64\\Debug\\Entidade.cpp.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}
