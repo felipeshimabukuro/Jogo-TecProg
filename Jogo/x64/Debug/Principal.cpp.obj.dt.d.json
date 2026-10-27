@@ -223,7 +223,11 @@
             "c:\\users\\bueno\\source\\repos\\tecprog\\teste1\\sfml-2.6.2\\include\\sfml\\graphics\\vertexbuffer.hpp",
             "c:\\users\\bueno\\source\\repos\\felipeshimabukuro\\jogo-tecprog\\jogo\\principal.h",
             "c:\\users\\bueno\\source\\repos\\felipeshimabukuro\\jogo-tecprog\\jogo\\gerenciador_grafico.h",
-            "c:\\users\\bueno\\source\\repos\\felipeshimabukuro\\jogo-tecprog\\jogo\\ente.h"
+            "c:\\users\\bueno\\source\\repos\\felipeshimabukuro\\jogo-tecprog\\jogo\\ente.h",
+            "c:\\users\\bueno\\source\\repos\\felipeshimabukuro\\jogo-tecprog\\jogo\\jogador.h",
+            "c:\\users\\bueno\\source\\repos\\felipeshimabukuro\\jogo-tecprog\\jogo\\personagem.h",
+            "c:\\users\\bueno\\source\\repos\\felipeshimabukuro\\jogo-tecprog\\jogo\\entidade.h",
+            "c:\\users\\bueno\\source\\repos\\felipeshimabukuro\\jogo-tecprog\\jogo\\inimigo.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

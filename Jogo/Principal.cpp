@@ -4,7 +4,7 @@
 
 using namespace Gerenciadores;
 
-Principal::Principal() : pGG(pGG->getGerenciadorGrafico())
+Principal::Principal() : pGG(Gerenciador_grafico::getGerenciadorGrafico()), jogador()
 {
 	executar();
 }
@@ -16,8 +16,6 @@ Principal::~Principal()
 
 void Principal::executar()
 {
-	Jogador jogador(350, 250, 0);
-
 	while(pGG->verificaJanelaAberta())
 	{
 		sf::Event evento;
@@ -35,8 +33,8 @@ void Principal::executar()
 				}
 			}
 		}
-		jogador.executar();
 		pGG->limpaJanela();
+		jogador.mover();
 		pGG->desenharQuadrado(jogador.getX(),jogador.getY());
 		pGG->mostrarJanela();
 	}

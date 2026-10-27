@@ -9,7 +9,7 @@ protected:
 	int x_alvo;
 	short int lado;
 public:
-	Inimigo();
+	Inimigo(int xx, int yy);
 	~Inimigo();
 	virtual void executar() = 0;
 	virtual void danificar() = 0;
