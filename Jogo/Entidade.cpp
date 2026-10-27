@@ -15,3 +15,11 @@ void Entidade::salvarDataBuffer()
 {
 	
 }
+
+const int Entidade::getX() const {
+	return x;
+}
+
+const int Entidade::getY() const {
+	return y;
+}

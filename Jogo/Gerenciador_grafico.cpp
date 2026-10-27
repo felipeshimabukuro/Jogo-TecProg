@@ -72,13 +72,13 @@ void Gerenciador_grafico::mostrarJanela()
 	}
 }
 
-void Gerenciador_grafico::desenharQuadrado()
+void Gerenciador_grafico::desenharQuadrado(int x, int y)
 {
 	if (window)
 	{
 		sf::RectangleShape quadrado(sf::Vector2f(100.0f, 100.0f));
 		quadrado.setFillColor(sf::Color::Green);
-		quadrado.setPosition(350.0f, 250.0f);
+		quadrado.setPosition(x, y);
 		window->draw(quadrado);
 	}
 }

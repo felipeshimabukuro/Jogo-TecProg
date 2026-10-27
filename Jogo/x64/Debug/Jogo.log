@@ -1,2 +1,6 @@
-﻿  Gerenciador_grafico.cpp
-  Jogo.vcxproj -> C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\Jogo\x64\Debug\Jogo.exe
+﻿  Jogador.cpp
+C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Jogador.cpp(63,15): warning C4244: '+=': conversão de 'float' para 'int', possível perda de dados
+C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Jogador.cpp(64,15): warning C4244: '+=': conversão de 'float' para 'int', possível perda de dados
+  Personagem.cpp
+  Gerando Código...
+  Jogo.vcxproj -> C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\x64\Debug\Jogo.exe

@@ -21,7 +21,7 @@ namespace Gerenciadores
 		void fechaJanela();
 		const bool verificaJanelaAberta();
 		//void desenharEnte(Ente* pE);
-		void desenharQuadrado();
+		void desenharQuadrado(int x, int y);
 		void mostrarJanela();
 
 	};

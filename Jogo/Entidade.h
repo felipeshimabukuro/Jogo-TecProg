@@ -19,5 +19,8 @@ namespace Entidades
 
 		virtual void executar() = 0;
 		virtual void salvar() = 0;
+
+		const int getX() const;
+		const int getY() const;
 	};
 }

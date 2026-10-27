@@ -1,5 +1,6 @@
 #include "Bibliotecas.h"
 #include "Principal.h"
+#include "Jogador.h"
 
 using namespace Gerenciadores;
 
@@ -15,7 +16,7 @@ Principal::~Principal()
 
 void Principal::executar()
 {
-
+	Jogador jogador(350, 250, 0);
 
 	while(pGG->verificaJanelaAberta())
 	{
@@ -34,8 +35,9 @@ void Principal::executar()
 				}
 			}
 		}
+		jogador.executar();
 		pGG->limpaJanela();
-		pGG->desenharQuadrado();
+		pGG->desenharQuadrado(jogador.getX(),jogador.getY());
 		pGG->mostrarJanela();
 	}
 }

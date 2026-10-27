@@ -77,10 +77,12 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\Users\bueno\source\repos\TecProg\Teste1\SFML-2.6.2\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\bueno\source\repos\TecProg\Teste1\SFML-2.6.2\lib;</AdditionalLibraryDirectories>
     </Link>
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
@@ -95,10 +97,12 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\Users\bueno\source\repos\TecProg\Teste1\SFML-2.6.2\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\bueno\source\repos\TecProg\Teste1\SFML-2.6.2\lib;</AdditionalLibraryDirectories>
     </Link>
     <Manifest>
       <EnableSegmentHeap>true</EnableSegmentHeap>
@@ -111,12 +115,12 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\SFML-2.6.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\bueno\source\repos\TecProg\Teste1\SFML-2.6.2\include;C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\SFML-2.6.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\SFML-2.6.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\bueno\source\repos\TecProg\Teste1\SFML-2.6.2\lib;C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\SFML-2.6.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-network-d.lib;sfml-system-d.lib</AdditionalDependencies>
     </Link>
     <Manifest>
@@ -132,12 +136,12 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\SFML-2.6.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\bueno\source\repos\TecProg\Teste1\SFML-2.6.2\include;C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\SFML-2.6.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\SFML-2.6.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\bueno\source\repos\TecProg\Teste1\SFML-2.6.2\lib;C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\SFML-2.6.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-audio.lib;sfml-network.lib;sfml-system.lib</AdditionalDependencies>
     </Link>
     <Manifest>
@@ -149,7 +153,9 @@
     <ClCompile Include="Entidade.cpp" />
     <ClCompile Include="Gerenciador_Colisao.cpp" />
     <ClCompile Include="Gerenciador_grafico.cpp" />
+    <ClCompile Include="Jogador.cpp" />
     <ClCompile Include="Jogo.cpp" />
+    <ClCompile Include="Personagem.cpp" />
     <ClCompile Include="Principal.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +164,9 @@
     <ClInclude Include="Entidade.h" />
     <ClInclude Include="Gerenciador_colisao.h" />
     <ClInclude Include="Gerenciador_grafico.h" />
+    <ClInclude Include="Inimigo.h" />
+    <ClInclude Include="Jogador.h" />
+    <ClInclude Include="Personagem.h" />
     <ClInclude Include="Principal.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

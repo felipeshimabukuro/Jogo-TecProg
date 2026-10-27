@@ -1,6 +1,8 @@
-C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\Jogo\Jogo\Ente.cpp;C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\Jogo\Jogo\x64\Debug\Ente.obj
-C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\Jogo\Jogo\Entidade.cpp;C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\Jogo\Jogo\x64\Debug\Entidade.obj
-C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\Jogo\Jogo\Gerenciador_Colisao.cpp;C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\Jogo\Jogo\x64\Debug\Gerenciador_Colisao.obj
-C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\Jogo\Jogo\Gerenciador_grafico.cpp;C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\Jogo\Jogo\x64\Debug\Gerenciador_grafico.obj
-C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\Jogo\Jogo\Jogo.cpp;C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\Jogo\Jogo\x64\Debug\Jogo.obj
-C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\Jogo\Jogo\Principal.cpp;C:\Users\Felipe\OneDrive\Área de Trabalho\Programas\Simao\Jogo\Jogo\Jogo\x64\Debug\Principal.obj
+C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Ente.cpp;C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\x64\Debug\Ente.obj
+C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Entidade.cpp;C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\x64\Debug\Entidade.obj
+C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Gerenciador_Colisao.cpp;C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\x64\Debug\Gerenciador_Colisao.obj
+C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Gerenciador_grafico.cpp;C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\x64\Debug\Gerenciador_grafico.obj
+C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Jogador.cpp;C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\x64\Debug\Jogador.obj
+C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Jogo.cpp;C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\x64\Debug\Jogo.obj
+C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Personagem.cpp;C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\x64\Debug\Personagem.obj
+C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Principal.cpp;C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\x64\Debug\Principal.obj
