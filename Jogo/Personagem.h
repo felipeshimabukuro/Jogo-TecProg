@@ -12,14 +12,16 @@ namespace Personagens {
 		const float pot_queda;
 		bool chao;
 		static const int gravidade = 10;
+		sf::RectangleShape corpo;
+		sf::Vector2f vel;
 	public:
-		Personagem(int xx = 0, int yy = 0);
+		Personagem(const sf::Vector2f pos, const sf::Vector2f tam);
 		~Personagem();
 		void salvarDataBuffer();
-		virtual void executar() = 0;
+		//virtual void mover() = 0;
 		virtual void salvar() = 0;
-		virtual void mover(int lado) = 0;
+		//virtual void mover(int lado) = 0;
 		virtual void receberDano(int dano) = 0;
 	};
-	
+
 }

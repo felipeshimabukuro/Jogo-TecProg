@@ -2,21 +2,20 @@
 
 int Jogador::pontos = 0;
 
-Jogador::Jogador() {
+Jogador::Jogador():Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)) {
     inicializa();
 }
 
-Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam)
-    :Personagem(pos.x, pos.y),num(0){
+Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam, short int n) :Personagem(pos, tam),num(n){
     inicializa();
 } 
 
-Jogador::Jogador(const sf::RectangleShape corpo):corpo(corpo) {
+Jogador::Jogador(const sf::RectangleShape corpo):Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), corpo(corpo) {
     inicializa();
 }
 
 void Jogador::inicializa() { //tive q mudar pq tava dando mto b.o., nao rodava slk
-    vel = sf::Vector2f(5.0f, 5.0f);
+    vel = sf::Vector2f(max_velx, max_vely);
 
     corpo.setSize(sf::Vector2f(50.0f, 50.0f)); 
     corpo.setFillColor(sf::Color::Green);      
@@ -32,7 +31,7 @@ sf::RectangleShape Jogador::getCorpo() {
     return corpo;
 }
 
-void Jogador::colidir(Inimigo* pIn) {
+/*void Jogador::colidir(Inimigo* pIn) {
 	if (pIn) {
 		if (pIn->getX() == x) {
 			velx = -velx;
@@ -41,10 +40,10 @@ void Jogador::colidir(Inimigo* pIn) {
 			vely = -vely;
 		}
 	}
-}
+}*/
 
 void Jogador::executar() {
-
+    
 }
 
 void Jogador::salvar() {

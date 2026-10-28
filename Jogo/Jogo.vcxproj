@@ -152,21 +152,29 @@
     <ClCompile Include="Ente.cpp" />
     <ClCompile Include="Entidade.cpp" />
     <ClCompile Include="Gerenciador_Colisao.cpp" />
+    <ClCompile Include="Gerenciador_eventos.cpp" />
     <ClCompile Include="Gerenciador_grafico.cpp" />
     <ClCompile Include="Inimigo.cpp" />
     <ClCompile Include="Jogador.cpp" />
     <ClCompile Include="Jogo.cpp" />
+    <ClCompile Include="ListaEntidade.cpp" />
+    <ClCompile Include="Obstaculo.cpp" />
     <ClCompile Include="Personagem.cpp" />
     <ClCompile Include="Principal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bibliotecas.h" />
+    <ClInclude Include="Elemento.h" />
     <ClInclude Include="Ente.h" />
     <ClInclude Include="Entidade.h" />
     <ClInclude Include="Gerenciador_colisao.h" />
+    <ClInclude Include="Gerenciador_eventos.h" />
     <ClInclude Include="Gerenciador_grafico.h" />
     <ClInclude Include="Inimigo.h" />
     <ClInclude Include="Jogador.h" />
+    <ClInclude Include="Lista.h" />
+    <ClInclude Include="ListaEntidade.h" />
+    <ClInclude Include="Obstaculo.h" />
     <ClInclude Include="Personagem.h" />
     <ClInclude Include="Principal.h" />
   </ItemGroup>

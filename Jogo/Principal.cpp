@@ -33,9 +33,14 @@ void Principal::executar()
 void Principal::instanciarEntidades()
 {
 	//Tudo que for adicionar de entidade deve fazer essa sequencia de passos
-	Jogador* jogador = new Jogador();
+	Jogador* jogador = new Jogador(sf::Vector2f(100.0f, 200.0f), sf::Vector2f(50.0f, 50.0f), 0);
 	Entidade* e1 = static_cast<Entidade*>(jogador);
 	LEs.incluir(e1);
 
 	pEvento->setJogador(jogador);
+
+	Inimigo* inimigo = new Inimigo(sf::Vector2f(100.0f, 200.0f), sf::Vector2f(50.0f, 50.0f),jogador);
+	Entidade* e2 = static_cast<Entidade*>(inimigo);
+	LEs.incluir(e2);
+
 }
