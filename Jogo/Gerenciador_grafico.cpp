@@ -28,7 +28,7 @@ Gerenciador_grafico* Gerenciador_grafico::getGerenciadorGrafico()
 {
 	if (pGrafico == NULL)
 	{
-		return new Gerenciador_grafico();
+		pGrafico = new Gerenciador_grafico();
 	}
 	return pGrafico;
 }

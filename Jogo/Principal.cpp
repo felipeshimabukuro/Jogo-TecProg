@@ -4,8 +4,12 @@
 
 using namespace Gerenciadores;
 
-Principal::Principal() : pGG(Gerenciador_grafico::getGerenciadorGrafico()), jogador()
+Principal::Principal() : 
+	pGG(Gerenciador_grafico::getGerenciadorGrafico()), 
+	pEvento(Gerenciador_eventos::getGerenciadorEventos()),
+	LEs()
 {
+	instanciarEntidades();
 	executar();
 }
 
@@ -16,26 +20,22 @@ Principal::~Principal()
 
 void Principal::executar()
 {
+	//Cada coisa tem sua funcao agora
 	while(pGG->verificaJanelaAberta())
 	{
-		sf::Event evento;
-		if(pGG->getWindow()->pollEvent(evento))
-		{
-			if(evento.type == sf::Event::Closed)
-			{
-				pGG->fechaJanela();
-			}
-			else if(evento.type == sf::Event::KeyPressed)
-			{
-				if(evento.key.code == sf::Keyboard::Escape)
-				{
-					pGG->fechaJanela();
-				}
-			}
-		}
+		pEvento->executar();
 		pGG->limpaJanela();
-		jogador.mover();
-		pGG->desenharQuadrado(jogador.getX(),jogador.getY());
+		LEs.percorrer(pGG->getWindow());
 		pGG->mostrarJanela();
 	}
+}
+
+void Principal::instanciarEntidades()
+{
+	//Tudo que for adicionar de entidade deve fazer essa sequencia de passos
+	Jogador* jogador = new Jogador();
+	Entidade* e1 = static_cast<Entidade*>(jogador);
+	LEs.incluir(e1);
+
+	pEvento->setJogador(jogador);
 }

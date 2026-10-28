@@ -22,5 +22,7 @@ namespace Entidades
 
 		const int getX() const;
 		const int getY() const;
+
+		virtual sf::RectangleShape getCorpo() = 0;
 	};
 }

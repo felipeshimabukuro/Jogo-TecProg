@@ -22,10 +22,11 @@ public:
 	void colidir(Inimigo* pIn);
 	void executar();
 	void salvar();
-	void mover();
+	void mover(int lado);
+	void pular();
 	//void idle();
 	//void dig();
 	//void place();
 	void receberDano(int dano);
-	const sf::RectangleShape getCorpo();
+	sf::RectangleShape getCorpo();
 };

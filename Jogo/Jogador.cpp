@@ -15,15 +15,20 @@ Jogador::Jogador(const sf::RectangleShape corpo):corpo(corpo) {
     inicializa();
 }
 
-void Jogador::inicializa() {
-    vel = sf::Vector2f(5.0f,5.0f);
+void Jogador::inicializa() { //tive q mudar pq tava dando mto b.o., nao rodava slk
+    vel = sf::Vector2f(5.0f, 5.0f);
+
+    corpo.setSize(sf::Vector2f(50.0f, 50.0f)); 
+    corpo.setFillColor(sf::Color::Green);      
+
+    corpo.setPosition(x, y);
 }
 
 Jogador::~Jogador() {
 
 }
 
-const sf::RectangleShape Jogador::getCorpo() {
+sf::RectangleShape Jogador::getCorpo() {
     return corpo;
 }
 
@@ -46,51 +51,20 @@ void Jogador::salvar() {
 
 }
 
-void Jogador::mover() {
-    if (!num)
+void Jogador::mover(int lado) {
+    if (lado == -1)
     {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            corpo.move(-vel.x, 0.0f);
-            x -= vel.x;
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            corpo.move(vel.x, 0.0f);
-            x += vel.x;
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            corpo.move(0.0f, vel.y);
-            y += vel.y;
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            corpo.move(0.0f, -vel.y);
-            y -= vel.y;
-        }
+        x -= vel.x;
     }
-    else
+    else if (lado == 1)
     {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            corpo.move(-vel.x, 0.0f);
-            x -= vel.x;
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            corpo.move(vel.x, 0.0f);
-            x += vel.x;
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-            corpo.move(0.0f, vel.y);
-            y += vel.y;
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-            corpo.move(0.0f, -vel.y);
-            y -= vel.y;
-        }
+        x += vel.x;
     }
+    else if (lado == 3)
+    {
+		pular();
+    }
+
     if (x < 0.0f) {
         x = 0.0f;
     }
@@ -108,6 +82,11 @@ void Jogador::mover() {
     }
 
     corpo.setPosition(x, y);
+}
+
+void Jogador::pular() 
+{
+
 }
 
 //void idle() {

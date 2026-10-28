@@ -15,7 +15,7 @@ Ente::~Ente()
 }
 
 void Ente::desenhar() {
-	//futuro
+	
 }
 
 int Ente::getID()
