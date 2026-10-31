@@ -1,14 +1,1 @@
-﻿  Inimigo.cpp
-C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Inimigo.cpp(7,12): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Inimigo.cpp(16,43): warning C4244: 'argumento': conversão de 'double' para 'T', possível perda de dados
-C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Inimigo.cpp(16,43): warning C4244:         with
-C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Inimigo.cpp(16,43): warning C4244:         [
-C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Inimigo.cpp(16,43): warning C4244:             T=float
-C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Inimigo.cpp(16,43): warning C4244:         ]
-C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Inimigo.cpp(16,29): warning C4244: 'argumento': conversão de 'double' para 'T', possível perda de dados
-C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Inimigo.cpp(16,29): warning C4244:         with
-C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Inimigo.cpp(16,29): warning C4244:         [
-C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Inimigo.cpp(16,29): warning C4244:             T=float
-C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Inimigo.cpp(16,29): warning C4244:         ]
-C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\Jogo\Inimigo.cpp(21,32): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
-  Jogo.vcxproj -> C:\Users\bueno\source\repos\felipeshimabukuro\Jogo-TecProg\x64\Debug\Jogo.exe
+﻿

@@ -20,7 +20,7 @@ void Inimigo::inicializa() {
 	corpo.setSize(sf::Vector2f(50.0f, 50.0f));
 	corpo.setFillColor(sf::Color::Red);
 
-	x = x + 100.0f;
+	x = x + 500.0f;
 	corpo.setPosition(x, y);
 }
 
@@ -36,7 +36,7 @@ void Inimigo::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo, 
 		float gap = posJogador.x - (posInimigo.x + tamInimigoX);
 		if (gap > 0.0f) {
 			deltaX = (gap < vel.x) ? gap : vel.x;
-			corpo.move(deltaX, 0.0f);
+			x += deltaX;
 		}
 	}
 	else {
@@ -44,15 +44,14 @@ void Inimigo::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo, 
 		float gap = posInimigo.x - (posJogador.x + tamJogadorX);
 		if (gap > 0.0f) {
 			deltaX = (gap < vel.x) ? gap : vel.x;
-			corpo.move(-deltaX, 0.0f);
+			x -= deltaX;
 		}
 	}
-
-	x = corpo.getPosition().x;
-	y = corpo.getPosition().y;
 }
 
 void Inimigo::mover() {
+	vely += gravidade;
+	y += vely;
 	if (!jogador) return;
 	sf::Vector2f posJogador = jogador->getCorpo().getPosition();
 	sf::Vector2f posInimigo = corpo.getPosition();
@@ -72,6 +71,8 @@ void Inimigo::mover() {
 	if (distCentroX <= 200.0f && distCentroY <= 200.0f) {
 		persegueJogador(posJogador, posInimigo, jogador);
 	}
+
+	corpo.setPosition(x, y);
 }
 
 void Inimigo::salvar() {
@@ -94,4 +95,17 @@ void Inimigo::setPos(const sf::Vector2f pos) {
 
 void Inimigo::executar() {
 	mover();
+}
+
+void Inimigo::colisao(Entidade* ent, sf::Vector2f ds) {
+	
+	Entidades::Entidade::colisao(ent, ds);
+
+	
+	if (ds.x <= ds.y) {
+		vely = 0.0f; 
+		if (getY() < ent->getY()) {
+			chao = true;
+		}
+	}
 }

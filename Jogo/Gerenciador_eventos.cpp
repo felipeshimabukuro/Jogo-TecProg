@@ -40,7 +40,7 @@ void Gerenciador_eventos::verificarTeclaPressionada(sf::Keyboard::Key tecla)
 	//jogador
 	if(pJogador)
 	{
-		if(tecla == sf::Keyboard::A || tecla == sf::Keyboard::Left)
+		/*if (tecla == sf::Keyboard::A || tecla == sf::Keyboard::Left)
 		{
 			pJogador->mover(-1);
 		}
@@ -51,6 +51,16 @@ void Gerenciador_eventos::verificarTeclaPressionada(sf::Keyboard::Key tecla)
 		else if (tecla == sf::Keyboard::Space || tecla == sf::Keyboard::W || tecla == sf::Keyboard::Up)
 		{
 			pJogador->mover(3);
+		}*/
+		if (pJogador->getNum() == 0) {
+			if (tecla == sf::Keyboard::A || tecla == sf::Keyboard::S || tecla == sf::Keyboard::D || tecla == sf::Keyboard::W) {
+				pJogador->executar();
+			}
+		}
+		else {
+			if (tecla == sf::Keyboard::Up || tecla == sf::Keyboard::Right || tecla == sf::Keyboard::Left || tecla == sf::Keyboard::Down) {
+				pJogador->executar();
+			}
 		}
 	}
 

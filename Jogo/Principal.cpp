@@ -2,6 +2,8 @@
 #include "Principal.h"
 #include "Jogador.h"
 #include "Inimigo.h"
+#include "Obstaculo.h"
+#include "Terra.h"
 
 using namespace Gerenciadores;
 using namespace Personagens;
@@ -31,9 +33,10 @@ void Principal::executar()
 	while(pGG->verificaJanelaAberta())
 	{
 		pEvento->executar();
-		pGG->limpaJanela();
-		LEs.percorrer(pGG->getWindow());
+		LEs.executarTodas();
 		pColisao->executar();
+		pGG->limpaJanela();
+		LEs.desenharTodas(pGG->getWindow());
 		pGG->mostrarJanela();
 	}
 }
@@ -53,4 +56,11 @@ void Principal::instanciarEntidades()
 	LEs.incluir(e2);
 
 	pColisao->adicionarInimigo(inimigo);
+	for (int i = 0; i < 16; i++) {
+		Terra* terra = new Terra(50.0f * i, 450.0f, 50.0f, 50.0f, 0, false, true);
+		Entidade* e3 = static_cast<Entidade*>(terra);
+		LEs.incluir(e3);
+
+		pColisao->adicionarObstaculo(terra);
+	}
 }

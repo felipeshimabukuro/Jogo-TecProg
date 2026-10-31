@@ -32,5 +32,6 @@ namespace Personagens {
 		void executar();
 		sf::RectangleShape getCorpo();
 		void setPos(const sf::Vector2f pos);
+		void colisao(Entidade* ent, sf::Vector2f ds);
 	};
 }

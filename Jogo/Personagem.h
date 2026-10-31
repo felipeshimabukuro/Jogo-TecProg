@@ -12,7 +12,7 @@ namespace Personagens {
 		const float max_vely;
 		const float pot_queda;
 		bool chao;
-		static const int gravidade = 10;
+		static const int gravidade = 1;
 		sf::RectangleShape corpo;
 		sf::Vector2f vel;
 	public:

@@ -16,19 +16,21 @@ namespace Personagens
 		int invent;
 		int t_dano;
 		static const int t_imune = 10;
+		Entidade* chaoAtual;
 		void inicializa();
 	public:
 		Jogador(const sf::Vector2f pos, const sf::Vector2f tam, short int n);
 		Jogador(const sf::RectangleShape corpo);
 		Jogador();
 		~Jogador();
-		//void colidir(Inimigo* pIn);
+		void colisao(Entidade* ent, sf::Vector2f ds);
 		void executar();
 		void salvar();
-		void mover(int lado);
+		void mover();
 		void pular();
+		int getNum();
 		//void idle();
-		//void dig();
+		void cavar();
 		//void place();
 		void receberDano(int dano);
 		sf::RectangleShape getCorpo();

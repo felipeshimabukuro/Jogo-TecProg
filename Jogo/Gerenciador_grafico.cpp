@@ -13,6 +13,8 @@ Gerenciador_grafico::Gerenciador_grafico() :
 		exit(1);
 	}
 	window->setFramerateLimit(60);
+
+	window->setKeyRepeatEnabled(false);
 }
 
 Gerenciador_grafico::~Gerenciador_grafico()

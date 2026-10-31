@@ -161,6 +161,10 @@
     <ClCompile Include="Obstaculo.cpp" />
     <ClCompile Include="Personagem.cpp" />
     <ClCompile Include="Principal.cpp" />
+    <ClCompile Include="Projetil.cpp" />
+    <ClCompile Include="Proj_boss.cpp" />
+    <ClCompile Include="Proj_top.cpp" />
+    <ClCompile Include="Terra.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bibliotecas.h" />
@@ -177,6 +181,10 @@
     <ClInclude Include="Obstaculo.h" />
     <ClInclude Include="Personagem.h" />
     <ClInclude Include="Principal.h" />
+    <ClInclude Include="Projetil.h" />
+    <ClInclude Include="Proj_boss.h" />
+    <ClInclude Include="Proj_top.h" />
+    <ClInclude Include="Terra.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

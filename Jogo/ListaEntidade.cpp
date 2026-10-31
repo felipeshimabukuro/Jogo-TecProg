@@ -30,7 +30,7 @@ Entidade* ListaEntidade::operator[](int pos)
 	return LEs.operator[](pos);
 }
 
-void ListaEntidade::percorrer(sf::RenderWindow* window)
+/*void ListaEntidade::percorrer(sf::RenderWindow* window)
 {
 	int tamanho = LEs.getTamanho();
 
@@ -40,5 +40,19 @@ void ListaEntidade::percorrer(sf::RenderWindow* window)
 		pEntidade = LEs.operator[](i);
 		pEntidade->executar();
 		window->draw(pEntidade->getCorpo());
+	}
+}*/
+
+void ListaEntidade::executarTodas()
+{
+	for (int i = 0; i < LEs.getTamanho(); i++) {
+		LEs.operator[](i)->executar(); 
+	}
+}
+
+void ListaEntidade::desenharTodas(sf::RenderWindow* window)
+{
+	for (int i = 0; i < LEs.getTamanho(); i++) {
+		window->draw(LEs.operator[](i)->getCorpo()); 
 	}
 }

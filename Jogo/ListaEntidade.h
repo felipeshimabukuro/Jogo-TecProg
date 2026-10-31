@@ -19,6 +19,8 @@ namespace Listas
 		void removerElemento(Entidade* pElemento);
 		int getTamanho();
 		Entidade* operator[](int pos);
-		void percorrer(sf::RenderWindow* window);
+		//void percorrer(sf::RenderWindow* window);
+		void executarTodas();
+		void desenharTodas(sf::RenderWindow* window);
 	};
 }
