@@ -22,7 +22,7 @@ namespace Entidades
 
 		const float getX() const;
 		const float getY() const;
-		virtual const sf::Vector2f getPos() const;
+		const sf::Vector2f getPos() const;
 		virtual void setPos(const sf::Vector2f pos);
 
 		const sf::Vector2f getTam();

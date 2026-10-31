@@ -22,35 +22,50 @@ void Gerenciador_colisao::setJogador(Jogador* pJ)
 	pJog1 = pJ;
 }
 
-void Gerenciador_colisao::adicionarInimigo(Inimigo* pIn)
+void Gerenciador_colisao::adicionarInimigo(Inimigo* pi)
 {
-	if(pIn)
+	if(pi)
 	{
-		LIs.push_back(pIn);
+		LIs.push_back(pi);
 	}
 }
 
-void Gerenciador_colisao::removerInimigo(Inimigo* pIn)
+void Gerenciador_colisao::removerInimigo(Inimigo* pi)
 {
-	if(pIn)
+	if(pi)
 	{
-		LIs.erase(std::remove(LIs.begin(), LIs.end(), pIn), LIs.end());
+		LIs.erase(std::remove(LIs.begin(), LIs.end(), pi), LIs.end());
 	}
 }
 
-void Gerenciador_colisao::adicionarObstaculo(Obstaculo* pOb)
+void Gerenciador_colisao::adicionarObstaculo(Obstaculo* po)
 {
-	if (pOb)
+	if (po)
 	{
-		LOs.push_back(pOb);
+		LOs.push_back(po);
 	}
 }
 
-void Gerenciador_colisao::removerObstaculo(Obstaculo* pOb)
+void Gerenciador_colisao::removerObstaculo(Obstaculo* po)
 {
-	if (pOb)
+	if (po)
 	{
-		LOs.remove(pOb);
+		LOs.remove(po);
+	}
+}
+
+void Gerenciador_colisao::adicionarProjetil(Projetil* pj) {
+	if (pj)
+	{
+		LPs.insert(pj);
+
+	}
+}
+
+void Gerenciador_colisao::removerProjetil(Projetil* pj) {
+	if (pj)
+	{
+		LPs.erase(pj);
 	}
 }
 
@@ -78,12 +93,16 @@ const sf::Vector2f Gerenciador_colisao::calcularColisao(Entidade* ent1, Entidade
 	return sf::Vector2f(distanciaPos.x - SomaMetade.x, distanciaPos.y - SomaMetade.y);
 }
 
+//const bool verificaColisao(Entidade* pe1, Entidade* pe2) const;
+
 void Gerenciador_colisao::executar()
 {
+	// os fors com auto percorrem a estrutura inteira (acho que ja expliquei isso mas n lembro onde kk)
+
 	// JOGADOR
 	if (pJog1)
 	{
-		for (auto* inim : LIs) // inimigos
+		for (auto* inim : LIs) // Inimigos
 		{
 			if (inim)
 			{
@@ -95,7 +114,7 @@ void Gerenciador_colisao::executar()
 			}
 		}
 		
-		for (auto* obs : LOs) // obstaculos
+		for (auto* obs : LOs) // Obstaculos
 		{
 			if (obs)
 			{
@@ -113,7 +132,7 @@ void Gerenciador_colisao::executar()
 	{
 		if (inim)
 		{
-			for (auto* obs : LOs)
+			for (auto* obs : LOs) // Obstaculos
 			{
 				if (obs)
 				{
@@ -126,4 +145,35 @@ void Gerenciador_colisao::executar()
 			}
 		}
 	}
+
+	// PROJETEIS
+	for (auto proj : LPs)
+	{
+		if (proj)
+		{
+			// Jogador
+			if (pJog1)
+			{
+				sf::Vector2f ds = calcularColisao(proj, pJog1);
+				if (ds.x < 0.0f && ds.y < 0.0f)
+				{
+					proj->colisao(pJog1, ds);
+				}
+			}
+
+			// Obstaculos
+			for (auto obs : LOs)
+			{
+				if (obs)
+				{
+					sf::Vector2f ds = calcularColisao(proj, obs);
+					if (ds.x < 0.0f && ds.y < 0.0f)
+					{
+						proj->colisao(obs, ds);
+					}
+				}
+			}
+		}
+	}
+
 }
