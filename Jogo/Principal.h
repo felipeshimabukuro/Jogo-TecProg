@@ -2,6 +2,7 @@
 #include "Bibliotecas.h"
 #include "Gerenciador_grafico.h"
 #include "Gerenciador_eventos.h"
+#include "Gerenciador_colisao.h"
 #include "Jogador.h"
 #include "ListaEntidade.h"
 
@@ -13,6 +14,7 @@ class Principal
 private:
 	Gerenciador_grafico* pGG;
 	Gerenciador_eventos* pEvento;
+	Gerenciador_colisao* pColisao;
 	ListaEntidade LEs;
 
 public:

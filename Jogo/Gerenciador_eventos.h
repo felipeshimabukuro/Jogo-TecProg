@@ -3,6 +3,8 @@
 #include "Gerenciador_grafico.h"
 #include "Jogador.h"
 
+using namespace Personagens;
+
 namespace Gerenciadores 
 {
 	class Gerenciador_eventos 

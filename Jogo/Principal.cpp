@@ -1,12 +1,15 @@
 #include "Bibliotecas.h"
 #include "Principal.h"
 #include "Jogador.h"
+#include "Inimigo.h"
 
 using namespace Gerenciadores;
+using namespace Personagens;
 
 Principal::Principal() : 
 	pGG(Gerenciador_grafico::getGerenciadorGrafico()), 
 	pEvento(Gerenciador_eventos::getGerenciadorEventos()),
+	pColisao(new Gerenciador_colisao()),
 	LEs()
 {
 	instanciarEntidades();
@@ -15,7 +18,11 @@ Principal::Principal() :
 
 Principal::~Principal()
 {
-
+	if (pColisao)
+	{
+		delete pColisao;
+		pColisao = nullptr;
+	}
 }
 
 void Principal::executar()
@@ -26,6 +33,7 @@ void Principal::executar()
 		pEvento->executar();
 		pGG->limpaJanela();
 		LEs.percorrer(pGG->getWindow());
+		pColisao->executar();
 		pGG->mostrarJanela();
 	}
 }
@@ -38,9 +46,11 @@ void Principal::instanciarEntidades()
 	LEs.incluir(e1);
 
 	pEvento->setJogador(jogador);
+	pColisao->setJogador(jogador);
 
-	Inimigo* inimigo = new Inimigo(sf::Vector2f(100.0f, 200.0f), sf::Vector2f(50.0f, 50.0f),jogador);
+	Inimigo* inimigo = new Inimigo(sf::Vector2f(100.0f, 200.0f), sf::Vector2f(50.0f, 50.0f), jogador);
 	Entidade* e2 = static_cast<Entidade*>(inimigo);
 	LEs.incluir(e2);
 
+	pColisao->adicionarInimigo(inimigo);
 }

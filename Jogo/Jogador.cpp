@@ -1,5 +1,7 @@
 #include "Jogador.h"
 
+using namespace Personagens;
+
 int Jogador::pontos = 0;
 
 Jogador::Jogador():Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)) {
@@ -29,6 +31,12 @@ Jogador::~Jogador() {
 
 sf::RectangleShape Jogador::getCorpo() {
     return corpo;
+}
+
+void Jogador::setPos(const sf::Vector2f pos) {
+    x = pos.x;
+    y = pos.y;
+    corpo.setPosition(x, y);
 }
 
 /*void Jogador::colidir(Inimigo* pIn) {

@@ -2,6 +2,7 @@
 #include "Obstaculo.h"
 
 using namespace Entidades;
+using namespace Personagens;
 
 Obstaculo::Obstaculo(int x, int y, int larg, int alt, int dano, bool danoso, bool queb): 
     Entidade(x, y), 

@@ -7,22 +7,26 @@ namespace Entidades
 	class Entidade : public Ente
 	{
 	protected:
-		int x;
-		int y;
+		float x;
+		float y;
 		ostream buffer;
 
 		void salvarDataBuffer();
 
 	public:
-		Entidade(int x, int y);
+		Entidade(float x = 0.0f, float y = 0.0f);
 		virtual ~Entidade();
 
 		virtual void executar() = 0;
 		virtual void salvar() = 0;
 
-		const int getX() const;
-		const int getY() const;
+		const float getX() const;
+		const float getY() const;
+		virtual const sf::Vector2f getPos() const;
+		virtual void setPos(const sf::Vector2f pos);
 
+		const sf::Vector2f getTam();
 		virtual sf::RectangleShape getCorpo() = 0;
+		virtual void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f));
 	};
 }

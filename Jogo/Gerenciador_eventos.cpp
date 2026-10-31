@@ -38,21 +38,24 @@ void Gerenciador_eventos::setJogador(Jogador* pJogador)
 void Gerenciador_eventos::verificarTeclaPressionada(sf::Keyboard::Key tecla)
 {
 	//jogador
-	if(tecla == sf::Keyboard::A)
+	if(pJogador)
 	{
-		pJogador->mover(-1);
-	}
-	else if(tecla == sf::Keyboard::D)
-	{
-		pJogador->mover(1);
-	}
-	else if (tecla == sf::Keyboard::Space)
-	{
-		pJogador->mover(0);
+		if(tecla == sf::Keyboard::A || tecla == sf::Keyboard::Left)
+		{
+			pJogador->mover(-1);
+		}
+		else if(tecla == sf::Keyboard::D || tecla == sf::Keyboard::Right)
+		{
+			pJogador->mover(1);
+		}
+		else if (tecla == sf::Keyboard::Space || tecla == sf::Keyboard::W || tecla == sf::Keyboard::Up)
+		{
+			pJogador->mover(3);
+		}
 	}
 
 	//interface
-	else if(tecla == sf::Keyboard::Escape)
+	if(tecla == sf::Keyboard::Escape)
 	{
 		pGG->fechaJanela();
 	}

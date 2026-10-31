@@ -3,6 +3,8 @@
 #include "Entidade.h"
 #include "Jogador.h"
 
+using namespace Personagens;
+
 namespace Entidades
 {
     class Obstaculo : public Entidade

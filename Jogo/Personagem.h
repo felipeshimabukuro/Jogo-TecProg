@@ -1,6 +1,7 @@
 #pragma once
 #include "Bibliotecas.h"
 #include "Entidade.h"
+
 namespace Personagens {
 	class Personagem: public Entidades::Entidade {
 	protected:

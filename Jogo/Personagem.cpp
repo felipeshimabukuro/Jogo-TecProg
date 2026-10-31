@@ -11,5 +11,6 @@ Personagem::~Personagem() {
 
 }
 
-void salvarDataBuffer();
+void Personagem::salvarDataBuffer() {
 
+}
