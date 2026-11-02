@@ -15,7 +15,7 @@ void ListaEntidade::incluir(Entidade* pElemento)
 	LEs.incluir(pElemento);
 }
 
-void ListaEntidade::removerElemento(Entidade* pElemento)
+void ListaEntidade::remover(Entidade* pElemento)
 {
 	LEs.removerElemento(pElemento);
 }

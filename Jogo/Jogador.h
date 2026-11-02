@@ -34,7 +34,6 @@ namespace Personagens
 		void mover();
 		void pular();
 		int getNum();
-		//void idle();
 		void cavar();
 		void place();
 		void receberDano(int dano);

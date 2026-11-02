@@ -7,18 +7,20 @@ namespace Entidades
 	class Projetil : public Entidade
 	{
 	protected:
-		int velX;
-		int velY;
-		static const int gravidade;
+		float velX;
+		float velY;
+		static const float gravidade;
 		short int direcao;
 		sf::RectangleShape corpo;
 
 	public:
-		Projetil(int vX, int vY, short int direcao);
+		Projetil(short int dir, float ix, float iy);
 		~Projetil();
+		sf::RectangleShape getCorpo();
 		virtual void trajetoria();
-		virtual void salvar();
+		void salvar();
 		void setPos(const sf::Vector2f pos);
 		void executar();
+		virtual void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f)) = 0;
 	};
 }

@@ -20,6 +20,7 @@ Jogador::Jogador(const sf::RectangleShape corpo):Personagem(sf::Vector2f(0.f, 0.
 void Jogador::inicializa() { //tive q mudar pq tava dando mto b.o., nao rodava slk
     chaoAtual = NULL;
     acaoPressionada = false;
+	num_vidas = 100;
 
     vel = sf::Vector2f(max_velx, max_vely);
 
@@ -183,6 +184,7 @@ void Jogador::place() {
 
 void Jogador::receberDano(int dano) {
     num_vidas -= dano;
+	cout << "Jogador tomou " << dano << " de dano. Vidas restantes: " << num_vidas << endl;
 }
 
 void Jogador::colisao(Entidade* ent, sf::Vector2f ds) {

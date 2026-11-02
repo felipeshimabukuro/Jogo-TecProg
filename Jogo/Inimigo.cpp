@@ -24,6 +24,15 @@ void Inimigo::inicializa() {
 	corpo.setPosition(x, y);
 }
 
+sf::Vector2f Inimigo::distanciaAlvo(sf::Vector2f posJogador, sf::Vector2f posInimigo)
+{
+	sf::Vector2f distancia;
+	distancia.x = fabs(posJogador.x - posInimigo.x);
+	distancia.y = fabs(posJogador.y - posInimigo.y);
+
+	return distancia;
+}
+
 void Inimigo::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo, Jogador* j) {
 	if (!j) return;
 
@@ -62,13 +71,6 @@ void Inimigo::mover() {
 	float distCentroY = fabs((posJogador.y + tamJogador.y / 2.0f) - (posInimigo.y + tamInimigo.y / 2.0f));
 	float minDistX = (tamJogador.x + tamInimigo.x) / 2.0f;
 	float minDistY = (tamJogador.y + tamInimigo.y) / 2.0f;
-
-	// Se estiver colidindo com o jogador, o inimigo fica parado e nao empurra
-	if (!(distCentroX <= minDistX && distCentroY < minDistY)) {
-		if (distCentroX <= 200.0f && distCentroY <= 200.0f) {
-			persegueJogador(posJogador, posInimigo, jogador);
-		}
-	}
 
 	corpo.setPosition(x, y);
 }

@@ -2,27 +2,31 @@
 
 using namespace Entidades;
 
-const int Projetil::gravidade = 0.3;
+const float Projetil::gravidade = 0.3;
 
-Projetil::Projetil(int vX, int vY, short int dir):
-	velX(vX),
-	velY(vY),
+Projetil::Projetil(short int dir, float ix, float iy):
 	direcao(dir)
 {
+	velY = -10;
+	velX = 2.5 * direcao;
+	x = ix;
+	y = iy;
+	corpo = sf::RectangleShape(sf::Vector2f(20.0f, 20.0f));
+	corpo.setFillColor(sf::Color::Magenta);
+	corpo.setPosition(x, y);
 }
 
 Projetil::~Projetil()
 {
 }
 
+sf::RectangleShape Projetil::getCorpo()
+{
+	return corpo;
+}
+
 void Projetil::trajetoria()
 {
-	if (velX == 0 && direcao != 0)
-	{
-		velX *= direcao;
-		//image_xscale = direcao;     //quando tiver imagem
-	}
-
 	velY += gravidade;
 	x += velX;
 	y += velY;

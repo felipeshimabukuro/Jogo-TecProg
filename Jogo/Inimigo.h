@@ -17,6 +17,7 @@ namespace Personagens {
 		//short moveAleatorio;
 		void inicializa();
 		sf::RectangleShape corpo;
+
 	public:
 		Inimigo(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j);
 		~Inimigo();
@@ -25,11 +26,12 @@ namespace Personagens {
 		//virtual void salvar() = 0;
 		//virtual void selecionarAlvo() = 0;
 		void mover();
+		sf::Vector2f distanciaAlvo(sf::Vector2f posJogador, sf::Vector2f posInimigo);
 		void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo, Jogador* j);
 		void movimentoAleatorio();
 		void salvar();
 		void receberDano(int dano);
-		void executar();
+		virtual void executar() = 0;
 		sf::RectangleShape getCorpo();
 		void setPos(const sf::Vector2f pos);
 		void colisao(Entidade* ent, sf::Vector2f ds);

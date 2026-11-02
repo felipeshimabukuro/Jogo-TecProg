@@ -75,25 +75,44 @@ namespace Listas
 	}
 
 	template<class TL>
-	void Lista<TL>::removerElemento(TL* pElemento)
+	void Lista<TL>::removerElemento(TL* pElemento) 
 	{
-		if(pElemento)
+		if (pElemento == NULL || pPrimeiro == NULL)
+			return;
+
+		// CASO oelemento a ser removido é o PRIMEIRO da lista
+		if (pPrimeiro->getElemento() == pElemento)
 		{
-			if (pPrimeiro)
-			{
-				Elemento<TL>* temp = pPrimeiro;
-				while(temp->getProximo())
-				{
-					if(temp->getProximo()->getElemento() == pElemento)
-					{
-						Elemento<TL>* pDelete = temp->getProximo();
-						temp->setProximo(temp->getProximo()->getProximo());
-						delete pDelete;
-						break;
-					}
-					temp = temp->getProximo();
-				}
+			Elemento<TL>* pDelete = pPrimeiro;
+			pPrimeiro = pPrimeiro->getProximo();
+
+			if (pPrimeiro == NULL) {
+				pUltimo = NULL;
 			}
+
+			delete pDelete;
+			tamanho--;
+			return;
+		}
+
+		// CASO o elemento a ser removido está no MEIO ou no FIM da lista
+		Elemento<TL>* temp = pPrimeiro;
+		while (temp->getProximo() != NULL)
+		{
+			if (temp->getProximo()->getElemento() == pElemento)
+			{
+				Elemento<TL>* pDelete = temp->getProximo();
+				temp->setProximo(temp->getProximo()->getProximo());
+
+				if (pDelete == pUltimo) {
+					pUltimo = temp;
+				}
+
+				delete pDelete;
+				tamanho--;
+				return;
+			}
+			temp = temp->getProximo();
 		}
 	}
 

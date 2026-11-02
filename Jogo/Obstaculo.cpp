@@ -38,5 +38,5 @@ void Obstaculo::darDano(Jogador* p)
 
 const bool Obstaculo::getQuebravel() const
 {
-    return quebravel;
+	return quebravel;
 }

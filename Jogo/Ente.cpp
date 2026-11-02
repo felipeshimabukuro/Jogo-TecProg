@@ -3,7 +3,6 @@
 
 using namespace Gerenciadores;
 
-Gerenciador_grafico* Ente::pGG = NULL;
 int Ente::cont = 0;
 
 Ente::Ente() : id(cont++)
@@ -21,9 +20,4 @@ void Ente::desenhar() {
 int Ente::getID()
 {
 	return id;
-}
-
-void Ente::staticSetGG(Gerenciador_grafico* pG)
-{
-	if(pG) pGG = pG;
 }

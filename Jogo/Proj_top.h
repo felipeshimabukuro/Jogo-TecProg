@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include "Bibliotecas.h"
 #include "Projetil.h"
 
@@ -11,9 +10,10 @@ namespace Entidades
 		int dano;
 
 	public:
-		Proj_top(int vX, int vY, short int direcao);
+		Proj_top(short int direcao, float x, float y);
 		~Proj_top();
 		void setDano(int d);
 		const int getDano() const;
+		void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f));
 	};
 }

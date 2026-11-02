@@ -3,10 +3,14 @@
 
 using namespace Gerenciadores;
 
-Gerenciador_colisao::Gerenciador_colisao(Jogador* pJ, vector<Inimigo*> LIn, list<Obstaculo*> LOb):
-	pJog1(pJ),
-	LIs(LIn),
-	LOs(LOb)
+Gerenciador_colisao* Gerenciador_colisao::pColisao = NULL;
+
+Gerenciador_colisao::Gerenciador_colisao():
+	LIs(),
+	LOs(),
+	LPs(),
+	pJog1(NULL),
+	LE(NULL)
 {
 }
 
@@ -15,18 +19,43 @@ Gerenciador_colisao::~Gerenciador_colisao()
 	pJog1 = nullptr;
 	LIs.clear();
 	LOs.clear();
+	pColisao = NULL;
+}
+
+Gerenciador_colisao* Gerenciador_colisao::getGerenciadorColisao()
+{
+	if (!pColisao)
+	{
+		pColisao = new Gerenciador_colisao();
+	}
+	return pColisao;
+}
+
+void Gerenciador_colisao::setListaEntidade(ListaEntidade* pLE)
+{
+	if (pLE)
+	{
+		LE = pLE;
+	}
 }
 
 void Gerenciador_colisao::setJogador(Jogador* pJ)
 {
-	pJog1 = pJ;
+	if(pJ)
+	{
+		pJog1 = pJ;
+		Entidade* pE = static_cast<Entidade*>(pJ);
+		LE->incluir(pE);
+	}
 }
 
 void Gerenciador_colisao::adicionarInimigo(Inimigo* pi)
 {
 	if(pi)
 	{
+		Entidade* pE = static_cast<Entidade*>(pi);
 		LIs.push_back(pi);
+		LE->incluir(pE);
 	}
 }
 
@@ -34,7 +63,9 @@ void Gerenciador_colisao::removerInimigo(Inimigo* pi)
 {
 	if(pi)
 	{
+		Entidade* pE = static_cast<Entidade*>(pi);
 		LIs.erase(std::remove(LIs.begin(), LIs.end(), pi), LIs.end());
+		LE->remover(pE);
 	}
 }
 
@@ -42,7 +73,9 @@ void Gerenciador_colisao::adicionarObstaculo(Obstaculo* po)
 {
 	if (po)
 	{
+		Entidade* pE = static_cast<Entidade*>(po);
 		LOs.push_back(po);
+		LE->incluir(pE);
 	}
 }
 
@@ -50,22 +83,27 @@ void Gerenciador_colisao::removerObstaculo(Obstaculo* po)
 {
 	if (po)
 	{
+		Entidade* pE = static_cast<Entidade*>(po);
 		LOs.remove(po);
+		LE->remover(pE);
 	}
 }
 
 void Gerenciador_colisao::adicionarProjetil(Projetil* pj) {
 	if (pj)
 	{
+		Entidade* pE = static_cast<Entidade*>(pj);
 		LPs.insert(pj);
-
+		LE->incluir(pE);
 	}
 }
 
 void Gerenciador_colisao::removerProjetil(Projetil* pj) {
 	if (pj)
 	{
+		Entidade* pE = static_cast<Entidade*>(pj);
 		LPs.erase(pj);
+		LE->remover(pE);
 	}
 }
 
@@ -146,6 +184,9 @@ void Gerenciador_colisao::executar()
 		}
 	}
 
+	// Lista temporária para guardar os projéteis que precisam ser destruídos
+	std::vector<Projetil*> projeteisParaRemover;
+
 	// PROJETEIS
 	for (auto proj : LPs)
 	{
@@ -158,6 +199,8 @@ void Gerenciador_colisao::executar()
 				if (ds.x < 0.0f && ds.y < 0.0f)
 				{
 					proj->colisao(pJog1, ds);
+					projeteisParaRemover.push_back(proj);
+					continue;
 				}
 			}
 
@@ -170,10 +213,15 @@ void Gerenciador_colisao::executar()
 					if (ds.x < 0.0f && ds.y < 0.0f)
 					{
 						proj->colisao(obs, ds);
+						projeteisParaRemover.push_back(proj);
+						break;
 					}
 				}
 			}
 		}
 	}
-
+	for (auto proj : projeteisParaRemover)
+	{
+		removerProjetil(proj);
+	}
 }
