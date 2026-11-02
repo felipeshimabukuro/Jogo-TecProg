@@ -1,19 +1,21 @@
 #include "Jogador.h"
 #include "Obstaculo.h"
+#include "Terra.h"
+#include "Gerenciador_colisao.h"
 
 using namespace Personagens;
 
 int Jogador::pontos = 0;
 
-Jogador::Jogador():Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)) {
+Jogador::Jogador():Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)),invent(0) {
     inicializa();
 }
 
-Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam, short int n) :Personagem(pos, tam),num(n){
+Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam, short int n) :Personagem(pos, tam),num(n),invent(0){
     inicializa();
 } 
 
-Jogador::Jogador(const sf::RectangleShape corpo):Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), corpo(corpo) {
+Jogador::Jogador(const sf::RectangleShape corpo):Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), corpo(corpo),invent(0) {
     inicializa();
 }
 
@@ -160,25 +162,35 @@ void Jogador::cavar() {
     }
     Entidades::Obstaculo* chaoAt = dynamic_cast<Entidades::Obstaculo*>(chaoAtual);
     if (chao == true && chaoAt != NULL && chaoAt->getQuebravel() == true) {
-        inventario.push_back(chaoAt);
-        chaoAtual->setPos(sf::Vector2f(-10000.0f, 10000.0f));
+        Gerenciadores::Gerenciador_colisao* pGC = Gerenciadores::Gerenciador_colisao::getGerenciadorColisao();
 
-        chao = false; 
-        chaoAtual = NULL; 
+        pGC->removerObstaculo(chaoAt);
+
+    
+        chaoAtual = NULL;
+        chao = false;
+        invent++;
     }
 }
 
 void Jogador::place() {
-    if (!inventario.empty()) {
-        Entidades::Obstaculo* novoBloco = inventario.back();
-        inventario.pop_back();
+    if (invent > 0) {
+        sf::Vector2f posNova(x, y + getTam().y);
+        sf::Vector2f tamNovo(50.0f, 50.0f);
+        Gerenciadores::Gerenciador_colisao* pGC = Gerenciadores::Gerenciador_colisao::getGerenciadorColisao();
 
-        novoBloco->setPos(sf::Vector2f(x, y + 50.0f));
+        if (pGC->posicaoLivre(posNova, tamNovo)) {
+            Entidades::Obstaculo* novoBloco = new Entidades::Terra(
+                x,
+                y + getTam().y,
+                50.0f, 50.0f,
+                0, false, true);
+            pGC->adicionarObstaculo(novoBloco);
 
-        vely = 0.0f;
-        chao = true;
-
-        chaoAtual = novoBloco;
+            chaoAtual = novoBloco;
+            chao = true;
+            invent--;
+        }
     }
 }
 

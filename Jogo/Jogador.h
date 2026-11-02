@@ -17,8 +17,8 @@ namespace Personagens
 		static int pontos;
 		int pulo_coyote;
 		//const int t_coyote;
-		//int invent = 0;
-		std::vector<Entidades::Obstaculo*> inventario;
+		int invent;
+		//std::vector<Entidades::Obstaculo*> inventario;
 		int t_dano;
 		static const int t_imune = 10;
 		Entidade* chaoAtual;

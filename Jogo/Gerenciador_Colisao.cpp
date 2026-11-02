@@ -225,3 +225,39 @@ void Gerenciador_colisao::executar()
 		removerProjetil(proj);
 	}
 }
+
+
+bool Gerenciadores::Gerenciador_colisao::posicaoLivre(sf::Vector2f pos, sf::Vector2f tam) {
+	sf::FloatRect rectNovo(pos.x, pos.y, tam.x, tam.y);
+
+	std::list<Entidades::Obstaculo*>::const_iterator itObs;
+	for (itObs = LOs.begin(); itObs != LOs.end(); ++itObs) {
+		Entidades::Obstaculo* obs = *itObs;
+		if (obs) {
+			sf::FloatRect rectObs(obs->getX(), obs->getY(), obs->getTam().x, obs->getTam().y);
+			if (rectNovo.intersects(rectObs)) {
+				return false;
+			}
+		}
+	}
+
+	std::vector<Personagens::Inimigo*>::const_iterator itIni;
+	for (itIni = LIs.begin(); itIni != LIs.end(); ++itIni) {
+		Personagens::Inimigo* ini = *itIni;
+		if (ini) {
+			sf::FloatRect rectIni(ini->getX(), ini->getY(), ini->getTam().x, ini->getTam().y);
+			if (rectNovo.intersects(rectIni)) {
+				return false;
+			}
+		}
+	}
+
+	if (pJog1) {
+		sf::FloatRect rectJog(pJog1->getX(), pJog1->getY(), pJog1->getTam().x, pJog1->getTam().y);
+		if (rectNovo.intersects(rectJog)) {
+			return false;
+		}
+	}
+
+	return true; 
+}
