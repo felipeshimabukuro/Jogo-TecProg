@@ -37,6 +37,11 @@ const sf::Vector2f Entidade::getTam() {
 	return getCorpo().getSize();
 }
 
+const sf::RectangleShape Entidade::getCorpo() const
+{
+	return corpo;
+}
+
 void Entidade::colisao(Entidade* ent, sf::Vector2f ds) {
 	if (!ent) return;
 

@@ -16,7 +16,6 @@ namespace Personagens {
 		sf::Clock relogio;
 		//short moveAleatorio;
 		void inicializa();
-		sf::RectangleShape corpo;
 
 	public:
 		Inimigo(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j);

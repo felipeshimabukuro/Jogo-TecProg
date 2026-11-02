@@ -10,8 +10,8 @@ protected:
 public:
 	Ente();
 	virtual ~Ente();
-	//virtual void executar() = 0;
+	const int getID() const;
+	virtual void executar() = 0;
 	void desenhar();
-	int getID();
 	//virtual sf::Sprite getDrawData() const = 0;
  };

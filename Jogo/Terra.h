@@ -6,7 +6,7 @@ using namespace Personagens;
 namespace Entidades {
 	class Terra :public Obstaculo {
 	private:
-		sf::RectangleShape corpo;
+
 	public:
 		Terra(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel);
 		~Terra();
@@ -14,6 +14,5 @@ namespace Entidades {
 		void salvar();
 		void obstaculizar(Jogador* p);
 		void inicializa();
-		sf::RectangleShape getCorpo();
 	};
 }

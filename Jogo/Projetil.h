@@ -11,7 +11,6 @@ namespace Entidades
 		float velY;
 		static const float gravidade;
 		short int direcao;
-		sf::RectangleShape corpo;
 
 	public:
 		Projetil(short int dir, float ix, float iy);

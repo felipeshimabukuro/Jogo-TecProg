@@ -20,7 +20,7 @@ void ListaEntidade::remover(Entidade* pElemento)
 	LEs.removerElemento(pElemento);
 }
 
-int ListaEntidade::getTamanho()
+const int ListaEntidade::getTamanho() const
 {
 	return LEs.getTamanho();
 }

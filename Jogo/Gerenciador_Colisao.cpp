@@ -131,16 +131,11 @@ const sf::Vector2f Gerenciador_colisao::calcularColisao(Entidade* ent1, Entidade
 	return sf::Vector2f(distanciaPos.x - SomaMetade.x, distanciaPos.y - SomaMetade.y);
 }
 
-//const bool verificaColisao(Entidade* pe1, Entidade* pe2) const;
-
-void Gerenciador_colisao::executar()
+void Gerenciador_colisao::tratarColisaoJogadorInimigo()
 {
-	// os fors com auto percorrem a estrutura inteira (acho que ja expliquei isso mas n lembro onde kk)
-
-	// JOGADOR
 	if (pJog1)
 	{
-		for (auto* inim : LIs) // Inimigos
+		for (auto* inim : LIs)
 		{
 			if (inim)
 			{
@@ -151,7 +146,12 @@ void Gerenciador_colisao::executar()
 				}
 			}
 		}
-		
+	}
+}
+void Gerenciador_colisao::tratarColisaoJogadorObstaculo()
+{
+	if (pJog1)
+	{
 		for (auto* obs : LOs) // Obstaculos
 		{
 			if (obs)
@@ -164,13 +164,40 @@ void Gerenciador_colisao::executar()
 			}
 		}
 	}
+}
 
-	// INIMIGOS
+void Gerenciador_colisao::tratarColisaoJogadorProjetil()
+{
+	std::vector<Projetil*> projeteisParaRemover;
+
+	if (pJog1)
+	{
+		for (auto proj : LPs)
+		{
+			if (proj)
+			{
+				sf::Vector2f ds = calcularColisao(proj, pJog1);
+				if (ds.x < 0.0f && ds.y < 0.0f)
+				{
+					proj->colisao(pJog1, ds);
+					projeteisParaRemover.push_back(proj);
+					continue;
+				}
+			}
+		}
+	}
+	for (auto proj : projeteisParaRemover)
+	{
+		removerProjetil(proj);
+	}
+}
+void Gerenciador_colisao::tratarColisaoInimigoObstaculo()
+{
 	for (auto* inim : LIs)
 	{
 		if (inim)
 		{
-			for (auto* obs : LOs) // Obstaculos
+			for (auto* obs : LOs)
 			{
 				if (obs)
 				{
@@ -183,39 +210,24 @@ void Gerenciador_colisao::executar()
 			}
 		}
 	}
+}
 
-	// Lista temporária para guardar os projéteis que precisam ser destruídos
+void Gerenciador_colisao::tratarColisaoProjetilObstaculo()
+{
 	std::vector<Projetil*> projeteisParaRemover;
 
-	// PROJETEIS
 	for (auto proj : LPs)
 	{
-		if (proj)
+		for (auto obs : LOs)
 		{
-			// Jogador
-			if (pJog1)
+			if (obs)
 			{
-				sf::Vector2f ds = calcularColisao(proj, pJog1);
+				sf::Vector2f ds = calcularColisao(proj, obs);
 				if (ds.x < 0.0f && ds.y < 0.0f)
 				{
-					proj->colisao(pJog1, ds);
+					proj->colisao(obs, ds);
 					projeteisParaRemover.push_back(proj);
-					continue;
-				}
-			}
-
-			// Obstaculos
-			for (auto obs : LOs)
-			{
-				if (obs)
-				{
-					sf::Vector2f ds = calcularColisao(proj, obs);
-					if (ds.x < 0.0f && ds.y < 0.0f)
-					{
-						proj->colisao(obs, ds);
-						projeteisParaRemover.push_back(proj);
-						break;
-					}
+					break;
 				}
 			}
 		}
@@ -225,7 +237,6 @@ void Gerenciador_colisao::executar()
 		removerProjetil(proj);
 	}
 }
-
 
 bool Gerenciadores::Gerenciador_colisao::posicaoLivre(sf::Vector2f pos, sf::Vector2f tam) {
 	sf::FloatRect rectNovo(pos.x, pos.y, tam.x, tam.y);
@@ -259,5 +270,16 @@ bool Gerenciadores::Gerenciador_colisao::posicaoLivre(sf::Vector2f pos, sf::Vect
 		}
 	}
 
-	return true; 
+	return true;
+}
+
+//const bool verificaColisao(Entidade* pe1, Entidade* pe2) const;
+
+void Gerenciador_colisao::executar()
+{
+	tratarColisaoJogadorInimigo();
+	tratarColisaoJogadorObstaculo();
+	tratarColisaoJogadorProjetil();
+	tratarColisaoInimigoObstaculo();
+	tratarColisaoProjetilObstaculo();
 }

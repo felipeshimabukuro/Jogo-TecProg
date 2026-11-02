@@ -17,7 +17,7 @@ void Ente::desenhar() {
 	
 }
 
-int Ente::getID()
+const int Ente::getID() const
 {
 	return id;
 }

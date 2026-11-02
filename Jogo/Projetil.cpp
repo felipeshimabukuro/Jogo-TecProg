@@ -20,11 +20,6 @@ Projetil::~Projetil()
 {
 }
 
-sf::RectangleShape Projetil::getCorpo()
-{
-	return corpo;
-}
-
 void Projetil::trajetoria()
 {
 	velY += gravidade;

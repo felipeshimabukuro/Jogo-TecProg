@@ -17,7 +17,7 @@ namespace Listas
 		void incluir(TL* pElemento);
 		void limparLista();
 		void removerElemento(TL* pElemento);
-		int getTamanho();
+		const int getTamanho() const;
 		TL* operator[](int pos);
 	};
 
@@ -117,7 +117,7 @@ namespace Listas
 	}
 
 	template<class TL>
-	int Lista<TL>::getTamanho()
+	const int Lista<TL>::getTamanho() const
 	{
 		return tamanho;
 	}

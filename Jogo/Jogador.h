@@ -11,13 +11,12 @@ namespace Personagens
 
 	class Jogador : public Personagens::Personagem {
 	private:
-		sf::RectangleShape corpo;
 		bool acaoPressionada;
 		short int num;
 		static int pontos;
 		int pulo_coyote;
 		//const int t_coyote;
-		int invent;
+		int inventario;
 		//std::vector<Entidades::Obstaculo*> inventario;
 		int t_dano;
 		static const int t_imune = 10;
@@ -37,7 +36,6 @@ namespace Personagens
 		void cavar();
 		void place();
 		void receberDano(int dano);
-		sf::RectangleShape getCorpo();
 		void setPos(const sf::Vector2f pos);
 	};
 }

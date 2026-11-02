@@ -28,7 +28,3 @@ void Terra::inicializa() {
 
 	corpo.setPosition(x, y);
 }
-
-sf::RectangleShape Terra::getCorpo() {
-	return corpo;
-}

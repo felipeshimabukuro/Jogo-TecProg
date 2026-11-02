@@ -10,6 +10,7 @@ namespace Entidades
 		float x;
 		float y;
 		ostream buffer;
+		sf::RectangleShape corpo;
 
 		void salvarDataBuffer();
 
@@ -26,7 +27,7 @@ namespace Entidades
 		virtual void setPos(const sf::Vector2f pos);
 
 		const sf::Vector2f getTam();
-		virtual sf::RectangleShape getCorpo() = 0;
+		const sf::RectangleShape getCorpo() const;
 		virtual void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f));
 	};
 }

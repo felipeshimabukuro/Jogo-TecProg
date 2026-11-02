@@ -13,8 +13,8 @@ namespace Listas
 	public:
 		Elemento(TE* pElemento);
 		~Elemento();
-		TE* getElemento();
-		Elemento<TE>* getProximo();
+		TE* getElemento() const;
+		Elemento<TE>* getProximo() const;
 		void setProximo(Elemento<TE>* pProximo);
 		void incluir(TE* pElemento);
 	};
@@ -34,13 +34,13 @@ namespace Listas
 	}
 
 	template<class TE>
-	TE* Elemento<TE>::getElemento()
+	 TE* Elemento<TE>::getElemento() const
 	{
 		return pElemento;
 	}
 
 	template<class TE>
-	Elemento<TE>* Elemento<TE>::getProximo()
+	Elemento<TE>* Elemento<TE>::getProximo() const
 	{
 		return pProximo;
 	}

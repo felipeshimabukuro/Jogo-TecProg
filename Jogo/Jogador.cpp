@@ -7,15 +7,15 @@ using namespace Personagens;
 
 int Jogador::pontos = 0;
 
-Jogador::Jogador():Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)),invent(0) {
+Jogador::Jogador() :Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), inventario(0) {
     inicializa();
 }
 
-Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam, short int n) :Personagem(pos, tam),num(n),invent(0){
+Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam, short int n) :Personagem(pos, tam), num(n), inventario(0) {
     inicializa();
-} 
+}
 
-Jogador::Jogador(const sf::RectangleShape corpo):Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), corpo(corpo),invent(0) {
+Jogador::Jogador(const sf::RectangleShape corpo) :Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), inventario(0) {
     inicializa();
 }
 
@@ -34,10 +34,6 @@ void Jogador::inicializa() { //tive q mudar pq tava dando mto b.o., nao rodava s
 
 Jogador::~Jogador() {
 
-}
-
-sf::RectangleShape Jogador::getCorpo() {
-    return corpo;
 }
 
 void Jogador::setPos(const sf::Vector2f pos) {
@@ -152,10 +148,6 @@ void Jogador::pular()
     }
 }
 
-//void idle() {
-
-//}
-
 void Jogador::cavar() {
     if (chaoAtual == NULL) {
         return;
@@ -166,15 +158,14 @@ void Jogador::cavar() {
 
         pGC->removerObstaculo(chaoAt);
 
-    
         chaoAtual = NULL;
         chao = false;
-        invent++;
+        inventario++;
     }
 }
 
 void Jogador::place() {
-    if (invent > 0) {
+    if (inventario > 0) {
         sf::Vector2f posNova(x, y + getTam().y);
         sf::Vector2f tamNovo(50.0f, 50.0f);
         Gerenciadores::Gerenciador_colisao* pGC = Gerenciadores::Gerenciador_colisao::getGerenciadorColisao();
@@ -189,7 +180,7 @@ void Jogador::place() {
 
             chaoAtual = novoBloco;
             chao = true;
-            invent--;
+            inventario--;
         }
     }
 }

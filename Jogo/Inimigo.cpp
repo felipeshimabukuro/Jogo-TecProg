@@ -83,10 +83,6 @@ void Inimigo::receberDano(int dano) {
 	num_vidas -= dano;
 }
 
-sf::RectangleShape Inimigo::getCorpo() {
-	return corpo;
-}
-
 void Inimigo::setPos(const sf::Vector2f pos) {
 	x = pos.x;
 	y = pos.y;
