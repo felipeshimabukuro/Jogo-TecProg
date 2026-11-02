@@ -64,12 +64,10 @@ void Inimigo::mover() {
 	float minDistY = (tamJogador.y + tamInimigo.y) / 2.0f;
 
 	// Se estiver colidindo com o jogador, o inimigo fica parado e nao empurra
-	if (distCentroX <= minDistX && distCentroY < minDistY) {
-		return;
-	}
-
-	if (distCentroX <= 200.0f && distCentroY <= 200.0f) {
-		persegueJogador(posJogador, posInimigo, jogador);
+	if (!(distCentroX <= minDistX && distCentroY < minDistY)) {
+		if (distCentroX <= 200.0f && distCentroY <= 200.0f) {
+			persegueJogador(posJogador, posInimigo, jogador);
+		}
 	}
 
 	corpo.setPosition(x, y);

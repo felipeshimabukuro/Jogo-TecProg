@@ -63,4 +63,12 @@ void Principal::instanciarEntidades()
 
 		pColisao->adicionarObstaculo(terra);
 	}
+
+	for (int i = 0; i < 16; i++) {
+		Terra* terra = new Terra(50.0f * i, 300.0f, 50.0f, 50.0f, 0, false, true);
+		Entidade* e4 = static_cast<Entidade*>(terra);
+		LEs.incluir(e4);
+
+		pColisao->adicionarObstaculo(terra);
+	}
 }

@@ -27,5 +27,6 @@ namespace Entidades
 		const int getLargura() const;
 		const int getAltura() const;
 		void darDano(Jogador* p);
+        const bool getQuebravel() const;
     };
 }

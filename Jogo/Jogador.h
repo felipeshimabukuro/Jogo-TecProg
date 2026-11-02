@@ -1,6 +1,10 @@
 #pragma once
 #include "Personagem.h"
 
+namespace Entidades {
+	class Obstaculo;
+}
+
 namespace Personagens
 {
 	class Inimigo;
@@ -8,12 +12,13 @@ namespace Personagens
 	class Jogador : public Personagens::Personagem {
 	private:
 		sf::RectangleShape corpo;
-		//sf::Vector2f vel;
+		bool acaoPressionada;
 		short int num;
 		static int pontos;
 		int pulo_coyote;
 		//const int t_coyote;
-		int invent;
+		//int invent = 0;
+		std::vector<Entidades::Obstaculo*> inventario;
 		int t_dano;
 		static const int t_imune = 10;
 		Entidade* chaoAtual;
@@ -31,7 +36,7 @@ namespace Personagens
 		int getNum();
 		//void idle();
 		void cavar();
-		//void place();
+		void place();
 		void receberDano(int dano);
 		sf::RectangleShape getCorpo();
 		void setPos(const sf::Vector2f pos);

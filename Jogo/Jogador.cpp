@@ -1,24 +1,26 @@
 #include "Jogador.h"
+#include "Obstaculo.h"
 
 using namespace Personagens;
 
 int Jogador::pontos = 0;
 
-Jogador::Jogador():Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)),invent(0) {
+Jogador::Jogador():Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)) {
     inicializa();
 }
 
-Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam, short int n) :Personagem(pos, tam),num(n),invent(0){
+Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam, short int n) :Personagem(pos, tam),num(n){
     inicializa();
 } 
 
-Jogador::Jogador(const sf::RectangleShape corpo):Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), corpo(corpo),invent(0) {
+Jogador::Jogador(const sf::RectangleShape corpo):Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), corpo(corpo) {
     inicializa();
 }
 
 void Jogador::inicializa() { //tive q mudar pq tava dando mto b.o., nao rodava slk
     chaoAtual = NULL;
-    
+    acaoPressionada = false;
+
     vel = sf::Vector2f(max_velx, max_vely);
 
     corpo.setSize(sf::Vector2f(50.0f, 50.0f)); 
@@ -78,8 +80,20 @@ void Jogador::mover() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
             pular();
     
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            cavar();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+            if (!acaoPressionada) {
+                if (chao) {
+                    cavar();
+                }
+                else {
+                    place();
+                }
+                acaoPressionada = true;
+            }
+        }
+        else {
+            acaoPressionada = false;
+        }
     }
     else {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -92,8 +106,20 @@ void Jogador::mover() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
             pular();
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-            cavar();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+            if (!acaoPressionada) {
+                if (chao) {
+                    cavar();
+                }
+                else {
+                    place();
+                }
+                acaoPressionada = true;
+            }
+        }
+        else {
+            acaoPressionada = false;
+        }
     }
 
     if (x < 0.0f) {
@@ -108,9 +134,9 @@ void Jogador::mover() {
         x = 800.0f - 50.0f;
     }
     
-    if (y > 600.0f - 50.0f) {
+    /*if (y > 600.0f - 50.0f) {
         y = 600.0f - 50.0f;
-    }
+    }*/
 
     corpo.setPosition(x, y);
 }
@@ -128,19 +154,32 @@ void Jogador::pular()
 //}
 
 void Jogador::cavar() {
-    if (chao == true && chaoAtual != NULL) {
-        
+    if (chaoAtual == NULL) {
+        return;
+    }
+    Entidades::Obstaculo* chaoAt = dynamic_cast<Entidades::Obstaculo*>(chaoAtual);
+    if (chao == true && chaoAt != NULL && chaoAt->getQuebravel() == true) {
+        inventario.push_back(chaoAt);
         chaoAtual->setPos(sf::Vector2f(-10000.0f, 10000.0f));
 
         chao = false; 
         chaoAtual = NULL; 
-        invent++;
     }
 }
 
-//void place() {
+void Jogador::place() {
+    if (!inventario.empty()) {
+        Entidades::Obstaculo* novoBloco = inventario.back();
+        inventario.pop_back();
 
-//}
+        novoBloco->setPos(sf::Vector2f(x, y + 50.0f));
+
+        vely = 0.0f;
+        chao = true;
+
+        chaoAtual = novoBloco;
+    }
+}
 
 void Jogador::receberDano(int dano) {
     num_vidas -= dano;
@@ -152,12 +191,22 @@ void Jogador::colisao(Entidade* ent, sf::Vector2f ds) {
 
     
     if (ds.x <= ds.y) {
-        vely = 0.0f; 
 
-       
         if (getY() < ent->getY()) {
+            vely = 0.0f;
             chao = true;
-            chaoAtual = ent;
+
+            Entidades::Obstaculo* bloco = dynamic_cast<Entidades::Obstaculo*>(ent);
+
+            if (bloco) {
+                chaoAtual = bloco;
+            }
+            else {
+                chaoAtual = NULL;
+            }
+        }
+        else {
+            vely = -vely;
         }
     }
 }

@@ -35,3 +35,8 @@ void Obstaculo::darDano(Jogador* p)
         p->receberDano(dano);
     }
 }
+
+const bool Obstaculo::getQuebravel() const
+{
+    return quebravel;
+}
