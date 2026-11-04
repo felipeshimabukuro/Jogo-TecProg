@@ -22,5 +22,6 @@ namespace Listas
 		//void percorrer(sf::RenderWindow* window);
 		void percorrer();
 		void desenharTodas(sf::RenderWindow* window);
+		void limparDestruidos();
 	};
 }

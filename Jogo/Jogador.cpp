@@ -1,7 +1,6 @@
 #include "Jogador.h"
 #include "Obstaculo.h"
 #include "Terra.h"
-#include "Gerenciador_colisao.h"
 
 using namespace Personagens;
 
@@ -41,17 +40,6 @@ void Jogador::setPos(const sf::Vector2f pos) {
     y = pos.y;
     corpo.setPosition(x, y);
 }
-
-/*void Jogador::colidir(Inimigo* pIn) {
-	if (pIn) {
-		if (pIn->getX() == x) {
-			velx = -velx;
-		}
-		if (pIn->getY() == y) {
-			vely = -vely;
-		}
-	}
-}*/
 
 void Jogador::executar() {
     mover();
@@ -154,34 +142,11 @@ void Jogador::cavar() {
     }
     Entidades::Obstaculo* chaoAt = dynamic_cast<Entidades::Obstaculo*>(chaoAtual);
     if (chao == true && chaoAt != NULL && chaoAt->getQuebravel() == true) {
-        Gerenciadores::Gerenciador_colisao* pGC = Gerenciadores::Gerenciador_colisao::getGerenciadorColisao();
-
-        pGC->removerObstaculo(chaoAt);
+        chaoAt->setAtivo(false);
 
         chaoAtual = NULL;
         chao = false;
         inventario++;
-    }
-}
-
-void Jogador::place() {
-    if (inventario > 0) {
-        sf::Vector2f posNova(x, y + getTam().y);
-        sf::Vector2f tamNovo(50.0f, 50.0f);
-        Gerenciadores::Gerenciador_colisao* pGC = Gerenciadores::Gerenciador_colisao::getGerenciadorColisao();
-
-        if (pGC->posicaoLivre(posNova, tamNovo)) {
-            Entidades::Obstaculo* novoBloco = new Entidades::Terra(
-                x,
-                y + getTam().y,
-                50.0f, 50.0f,
-                0, false, true);
-            pGC->adicionarObstaculo(novoBloco);
-
-            chaoAtual = novoBloco;
-            chao = true;
-            inventario--;
-        }
     }
 }
 
@@ -191,9 +156,11 @@ void Jogador::receberDano(int dano) {
 }
 
 void Jogador::colisao(Entidade* ent, sf::Vector2f ds) {
-    
-    Entidades::Entidade::colisao(ent, ds);
+    if (ent == NULL || !ent->getAtivo()) {
+        return;
+    }
 
+    Entidades::Entidade::colisao(ent, ds);
     
     if (ds.x <= ds.y) {
 
@@ -203,7 +170,7 @@ void Jogador::colisao(Entidade* ent, sf::Vector2f ds) {
 
             Entidades::Obstaculo* bloco = dynamic_cast<Entidades::Obstaculo*>(ent);
 
-            if (bloco) {
+            if (bloco && bloco->getAtivo()) {
                 chaoAtual = bloco;
             }
             else {
@@ -214,4 +181,55 @@ void Jogador::colisao(Entidade* ent, sf::Vector2f ds) {
             vely = -vely;
         }
     }
+}
+
+/*void Jogador::colisao(Entidade* ent, sf::Vector2f ds) {
+    if (ent == NULL || !ent->getAtivo()) {
+        return;
+    }
+
+    Entidades::Obstaculo* bloco = dynamic_cast<Entidades::Obstaculo*>(ent);
+
+    if (bloco != NULL) {
+        Entidades::Entidade::colisao(ent, ds);
+
+        if (ds.x <= ds.y) {
+            if (getY() < ent->getY()) {
+                vely = 0.0f;
+                chao = true;
+                chaoAtual = bloco;
+            }
+            else {
+                vely = -vely;
+            }
+        }
+    }
+    else {
+        Entidades::Entidade::colisao(ent, ds);
+    }
+}*/
+
+void Jogador::place() {
+    if (inventario > 0) {
+        /*float posX = x;
+        float posY = y + getTam().y + 2.0f;
+        */
+        Entidades::Obstaculo* novoBloco = new Entidades::Terra(
+            x,
+            y + getTam().y,
+            50.0f, 50.0f,
+            0, false, true);
+
+        blocosPendentes.push_back(novoBloco);
+
+        inventario--;
+    }
+}
+
+std::list<Entidades::Obstaculo*>* Jogador::getBlocosPendentes() {
+    return &blocosPendentes;
+}
+
+void Jogador::addInventario() {
+    inventario++;
 }

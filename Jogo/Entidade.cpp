@@ -3,7 +3,7 @@
 
 using namespace Entidades;
 
-Entidade::Entidade(float xx, float yy) : x(xx), y(yy), buffer(NULL)
+Entidade::Entidade(float xx, float yy) : x(xx), y(yy), buffer(NULL),ativo(true)
 {
 }
 
@@ -90,4 +90,11 @@ void Entidade::colisao(Entidade* ent, sf::Vector2f ds) {
 		}
 		setPos(pos1);
 	}
+}
+
+void Entidade::setAtivo(bool a) {
+	ativo = a;
+}
+const bool Entidade::getAtivo() const {
+	return ativo;
 }

@@ -56,3 +56,17 @@ void ListaEntidade::desenharTodas(sf::RenderWindow* window)
 		window->draw(LEs.operator[](i)->getCorpo()); 
 	}
 }
+
+void ListaEntidade::limparDestruidos()
+{
+	for (int i = 0; i < LEs.getTamanho(); i++)
+	{
+		Entidade* pEnt = LEs[i];
+
+		if (pEnt != NULL && !pEnt->getAtivo())
+		{
+			remover(pEnt); 
+			i--;           
+		}
+	}
+}

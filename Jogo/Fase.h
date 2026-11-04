@@ -15,6 +15,7 @@ namespace Fases {
 		Jogador* pJogador1;
 
 		void criarTopeiras();
+		void blocosColocados();
 		virtual void criarCenario() = 0;
 		virtual void criarObstaculos() = 0;
 		virtual void criarInimigos() = 0;

@@ -38,8 +38,33 @@ void Fase1::executar() {
 		pEv->executar();
 		list_ents.percorrer();
 		pGC->executar();
+		
+		/*if (pJogador1 != NULL) {
+			std::list<Entidades::Obstaculo*>* pendentes = pJogador1->getBlocosPendentes();
+
+			std::list<Entidades::Obstaculo*>::iterator it = pendentes->begin();
+			while (it != pendentes->end()) {
+				Entidades::Obstaculo* bloco = *it;
+
+				if (bloco != NULL) {
+					if (pGC->posicaoLivre(bloco->getPos(), bloco->getTam())) {
+						pGC->adicionarObstaculo(bloco); 
+					}
+					else {
+						pJogador1->addInventario();
+						delete bloco;
+						bloco = NULL;
+					}
+				}
+				it = pendentes->erase(it);
+			}
+		}*/
+		blocosColocados();
 		pGG->limpaJanela();
 		list_ents.desenharTodas(pGG->getWindow());
 		pGG->mostrarJanela();
+
+		pGC->limparDestruidos();       
+		list_ents.limparDestruidos();
 	}
 }

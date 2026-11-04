@@ -34,3 +34,26 @@ void Fase::criarTopeiras() {
 	Topeira* topeira = new Topeira(sf::Vector2f(100.0f, 200.0f), sf::Vector2f(50.0f, 50.0f), pJogador1);
 	pGC->adicionarInimigo(topeira);
 }
+
+void Fase::blocosColocados() {
+	if (pJogador1 != NULL) {
+		std::list<Entidades::Obstaculo*>* pendentes = pJogador1->getBlocosPendentes();
+
+		std::list<Entidades::Obstaculo*>::iterator it = pendentes->begin();
+		while (it != pendentes->end()) {
+			Entidades::Obstaculo* bloco = *it;
+
+			if (bloco != NULL) {
+				if (pGC->posicaoLivre(bloco->getPos(), bloco->getTam())) {
+					pGC->adicionarObstaculo(bloco);
+				}
+				else {
+					pJogador1->addInventario();
+					delete bloco;
+					bloco = NULL;
+				}
+			}
+			it = pendentes->erase(it);
+		}
+	}
+}

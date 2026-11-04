@@ -46,5 +46,6 @@ namespace Gerenciadores
 		bool posicaoLivre(sf::Vector2f pos, sf::Vector2f tam);
 		//const bool verificaColisao(Entidade* pe1, Entidade* pe2) const;
 		void executar();
+		void limparDestruidos();
 	};
 }

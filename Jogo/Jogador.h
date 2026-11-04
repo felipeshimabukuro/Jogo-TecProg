@@ -19,9 +19,10 @@ namespace Personagens
 		int inventario;
 		//std::vector<Entidades::Obstaculo*> inventario;
 		int t_dano;
-		static const int t_imune = 10;
+		//static const int t_imune = 10;
 		Entidade* chaoAtual;
 		void inicializa();
+		std::list<Entidades::Obstaculo*> blocosPendentes;
 	public:
 		Jogador(const sf::Vector2f pos, const sf::Vector2f tam, short int n);
 		Jogador(const sf::RectangleShape corpo);
@@ -37,5 +38,7 @@ namespace Personagens
 		void place();
 		void receberDano(int dano);
 		void setPos(const sf::Vector2f pos);
+		std::list<Entidades::Obstaculo*>* getBlocosPendentes();
+		void addInventario();
 	};
 }

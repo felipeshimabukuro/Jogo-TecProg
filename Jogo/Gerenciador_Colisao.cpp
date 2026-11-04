@@ -150,11 +150,14 @@ void Gerenciador_colisao::tratarColisaoJogadorInimigo()
 }
 void Gerenciador_colisao::tratarColisaoJogadorObstaculo()
 {
-	if (pJog1)
+	if (pJog1 && pJog1->getAtivo())
 	{
-		for (auto* obs : LOs) // Obstaculos
+		std::list<Entidades::Obstaculo*>::iterator it;
+		for (it = LOs.begin(); it != LOs.end(); ++it)
 		{
-			if (obs)
+			Entidades::Obstaculo* obs = *it;
+			
+			if (obs && obs->getAtivo())
 			{
 				sf::Vector2f ds = calcularColisao(pJog1, obs);
 				if (ds.x < 0.0f && ds.y < 0.0f)
@@ -193,13 +196,17 @@ void Gerenciador_colisao::tratarColisaoJogadorProjetil()
 }
 void Gerenciador_colisao::tratarColisaoInimigoObstaculo()
 {
-	for (auto* inim : LIs)
+	std::vector<Personagens::Inimigo*>::iterator itIni;
+	for (itIni = LIs.begin(); itIni != LIs.end(); ++itIni)
 	{
-		if (inim)
+		Personagens::Inimigo* inim = *itIni;
+		if (inim && inim->getAtivo())
 		{
-			for (auto* obs : LOs)
+			std::list<Entidades::Obstaculo*>::iterator itObs;
+			for (itObs = LOs.begin(); itObs != LOs.end(); ++itObs)
 			{
-				if (obs)
+				Entidades::Obstaculo* obs = *itObs;
+				if (obs && obs->getAtivo())
 				{
 					sf::Vector2f ds = calcularColisao(inim, obs);
 					if (ds.x < 0.0f && ds.y < 0.0f)
@@ -244,7 +251,7 @@ bool Gerenciadores::Gerenciador_colisao::posicaoLivre(sf::Vector2f pos, sf::Vect
 	std::list<Entidades::Obstaculo*>::const_iterator itObs;
 	for (itObs = LOs.begin(); itObs != LOs.end(); ++itObs) {
 		Entidades::Obstaculo* obs = *itObs;
-		if (obs) {
+		if (obs && obs->getAtivo()) {
 			sf::FloatRect rectObs(obs->getX(), obs->getY(), obs->getTam().x, obs->getTam().y);
 			if (rectNovo.intersects(rectObs)) {
 				return false;
@@ -255,7 +262,7 @@ bool Gerenciadores::Gerenciador_colisao::posicaoLivre(sf::Vector2f pos, sf::Vect
 	std::vector<Personagens::Inimigo*>::const_iterator itIni;
 	for (itIni = LIs.begin(); itIni != LIs.end(); ++itIni) {
 		Personagens::Inimigo* ini = *itIni;
-		if (ini) {
+		if (ini && ini->getAtivo()) {
 			sf::FloatRect rectIni(ini->getX(), ini->getY(), ini->getTam().x, ini->getTam().y);
 			if (rectNovo.intersects(rectIni)) {
 				return false;
@@ -263,12 +270,12 @@ bool Gerenciadores::Gerenciador_colisao::posicaoLivre(sf::Vector2f pos, sf::Vect
 		}
 	}
 
-	if (pJog1) {
+	/*if (pJog1 && pJog1->getAtivo()) {
 		sf::FloatRect rectJog(pJog1->getX(), pJog1->getY(), pJog1->getTam().x, pJog1->getTam().y);
 		if (rectNovo.intersects(rectJog)) {
 			return false;
 		}
-	}
+	}*/
 
 	return true;
 }
@@ -282,4 +289,52 @@ void Gerenciador_colisao::executar()
 	tratarColisaoJogadorProjetil();
 	tratarColisaoInimigoObstaculo();
 	tratarColisaoProjetilObstaculo();
+}
+
+void Gerenciador_colisao::limparDestruidos()
+{
+	// 1. Limpar Obstáculos inativos
+	std::list<Entidades::Obstaculo*>::iterator itObs = LOs.begin();
+	while (itObs != LOs.end())
+	{
+		Entidades::Obstaculo* obs = *itObs;
+		if (obs != NULL && !obs->getAtivo())
+		{
+			itObs = LOs.erase(itObs); 
+		}
+		else
+		{
+			++itObs; 
+		}
+	}
+
+	// 2. Limpar Inimigos inativos
+	std::vector<Personagens::Inimigo*>::iterator itIni = LIs.begin();
+	while (itIni != LIs.end())
+	{
+		Personagens::Inimigo* ini = *itIni;
+		if (ini != NULL && !ini->getAtivo())
+		{
+			itIni = LIs.erase(itIni);
+		}
+		else
+		{
+			++itIni;
+		}
+	}
+
+	// 3. Limpar Projéteis inativos
+	std::set<Projetil*>::iterator itProj = LPs.begin();
+	while (itProj != LPs.end())
+	{
+		Projetil* proj = *itProj;
+		if (proj != NULL && !proj->getAtivo())
+		{
+			itProj = LPs.erase(itProj);
+		}
+		else
+		{
+			++itProj;
+		}
+	}
 }
