@@ -151,6 +151,8 @@
   <ItemGroup>
     <ClCompile Include="Ente.cpp" />
     <ClCompile Include="Entidade.cpp" />
+    <ClCompile Include="Fase.cpp" />
+    <ClCompile Include="Fase1.cpp" />
     <ClCompile Include="Gerenciador_Colisao.cpp" />
     <ClCompile Include="Gerenciador_eventos.cpp" />
     <ClCompile Include="Gerenciador_grafico.cpp" />
@@ -172,6 +174,8 @@
     <ClInclude Include="Elemento.h" />
     <ClInclude Include="Ente.h" />
     <ClInclude Include="Entidade.h" />
+    <ClInclude Include="Fase.h" />
+    <ClInclude Include="Fase1.h" />
     <ClInclude Include="Gerenciador_colisao.h" />
     <ClInclude Include="Gerenciador_eventos.h" />
     <ClInclude Include="Gerenciador_grafico.h" />

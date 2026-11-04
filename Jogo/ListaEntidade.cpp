@@ -43,7 +43,7 @@ Entidade* ListaEntidade::operator[](int pos)
 	}
 }*/
 
-void ListaEntidade::executarTodas()
+void ListaEntidade::percorrer()
 {
 	for (int i = 0; i < LEs.getTamanho(); i++) {
 		LEs.operator[](i)->executar(); 

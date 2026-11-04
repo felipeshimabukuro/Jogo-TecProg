@@ -20,7 +20,7 @@ namespace Listas
 		const int getTamanho() const;
 		Entidade* operator[](int pos);
 		//void percorrer(sf::RenderWindow* window);
-		void executarTodas();
+		void percorrer();
 		void desenharTodas(sf::RenderWindow* window);
 	};
 }

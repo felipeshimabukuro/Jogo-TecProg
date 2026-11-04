@@ -80,8 +80,6 @@ void Topeira::executar()
             atirar();
             tiro_cd = tempo_tiro;
         }
-
-        mover();
     }
     else if (detectarJogador())
     {
