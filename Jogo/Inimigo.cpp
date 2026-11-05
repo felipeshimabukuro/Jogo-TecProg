@@ -109,3 +109,7 @@ void Inimigo::colisao(Entidade* ent, sf::Vector2f ds) {
 const bool Inimigo::getBoss() const {
 	return boss;
 }
+
+std::list<Entidades::Projetil*>* Inimigo::getProjeteisPendentes() {
+	return &projeteisPendentes;
+}

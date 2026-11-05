@@ -156,36 +156,6 @@ void Jogador::receberDano(int dano) {
 }
 
 void Jogador::colisao(Entidade* ent, sf::Vector2f ds) {
-    
-    if (ent == NULL || !ent->getAtivo()) {
-        return;
-    }
-
-    Entidades::Entidade::colisao(ent, ds);
-
-    
-    if (ds.x <= ds.y) {
-
-        if (getY() < ent->getY()) {
-            vely = 0.0f;
-            chao = true;
-
-            Entidades::Obstaculo* bloco = dynamic_cast<Entidades::Obstaculo*>(ent);
-
-            if (bloco && bloco->getAtivo()) {
-                chaoAtual = bloco;
-            }
-            else {
-                chaoAtual = NULL;
-            }
-        }
-        else {
-            vely = -vely;
-        }
-    }
-}
-
-/*void Jogador::colisao(Entidade* ent, sf::Vector2f ds) {
     if (ent == NULL || !ent->getAtivo()) {
         return;
     }
@@ -193,24 +163,30 @@ void Jogador::colisao(Entidade* ent, sf::Vector2f ds) {
     Entidades::Obstaculo* bloco = dynamic_cast<Entidades::Obstaculo*>(ent);
 
     if (bloco != NULL) {
-        Entidades::Entidade::colisao(ent, ds);
-
         if (ds.x <= ds.y) {
             if (getY() < ent->getY()) {
-                vely = 0.0f;
-                chao = true;
-                chaoAtual = bloco;
+                if (vely >= 0.0f) {
+                    Entidades::Entidade::colisao(ent, ds);
+                    vely = 0.0f;
+                    chao = true;
+                    chaoAtual = bloco;
+                }
             }
             else {
-                vely = -vely;
+                if (vely < 0.0f) {
+                    Entidades::Entidade::colisao(ent, ds);
+                    vely = 0.0f; 
+                }
             }
+        }
+        else {
+            Entidades::Entidade::colisao(ent, ds);
         }
     }
     else {
         Entidades::Entidade::colisao(ent, ds);
     }
-}*/
-
+}
 void Jogador::place() {
     if (inventario > 0) {
         /*float posX = x;

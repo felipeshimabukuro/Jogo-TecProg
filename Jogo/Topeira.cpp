@@ -1,9 +1,7 @@
 #include "Topeira.h"
 #include "Proj_top.h"
-#include "Gerenciador_colisao.h"
 #define MINUTOS *60
 
-using namespace Gerenciadores;
 using namespace Entidades;
 using namespace Personagens;
 
@@ -47,8 +45,7 @@ void Topeira::atirar()
 		if (!cavando)
 		{
 			Projetil* novoProjetil = new Proj_top(lado, x + getTam().x / 2, y + getTam().y / 2);
-			Gerenciador_colisao* pGC = Gerenciador_colisao::getGerenciadorColisao();
-			pGC->adicionarProjetil(novoProjetil);
+			projeteisPendentes.push_back(novoProjetil);
 		}
 		tiro_cd = tempo_tiro;
 	}
@@ -139,18 +136,20 @@ void Topeira::colisao(Entidade* ent, sf::Vector2f ds)
 	if (!ent)
 		return;
 
-	Inimigo::colisao(ent, ds);
-
 	Jogador* pJog = dynamic_cast<Jogador*>(ent);
 	if (pJog)
 	{
-		pJog->setPos(sf::Vector2f(pJog->getX(), y - pJog->getTam().y - 8.0f));
-		pJog->pular();
+		float pesJogador = pJog->getY() + pJog->getTam().y;
 
-		Gerenciadores::Gerenciador_colisao* pGC = Gerenciadores::Gerenciador_colisao::getGerenciadorColisao();
-		if (pGC)
+		if (ds.x <= ds.y && pesJogador <= y + 15.0f && pJog->getVely())
 		{
-			pGC->removerInimigo(this);
+			pJog->setPos(sf::Vector2f(pJog->getX(), y - pJog->getTam().y - 8.0f));
+			pJog->pular();
+
+			setAtivo(false);
 		}
+		return;
 	}
+	Inimigo::colisao(ent, ds);
+	
 }

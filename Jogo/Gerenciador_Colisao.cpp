@@ -285,13 +285,6 @@ bool Gerenciadores::Gerenciador_colisao::posicaoLivre(sf::Vector2f pos, sf::Vect
 		}
 	}
 
-	if (pJog1 && pJog1->getAtivo()) {
-		sf::Vector2f ds = calcularColisao(pos, tam, pJog1->getPos(), pJog1->getTam());
-		if (ds.x < 0.0f && ds.y < 0.0f) {
-			return false;
-		}
-	}
-
 	return true;
 }
 
@@ -299,6 +292,7 @@ bool Gerenciadores::Gerenciador_colisao::posicaoLivre(sf::Vector2f pos, sf::Vect
 
 void Gerenciador_colisao::executar()
 {
+	tratarTiro();
 	tratarColisaoJogadorInimigo();
 	tratarColisaoJogadorObstaculo();
 	tratarColisaoJogadorProjetil();
@@ -351,6 +345,28 @@ void Gerenciador_colisao::limparDestruidos()
 		else
 		{
 			++itProj;
+		}
+	}
+}
+
+void Gerenciador_colisao::tratarTiro() {
+	std::vector<Personagens::Inimigo*>::iterator itIni;
+	for (itIni = LIs.begin(); itIni != LIs.end(); ++itIni)
+	{
+		Personagens::Inimigo* inim = *itIni;
+		if (inim && inim->getAtivo())
+		{
+			std::list<Projetil*>* pendentes = inim->getProjeteisPendentes();
+			std::list<Projetil*>::iterator itProj = pendentes->begin();
+			while (itProj != pendentes->end())
+			{
+				Projetil* proj = *itProj;
+				if (proj != NULL)
+				{
+					adicionarProjetil(proj);
+				}
+				itProj = pendentes->erase(itProj);
+			}
 		}
 	}
 }

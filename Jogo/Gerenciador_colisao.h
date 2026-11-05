@@ -48,5 +48,6 @@ namespace Gerenciadores
 		//const bool verificaColisao(Entidade* pe1, Entidade* pe2) const;
 		void executar();
 		void limparDestruidos();
+		void tratarTiro();
 	};
 }

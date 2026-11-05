@@ -16,3 +16,7 @@ Personagem::~Personagem() {
 void Personagem::salvarDataBuffer() {
 
 }
+
+const float Personagem::getVely() const {
+	return vely;
+}
