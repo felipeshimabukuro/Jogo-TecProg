@@ -7,6 +7,7 @@ namespace Personagens {
 
 	class Inimigo : public Personagem {
 	protected:
+		bool boss;
 		int nivel_maldade;
 		int walk_cd;
 		int walk_tm;
@@ -20,7 +21,7 @@ namespace Personagens {
 	public:
 		Inimigo(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j);
 		~Inimigo();
-		//virtual void executar() = 0;
+		virtual void executar() = 0;
 		//virtual void danificar() = 0;
 		//virtual void salvar() = 0;
 		//virtual void selecionarAlvo() = 0;
@@ -30,9 +31,9 @@ namespace Personagens {
 		void movimentoAleatorio();
 		void salvar();
 		void receberDano(int dano);
-		virtual void executar() = 0;
 		sf::RectangleShape getCorpo();
 		void setPos(const sf::Vector2f pos);
 		void colisao(Entidade* ent, sf::Vector2f ds);
+		const bool getBoss() const;
 	};
 }

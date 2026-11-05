@@ -19,6 +19,7 @@ namespace Fases {
 		virtual void criarCenario() = 0;
 		virtual void criarObstaculos() = 0;
 		virtual void criarInimigos() = 0;
+
 	public:
 		Fase();
 		virtual ~Fase();

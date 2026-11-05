@@ -1,0 +1,317 @@
+#include "Bibliotecas.h"
+#include "Chefao.h"
+#include "Proj_boss.h"
+#include "Gerenciador_colisao.h"
+#define SEGUNDOS *60
+#define COR_DEFAULT sf::Color(140, 20, 20)
+
+using namespace Personagens;
+using namespace Entidades;
+using namespace Gerenciadores;
+
+Chefao::Chefao(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
+	Inimigo(pos, tam, j),
+	estado("IDLE"),
+	forca(15),                       // Dano
+	bater_cd(0),                     // Cooldown da próxima batida
+	bater_tm(40),                    // Intervalo entre batidas
+	batidas_restantes(0),            // Batidas faltantes
+	batidas_esq(0),                  // Contador de batidas esquerda
+	batidas_dir(0),                  // Contador de batidas direita
+	lado_batida(1),                  // Direção (1 = direita, -1 = esquerda)
+	batendo(false),                  // Flag que indica se a hitbox da batida está ativa
+	tempo_batida(0),                 // Duração restante do hit atual
+	duracao_batida(12),              // Frames em que o hit permanece ativo 
+	x_batida(pos.x),
+	y_batida(pos.y),
+	largura_batida(60),              // Largura da hitbox de dano ao lado
+	altura_batida(50),               // Altura da hitbox
+	chance_atacar(3),                // Chance percentual por frame de iniciar ataque
+	ataque_cd(0),                    // Cooldown geral entre sequências de ataque 
+	ataque_tm(5 SEGUNDOS),           // Tempo de recarga do ataque
+	parado_cd(60),                   // Tempo restante no estado parado (o tao falado idle)
+	parado_tm(60),                   // Duração parado
+	dist_atq(200),                   // Distância máxima para disparar ataque
+	tempo_imune(0)                   // Temporizador de invulnerabilidade pós-hit
+{
+	boss = true;
+	num_vidas = 3;
+	lado = 1;                        // Olhando para a direita
+	x = pos.x;
+	y = pos.y;
+	x_alvo = static_cast<int>(x);
+	velx = 0.0f;
+	vely = 0.0f;
+
+	corpo.setSize(tam);
+	corpo.setFillColor(COR_DEFAULT);
+	corpo.setPosition(x, y);
+}
+
+Chefao::~Chefao()
+{
+}
+
+void Chefao::criarTerra(int dir, int ind)
+{
+	float spawn_x = x_batida + 20;
+	float spawn_y = y_batida;
+	if (dir == 1)
+		spawn_x = x_batida + largura_batida - 20;
+
+	//mudar para o novo ///////////////////////////////////////////////////
+	Gerenciador_colisao* pGC = Gerenciador_colisao::getGerenciadorColisao();
+	if (!pGC)
+		return;
+
+	Proj_boss* novoProjetil = new Proj_boss(dir, static_cast<int>(spawn_x), static_cast<int>(spawn_y));
+	if (novoProjetil)
+	{
+		novoProjetil->setFragmentos(3 + (ind % 3));
+		pGC->adicionarProjetil(novoProjetil);
+	}
+}
+
+void Chefao::verificarAtaque()
+{
+	if (ataque_cd > 0)
+	{
+		ataque_cd--;
+		return;
+	}
+
+	if (jogador)
+	{
+		sf::Vector2f posJogador = jogador->getCorpo().getPosition();
+		sf::Vector2f posInimigo = corpo.getPosition();
+		sf::Vector2f dist = distanciaAlvo(posJogador, posInimigo);
+
+		float hipotenusa = std::hypot(dist.x, dist.y); // Mto foda, quando tempo quero implementar na topeira.
+
+		if (hipotenusa <= (dist_atq))
+		{
+			if ((rand() % 100) < chance_atacar)
+			{
+				batidas_restantes = 6;       
+				batidas_esq = 0;
+				batidas_dir = 0;
+				bater_cd = 20;				//Tempo antes da loucura comecar
+				lado_batida = lado;
+				batendo = false;
+				velx = 0.0f;
+
+				estado = "BATENDO";
+			}
+		}
+	}
+}
+
+void Chefao::idle()
+{
+	verificarAtaque();
+	if (estado == "BATENDO")
+		return;
+
+	parado_cd--;
+	if (parado_cd < 0)
+	{
+		parado_tm = 150 + (rand() % 151);
+		parado_cd = parado_tm;
+
+		x_alvo = static_cast<int>(x) + (rand() % 161 - 80);
+
+		lado = (x_alvo > x) ? 1 : -1;
+		velx = static_cast<float>(lado) * 1.0f;
+
+		estado = "MOVENDO";
+	}
+}
+
+void Chefao::movimentar()
+{
+	verificarAtaque();
+	if (estado == "BATENDO")
+		return;
+
+	x += velx;
+
+	if (std::abs(x_alvo - x) < 8.0f)
+	{
+		velx = 0.0f;
+		parado_cd = 60 + (rand() % 61);
+		estado = "IDLE";
+	}
+
+	corpo.setPosition(x, y);
+}
+
+void Chefao::bater()
+{
+	velx = 0.0f;
+
+	if (batendo)
+	{
+		tempo_batida--;
+		if (tempo_batida <= 0)
+		{
+			batendo = false;
+		}
+	}
+
+	bater_cd--;
+	if (bater_cd <= 0)
+	{
+		if (batidas_restantes > 0)
+		{
+			bater_cd = bater_tm;
+
+			lado_batida = -lado_batida;
+			lado = lado_batida;
+
+			int indice = (lado_batida == -1) ? batidas_esq++ : batidas_dir++;
+
+			float hitY = y + getTam().y - (altura_batida);
+			float hitX;
+
+			if (lado_batida == 1)
+			{
+				hitX = x + getTam().x; 
+			}
+			else
+			{
+				hitX = x - (largura_batida); 
+			}
+
+			x_batida = hitX;
+			y_batida = hitY;
+			batendo = true;
+			tempo_batida = duracao_batida;
+
+			criarTerra(lado_batida, indice);
+
+			batidas_restantes--;
+		}
+		else
+		{
+			ataque_cd = ataque_tm;
+			parado_cd = 60 + (rand() % 61);
+			estado = "IDLE";
+			batendo = false;
+		}
+	}
+}
+
+void Chefao::executar()
+{
+	if(estado == "IDLE")
+	{
+		idle();
+	}
+	else if (estado == "MOVENDO")
+	{
+		movimentar();
+	}
+	else if (estado == "BATENDO")
+	{
+		bater();
+	}
+
+	vely += gravidade;
+	if (vely > max_vely * pot_queda)
+	{
+		vely = max_vely * pot_queda;
+	}
+	y += vely;
+	corpo.setPosition(x, y);
+
+	if (tempo_imune > 0)
+	{
+		tempo_imune--;
+
+		// pisca quando tiver acontecendo algo, deve sumir quando implementarmos as texturas
+		if ((tempo_imune / 5) % 2 == 0)
+		{
+			corpo.setFillColor(sf::Color(255, 120, 120));
+		}
+		else
+		{
+			corpo.setFillColor(COR_DEFAULT);
+		}
+	}
+	else
+	{
+		//mesma coisa
+		if (batendo)
+		{
+			corpo.setFillColor(sf::Color(220, 50, 20));
+		}
+		else
+		{
+			corpo.setFillColor(COR_DEFAULT);
+		}
+	}
+
+	if (num_vidas <= 0) // n sei se isso vai no gerenciador ou aqui, mas por enquanto ta aqui msm
+	{
+		Gerenciador_colisao* pGC = Gerenciador_colisao::getGerenciadorColisao();
+		if (pGC)
+		{
+			pGC->removerInimigo(this);
+		}
+	}
+}
+
+void Chefao::colisao(Entidade* ent, sf::Vector2f ds)
+{
+	if (!ent)
+		return;
+
+	Jogador* pJog = dynamic_cast<Jogador*>(ent);
+	if (pJog)
+	{
+		if ((pJog->getY() + pJog->getTam().y <= y + 25.0f) || (ds.x <= ds.y && pJog->getY() < y))
+		{
+			if (tempo_imune <= 0)
+			{
+				receberDano(1);
+				tempo_imune = 60;
+
+				pJog->setPos(sf::Vector2f(pJog->getX(), y - pJog->getTam().y - 8.0f));
+				pJog->pular();
+			}
+		}
+		return;
+	}
+
+	Inimigo::colisao(ent, ds);
+
+	if (ds.x > ds.y && estado == "MOVENDO")
+	{
+		velx = 0.0f;
+		parado_cd = 60 + (rand() % 61);
+		estado = "IDLE";
+	}
+}
+
+const sf::FloatRect Chefao::getHitboxBatida() const
+{
+	if (!batendo)
+		return sf::FloatRect(0.0f, 0.0f, 0.0f, 0.0f);
+
+	return sf::FloatRect(
+		(x_batida),
+		(y_batida),
+		(largura_batida),
+		(altura_batida)
+	);
+}
+
+const bool Chefao::getBatendo() const
+{
+	return batendo;
+}
+
+const short int Chefao::getForca() const
+{
+	return forca;
+}

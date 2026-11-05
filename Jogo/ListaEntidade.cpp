@@ -65,8 +65,8 @@ void ListaEntidade::limparDestruidos()
 
 		if (pEnt != NULL && !pEnt->getAtivo())
 		{
-			remover(pEnt); 
-			i--;           
+			remover(pEnt);
+			i--;
 		}
 	}
 }

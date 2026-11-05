@@ -142,7 +142,7 @@ void Jogador::cavar() {
     }
     Entidades::Obstaculo* chaoAt = dynamic_cast<Entidades::Obstaculo*>(chaoAtual);
     if (chao == true && chaoAt != NULL && chaoAt->getQuebravel() == true) {
-        chaoAt->setAtivo(false);
+		chaoAt->setAtivo(false);
 
         chaoAtual = NULL;
         chao = false;
@@ -156,11 +156,13 @@ void Jogador::receberDano(int dano) {
 }
 
 void Jogador::colisao(Entidade* ent, sf::Vector2f ds) {
+    
     if (ent == NULL || !ent->getAtivo()) {
         return;
     }
 
     Entidades::Entidade::colisao(ent, ds);
+
     
     if (ds.x <= ds.y) {
 

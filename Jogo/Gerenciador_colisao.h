@@ -31,6 +31,7 @@ namespace Gerenciadores
 		void tratarColisaoInimigoObstaculo();
 		void tratarColisaoProjetilObstaculo();
 		const sf::Vector2f calcularColisao(Entidade* ent1, Entidade* ent2);
+		const sf::Vector2f calcularColisao(const sf::Vector2f pos1, const sf::Vector2f tam1, const sf::Vector2f pos2, const sf::Vector2f tam2);
 
 	public:
 		~Gerenciador_colisao();

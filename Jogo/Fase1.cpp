@@ -3,9 +3,9 @@
 using namespace Fases;
 
 Fase1::Fase1() :Fase() {
-	criarCenario();
-	criarObstaculos();
-	criarInimigos();
+    criarCenario();
+    criarObstaculos();
+    criarInimigos();
 }
 
 Fase1::~Fase1() {
@@ -33,38 +33,39 @@ void Fase1::criarInimigos() {
 }
 
 void Fase1::executar() {
-	while (pGG->verificaJanelaAberta())
-	{
-		pEv->executar();
-		list_ents.percorrer();
-		pGC->executar();
-		
-		/*if (pJogador1 != NULL) {
-			std::list<Entidades::Obstaculo*>* pendentes = pJogador1->getBlocosPendentes();
+    while (pGG->verificaJanelaAberta())
+    {
+        pEv->executar();
+        list_ents.percorrer();
+        pGC->executar();
 
-			std::list<Entidades::Obstaculo*>::iterator it = pendentes->begin();
-			while (it != pendentes->end()) {
-				Entidades::Obstaculo* bloco = *it;
+        if (pJogador1 != NULL) {
+            std::list<Entidades::Obstaculo*>* pendentes = pJogador1->getBlocosPendentes();
 
-				if (bloco != NULL) {
-					if (pGC->posicaoLivre(bloco->getPos(), bloco->getTam())) {
-						pGC->adicionarObstaculo(bloco); 
-					}
-					else {
-						pJogador1->addInventario();
-						delete bloco;
-						bloco = NULL;
-					}
-				}
-				it = pendentes->erase(it);
-			}
-		}*/
-		blocosColocados();
-		pGG->limpaJanela();
-		list_ents.desenharTodas(pGG->getWindow());
-		pGG->mostrarJanela();
+            std::list<Entidades::Obstaculo*>::iterator it = pendentes->begin();
+            while (it != pendentes->end()) {
+                Entidades::Obstaculo* bloco = *it;
 
-		pGC->limparDestruidos();       
-		list_ents.limparDestruidos();
-	}
+                if (bloco != NULL) {
+                    // A Fase é quem valida com o gerenciador de colisões
+                    if (pGC->posicaoLivre(bloco->getPos(), bloco->getTam())) {
+                        pGC->adicionarObstaculo(bloco); // Adiciona ao GC e à ListaEntidade
+                    }
+                    else {
+                        // Se a posição estiver ocupada, devolve ao inventário e elimina a memória
+                        delete bloco;
+                        bloco = NULL;
+                        // Opcional: devolver 1 ao inventario do jogador aqui
+                    }
+                }
+                it = pendentes->erase(it); // Remove da lista temporária do jogador
+            }
+        }
+
+        pGG->limpaJanela();
+        list_ents.desenharTodas(pGG->getWindow());
+        pGG->mostrarJanela();
+        pGC->limparDestruidos();
+        list_ents.limparDestruidos();
+    }
 }

@@ -7,6 +7,7 @@ namespace Personagens
 	class Topeira : public Inimigo
 	{
 	private:
+		string estado;
 		bool cavando;
 		int tiro_cd;
 		static const int dist_detec;
@@ -20,6 +21,9 @@ namespace Personagens
 		void atirar();
 		bool detectarJogador();
 		bool perto();
+		void atualizaLado();
+		void seguir();
 		void executar();
+		void colisao(Entidade* ent, sf::Vector2f ds);
 	};
 }

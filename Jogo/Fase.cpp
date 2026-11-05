@@ -1,6 +1,6 @@
 #include "Fase.h"
 #include "Topeira.h"
-
+#include "Chefao.h"
 
 using namespace Fases;
 
@@ -31,7 +31,7 @@ Fase::~Fase() {
 }
 
 void Fase::criarTopeiras() {
-	Topeira* topeira = new Topeira(sf::Vector2f(100.0f, 200.0f), sf::Vector2f(50.0f, 50.0f), pJogador1);
+	Topeira* topeira = new Topeira(sf::Vector2f(300.0f, 200.0f), sf::Vector2f(100.0f, 100.0f), pJogador1);
 	pGC->adicionarInimigo(topeira);
 }
 
@@ -56,4 +56,4 @@ void Fase::blocosColocados() {
 			it = pendentes->erase(it);
 		}
 	}
-}
+} 
