@@ -55,14 +55,17 @@ int Jogador::getNum(){
 void Jogador::mover() {
     vely += gravidade;
     y += vely;
+    velx = 0;
     if (num == 0) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-            x -= max_velx;
-
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+            velx = -max_velx;
+            x += velx;
+        }
         
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            x += max_velx;
-
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            velx = max_velx;
+            x += velx;
+        }
        
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
             pular();
@@ -151,8 +154,10 @@ void Jogador::cavar() {
 }
 
 void Jogador::receberDano(int dano) {
-    num_vidas -= dano;
-	cout << "Jogador tomou " << dano << " de dano. Vidas restantes: " << num_vidas << endl;
+    if (num_vidas > 0) {
+        num_vidas -= dano;
+        cout << "Jogador tomou " << dano << " de dano. Vidas restantes: " << num_vidas << endl;
+    }
 }
 
 void Jogador::colisao(Entidade* ent, sf::Vector2f ds) {
@@ -210,4 +215,8 @@ std::list<Entidades::Obstaculo*>* Jogador::getBlocosPendentes() {
 
 void Jogador::addInventario() {
     inventario++;
+}
+
+void Jogador::setChao(bool c) {
+    chao = c;
 }

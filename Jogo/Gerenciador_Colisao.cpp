@@ -179,6 +179,7 @@ void Gerenciador_colisao::tratarColisaoJogadorObstaculo()
 				if (ds.x < 0.0f && ds.y < 0.0f)
 				{
 					pJog1->colisao(obs, ds);
+					obs->colisao(pJog1, ds);
 				}
 			}
 		}

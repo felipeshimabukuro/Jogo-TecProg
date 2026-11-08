@@ -23,6 +23,7 @@ namespace Personagens {
 		//virtual void mover(int lado) = 0;
 		virtual void receberDano(int dano) = 0;
 		const float getVely() const;
+		const float getVelx() const;
 	};
 
 }

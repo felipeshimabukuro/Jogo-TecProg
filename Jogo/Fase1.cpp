@@ -17,9 +17,14 @@ void Fase1::criarCenario() {
 }
 
 void Fase1::criarObstaculos() {
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < 8; i++) {
         Terra* terra1 = new Terra(50.0f * i, 450.0f, 50.0f, 50.0f, 0, false, true);
         pGC->adicionarObstaculo(terra1);
+    }
+
+    for (int i = 8; i < 16; i++) {
+        Magma* magma = new Magma(50.0f * i, 450.0f, 50.0f, 50.0f, 5, true, false);
+        pGC->adicionarObstaculo(magma);
     }
 
     for (int i = 0; i < 16; i++) {

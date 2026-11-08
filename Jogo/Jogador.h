@@ -41,5 +41,6 @@ namespace Personagens
 		void setPos(const sf::Vector2f pos);
 		list<Entidades::Obstaculo*>* getBlocosPendentes();
 		void addInventario();
+		void setChao(bool c);
 	};
 }

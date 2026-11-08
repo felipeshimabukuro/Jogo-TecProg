@@ -133,7 +133,7 @@ void Topeira::executar()
 
 void Topeira::colisao(Entidade* ent, sf::Vector2f ds)
 {
-	if (!ent)
+	if (!ent || !ent->getAtivo())
 		return;
 
 	Jogador* pJog = dynamic_cast<Jogador*>(ent);
@@ -141,11 +141,11 @@ void Topeira::colisao(Entidade* ent, sf::Vector2f ds)
 	{
 		float pesJogador = pJog->getY() + pJog->getTam().y;
 
-		if (ds.x <= ds.y && pesJogador <= y + 15.0f && pJog->getVely())
+		if (ds.x <= ds.y && pesJogador <= y + 15.0f && pJog->getVely() >= 0.0f)
 		{
 			pJog->setPos(sf::Vector2f(pJog->getX(), y - pJog->getTam().y - 8.0f));
+			pJog->setChao(true);
 			pJog->pular();
-
 			setAtivo(false);
 		}
 		return;

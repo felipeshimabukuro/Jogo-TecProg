@@ -1,6 +1,7 @@
 #pragma once
 #include "Fase.h"
 #include "Terra.h"
+#include "Magma.h"
 
 namespace Fases {
     class Fase1 : public Fase {

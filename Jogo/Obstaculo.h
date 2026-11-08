@@ -28,5 +28,6 @@ namespace Entidades
 		const int getAltura() const;
 		void darDano(Jogador* p);
 		const bool getQuebravel() const;
+        virtual void colisao(Entidade* ent, sf::Vector2f ds);
     };
 }

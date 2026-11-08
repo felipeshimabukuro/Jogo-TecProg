@@ -20,3 +20,7 @@ void Personagem::salvarDataBuffer() {
 const float Personagem::getVely() const {
 	return vely;
 }
+
+const float Personagem::getVelx() const {
+	return velx;
+}
