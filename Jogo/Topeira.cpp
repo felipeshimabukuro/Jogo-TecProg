@@ -44,7 +44,7 @@ void Topeira::atirar()
 	{
 		if (!cavando)
 		{
-			Projetil* novoProjetil = new Proj_top(lado, x + getTam().x / 2, y + getTam().y / 2);
+			Projetil* novoProjetil = new Proj_top(lado, x + GRID / 2, y + GRID / 2);
 			projeteisPendentes.push_back(novoProjetil);
 		}
 		tiro_cd = tempo_tiro;

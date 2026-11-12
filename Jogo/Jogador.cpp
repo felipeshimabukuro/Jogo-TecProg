@@ -25,7 +25,7 @@ void Jogador::inicializa() { //tive q mudar pq tava dando mto b.o., nao rodava s
 
     vel = sf::Vector2f(max_velx, max_vely);
 
-    corpo.setSize(sf::Vector2f(50.0f, 50.0f)); 
+    corpo.setSize(sf::Vector2f(GRID, GRID)); 
     corpo.setFillColor(sf::Color::Green);      
 
     corpo.setPosition(x, y);
@@ -53,7 +53,9 @@ int Jogador::getNum(){
     return num;
 }
 void Jogador::mover() {
-    vely += gravidade;
+    if (vely < max_vely) {
+        vely += gravidade;
+    }
     y += vely;
     velx = 0;
     if (num == 0) {
@@ -120,8 +122,8 @@ void Jogador::mover() {
         y = 0.0f;
     }
    
-    if (x > 800.0f - 50.0f) {
-        x = 800.0f - 50.0f;
+    if (x > WIDTH - corpo.getSize().x) {
+        x = WIDTH - 50.0f;
     }
     
     /*if (y > 600.0f - 50.0f) {
@@ -200,7 +202,7 @@ void Jogador::place() {
         Entidades::Obstaculo* novoBloco = new Entidades::Terra(
             x,
             y + getTam().y,
-            50.0f, 50.0f,
+            GRID, GRID,
             0, false, true);
 
         blocosPendentes.push_back(novoBloco);

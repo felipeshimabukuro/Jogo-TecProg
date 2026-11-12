@@ -10,7 +10,7 @@ namespace Personagens {
 		float vely;
 		const float max_velx;
 		const float max_vely;
-		const float pot_queda;
+		const int pot_queda;
 		bool chao;
 		static const float gravidade;
 		sf::Vector2f vel;
@@ -18,8 +18,9 @@ namespace Personagens {
 		Personagem(const sf::Vector2f pos, const sf::Vector2f tam);
 		~Personagem();
 		void salvarDataBuffer();
-		//virtual void mover() = 0;
+		virtual void mover() = 0;
 		virtual void salvar() = 0;
+		virtual void executar() = 0;
 		//virtual void mover(int lado) = 0;
 		virtual void receberDano(int dano) = 0;
 		const float getVely() const;

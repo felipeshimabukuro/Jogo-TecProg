@@ -6,7 +6,7 @@ using namespace Gerenciadores;
 Gerenciador_grafico* Gerenciador_grafico::pGrafico = NULL;
 
 Gerenciador_grafico::Gerenciador_grafico() : 
-	window(new sf::RenderWindow(sf::VideoMode(800, 600), "Jogo"))
+	window(new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Jogo"))
 {
 	if (window == NULL) {
 		cout << "ERROR::Gerenciador_grafico nao foi possivel criar uma janela grafica" << endl;

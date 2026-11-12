@@ -3,12 +3,14 @@
 using namespace Entidades;
 using namespace Personagens;
 
+int Magma::ticks(0);
+
 Magma::Magma(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel):
 	Obstaculo(x, y, largura, altura, dano, danoso, quebravel),
-    ticks(0),max_ticks(60),dano(dano)
+    max_ticks(60),dano(dano)
 {
 	inicializa();
-}
+} 
 
 Magma::~Magma() {
 

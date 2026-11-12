@@ -14,7 +14,7 @@ pJogador1(NULL)
 		pGC->setListaEntidade(&list_ents);
 	}
 
-	pJogador1 = new Jogador(sf::Vector2f(100.0f, 200.0f), sf::Vector2f(50.0f, 50.0f), 0);
+	pJogador1 = new Jogador(sf::Vector2f(100.0f, 200.0f), sf::Vector2f(GRID, GRID), 0);
 
 	if (pGC && pJogador1) {
 		pGC->setJogador(pJogador1);
@@ -31,7 +31,7 @@ Fase::~Fase() {
 }
 
 void Fase::criarTopeiras() {
-	Topeira* topeira = new Topeira(sf::Vector2f(300.0f, 200.0f), sf::Vector2f(100.0f, 100.0f), pJogador1);
+	Topeira* topeira = new Topeira(sf::Vector2f(300.0f, 200.0f), sf::Vector2f(GRID, GRID), pJogador1);
 	pGC->adicionarInimigo(topeira);
 }
 

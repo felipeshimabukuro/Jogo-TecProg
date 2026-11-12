@@ -6,7 +6,7 @@ using namespace Personagens;
 namespace Entidades {
 	class Magma :public Obstaculo {
 	private:
-		int ticks;
+		static int ticks;
 		int max_ticks;
 		int dano;
 	public:

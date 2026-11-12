@@ -17,7 +17,7 @@ Inimigo::~Inimigo() {
 void Inimigo::inicializa() {
 	vel = sf::Vector2f(max_velx/5.0f, max_vely/5.0f);
 
-	corpo.setSize(sf::Vector2f(50.0f, 50.0f));
+	corpo.setSize(sf::Vector2f(GRID, GRID));
 	corpo.setFillColor(sf::Color::Red);
 
 	x = x + 500.0f;
@@ -59,7 +59,9 @@ void Inimigo::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo, 
 }
 
 void Inimigo::mover() {
-	vely += gravidade;
+	if (vely < max_vely) {
+		vely += gravidade;
+	}
 	y += vely;
 	if (!jogador) return;
 	sf::Vector2f posJogador = jogador->getCorpo().getPosition();
