@@ -12,6 +12,8 @@ Obstaculo::Obstaculo(int x, int y, int larg, int alt, int dano, bool danoso, boo
     danoso(danoso), 
     quebravel(queb)
 {
+    corpo.setSize(sf::Vector2f((float)largura, (float)altura));
+    corpo.setPosition((float)x, (float)y);
 }
 
 Obstaculo::~Obstaculo()

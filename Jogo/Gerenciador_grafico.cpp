@@ -15,6 +15,15 @@ Gerenciador_grafico::Gerenciador_grafico() :
 	window->setFramerateLimit(60);
 
 	window->setKeyRepeatEnabled(false);
+
+	// ==================== CARREGAR TEXTURAS AQUI ====================
+	carregarTextura("jogador1", "assets/jogador1.png");
+	carregarTextura("topeira", "assets/topeira.png");
+	carregarTextura("p_topeira", "assets/p_topeira.png");
+	carregarTextura("terra", "assets/terra.png");
+	carregarTextura("magma", "assets/magma.png");
+	carregarTextura("fundo", "assets/fundo.png");
+	// ================================================================
 }
 
 Gerenciador_grafico::~Gerenciador_grafico()
@@ -83,4 +92,35 @@ void Gerenciador_grafico::desenharQuadrado(int x, int y)
 		quadrado.setPosition(x, y);
 		window->draw(quadrado);
 	}
+}
+
+bool Gerenciador_grafico::carregarTextura(const std::string& id, const std::string& caminho)
+{
+	// Se já foi carregada anteriormente
+	if (mapaTexturas.find(id) != mapaTexturas.end())
+	{
+		return true;
+	}
+
+	sf::Texture textura;
+	if (!textura.loadFromFile(caminho))
+	{
+		cout << "Sem caminho: " << caminho << endl;
+		return false;
+	}
+
+	mapaTexturas[id] = textura;
+	return true;
+}
+
+sf::Texture* Gerenciador_grafico::getTextura(const string& id)
+{
+	map<string, sf::Texture>::iterator it = mapaTexturas.find(id);
+	if (it != mapaTexturas.end())
+	{
+		return &(it->second);
+	}
+
+	cout << "Textura '" << id << "' nao encontrada." << std::endl;
+	return NULL;
 }

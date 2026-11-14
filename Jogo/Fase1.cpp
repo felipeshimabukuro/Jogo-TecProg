@@ -3,6 +3,7 @@
 using namespace Fases;
 
 Fase1::Fase1() :Fase() {
+	criarFundo();
     criarCenario();
     criarObstaculos();
     criarInimigos();
@@ -37,6 +38,26 @@ void Fase1::criarInimigos() {
     criarTopeiras();
 }
 
+void Fase1::criarFundo() 
+{
+    if (pGG) 
+    {
+        sf::Texture* tex = pGG->getTextura("fundo");
+        if (tex) 
+        {
+            tex->setRepeated(true);
+            fundo.setTexture(*tex);
+
+			fundo.setScale(3.0f, 3.0f); //relacao grid com o tamanho da textura
+
+            int larguraRepeticao = static_cast<int>(WIDTH / 3.0f);
+            int alturaRepeticao = static_cast<int>(HEIGHT / 3.0f);
+            fundo.setTextureRect(sf::IntRect(0, 0, larguraRepeticao, alturaRepeticao));
+            fundo.setPosition(0.0f, 0.0f);
+        }
+    }
+}
+
 void Fase1::executar() {
     while (pGG->verificaJanelaAberta())
     {
@@ -68,6 +89,7 @@ void Fase1::executar() {
         }
 
         pGG->limpaJanela();
+        pGG->getWindow()->draw(fundo);
         list_ents.desenharTodas(pGG->getWindow());
         pGG->mostrarJanela();
         pGC->limparDestruidos();

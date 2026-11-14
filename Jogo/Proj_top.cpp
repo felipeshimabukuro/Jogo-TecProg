@@ -10,6 +10,8 @@ Proj_top::Proj_top(short int direcao, float x, float y):
 {
 	srand(time(NULL));
 	setDano(rand() % 10 + 10);
+	sf::Vector2f tam(GRID, GRID);
+	setTextura("p_topeira", tam);
 }
 
 Proj_top::~Proj_top()
@@ -30,7 +32,7 @@ void Proj_top::colisao(Entidade* ent, sf::Vector2f ds)
 {
 	if(ent)
 	{
-		Jogador* jogador = static_cast<Jogador*>(ent);
+		Jogador* jogador = dynamic_cast<Jogador*>(ent);
 		if(jogador)
 		{
 			jogador->receberDano(getDano());

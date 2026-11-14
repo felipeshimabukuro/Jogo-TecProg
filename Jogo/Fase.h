@@ -13,6 +13,7 @@ namespace Fases {
 		Gerenciadores::Gerenciador_eventos* pEv;
 		Gerenciadores::Gerenciador_grafico* pGG;
 		Jogador* pJogador1;
+		sf::Sprite fundo;
 
 		void criarTopeiras();
 		void blocosColocados();

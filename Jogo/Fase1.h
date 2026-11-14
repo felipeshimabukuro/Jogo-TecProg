@@ -9,6 +9,7 @@ namespace Fases {
         void criarCenario();
         void criarObstaculos();
         void criarInimigos();
+        void criarFundo();
 
     public:
         Fase1();

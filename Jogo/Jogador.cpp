@@ -25,10 +25,10 @@ void Jogador::inicializa() { //tive q mudar pq tava dando mto b.o., nao rodava s
 
     vel = sf::Vector2f(max_velx, max_vely);
 
-    corpo.setSize(sf::Vector2f(GRID, GRID)); 
-    corpo.setFillColor(sf::Color::Green);      
-
+    corpo.setSize(sf::Vector2f(GRID, GRID));
     corpo.setPosition(x, y);
+
+	setTextura("jogador1", sf::Vector2f(GRID, GRID));
 }
 
 Jogador::~Jogador() {
@@ -39,6 +39,7 @@ void Jogador::setPos(const sf::Vector2f pos) {
     x = pos.x;
     y = pos.y;
     corpo.setPosition(x, y);
+    sprite.setPosition(x, y);
 }
 
 void Jogador::executar() {
@@ -131,6 +132,7 @@ void Jogador::mover() {
     }*/
 
     corpo.setPosition(x, y);
+    sprite.setPosition(x, y);
 }
 
 void Jogador::pular() 

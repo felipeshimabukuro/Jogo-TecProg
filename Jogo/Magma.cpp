@@ -17,10 +17,9 @@ Magma::~Magma() {
 }
 
 void Magma::inicializa() {
-	corpo.setSize(sf::Vector2f(largura, altura));
-	corpo.setFillColor(sf::Color::Yellow);
-
-	corpo.setPosition(x, y);
+    setTextura("magma", sf::Vector2f(largura, altura));
+    corpo.setPosition(x, y);
+    sprite.setPosition(x, y);
 }
 
 void Magma::obstaculizar(Jogador* p)
@@ -61,7 +60,8 @@ void Magma::colisao(Entidade* ent, sf::Vector2f ds)
 
 void Magma::executar()
 {
-
+    corpo.setPosition(x, y);
+    sprite.setPosition(x, y);
 }
 void Magma::salvar()
 {

@@ -53,7 +53,7 @@ void ListaEntidade::percorrer()
 void ListaEntidade::desenharTodas(sf::RenderWindow* window)
 {
 	for (int i = 0; i < LEs.getTamanho(); i++) {
-		window->draw(LEs.operator[](i)->getCorpo()); 
+		LEs.operator[](i)->desenhar(window);
 	}
 }
 

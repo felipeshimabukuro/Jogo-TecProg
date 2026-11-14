@@ -24,14 +24,14 @@ Chefao::Chefao(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
 	duracao_batida(12),              // Frames em que o hit permanece ativo 
 	x_batida(pos.x),
 	y_batida(pos.y),
-	largura_batida(60),              // Largura da hitbox de dano ao lado
-	altura_batida(50),               // Altura da hitbox
+	largura_batida(GRID),              // Largura da hitbox de dano ao lado
+	altura_batida(GRID*2),               // Altura da hitbox
 	chance_atacar(3),                // Chance percentual por frame de iniciar ataque
 	ataque_cd(0),                    // Cooldown geral entre sequências de ataque 
 	ataque_tm(5 SEGUNDOS),           // Tempo de recarga do ataque
 	parado_cd(60),                   // Tempo restante no estado parado (o tao falado idle)
 	parado_tm(60),                   // Duração parado
-	dist_atq(200),                   // Distância máxima para disparar ataque
+	dist_atq(GRID*4),                   // Distância máxima para disparar ataque
 	tempo_imune(0)                   // Temporizador de invulnerabilidade pós-hit
 {
 	boss = true;
@@ -118,7 +118,7 @@ void Chefao::idle()
 		parado_tm = 150 + (rand() % 151);
 		parado_cd = parado_tm;
 
-		x_alvo = static_cast<int>(x) + (rand() % 161 - 80);
+		x_alvo = static_cast<int>(x) + (rand() % (int)GRID*4 - GRID*2);
 
 		lado = (x_alvo > x) ? 1 : -1;
 		velx = static_cast<float>(lado) * 1.0f;
@@ -277,6 +277,7 @@ void Chefao::colisao(Entidade* ent, sf::Vector2f ds)
 				tempo_imune = 60;
 
 				pJog->setPos(sf::Vector2f(pJog->getX(), y - pJog->getTam().y - 8.0f));
+				pJog->setChao(true);
 				pJog->pular();
 			}
 		}

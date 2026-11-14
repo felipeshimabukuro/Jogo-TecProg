@@ -8,6 +8,7 @@ namespace Gerenciadores
 	{
 	private:
 		sf::RenderWindow* window;
+		map<string, sf::Texture> mapaTexturas;
 
 		//Padrão Singleton (canal ex-monitor Gege++)
 		static Gerenciador_grafico* pGrafico;
@@ -23,6 +24,9 @@ namespace Gerenciadores
 		//void desenharEnte(Ente* pE);
 		void desenharQuadrado(int x, int y);
 		void mostrarJanela();
+
+		bool carregarTextura(const std::string& id, const std::string& caminho);
+		sf::Texture* getTextura(const std::string& id);
 
 	};
 }

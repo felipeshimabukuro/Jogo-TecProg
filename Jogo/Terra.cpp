@@ -12,6 +12,7 @@ Terra::~Terra() {
 
 void Terra::executar() {
 	corpo.setPosition(x, y);
+	sprite.setPosition(x, y);
 }
 
 void Terra::salvar() {
@@ -24,7 +25,7 @@ void Terra::obstaculizar(Jogador* p) {
 
 void Terra::inicializa() {
 	corpo.setSize(sf::Vector2f(largura, altura));
-	corpo.setFillColor(sf::Color::Blue);
-
+	setTextura("terra", sf::Vector2f(largura, altura));
 	corpo.setPosition(x, y);
+	sprite.setPosition(x, y);
 }

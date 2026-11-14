@@ -11,9 +11,9 @@ Projetil::Projetil(short int dir, float ix, float iy):
 	velX = 2.5 * direcao;
 	x = ix;
 	y = iy;
-	corpo = sf::RectangleShape(sf::Vector2f(20.0f, 20.0f));
-	corpo.setFillColor(sf::Color::Magenta);
+	corpo = sf::RectangleShape(sf::Vector2f(GRID/2, GRID/2));
 	corpo.setPosition(x, y);
+	sprite.setPosition(x, y);
 }
 
 Projetil::~Projetil()
@@ -38,6 +38,7 @@ void Projetil::setPos(const sf::Vector2f pos) {
 	x = pos.x;
 	y = pos.y;
 	corpo.setPosition(x, y);
+	sprite.setPosition(x, y);
 }
 
 void Projetil::executar()

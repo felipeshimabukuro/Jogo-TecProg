@@ -23,6 +23,8 @@ Topeira::Topeira(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
 	velx = 0.0f;
 	vely = 0.0f;
 	estado = "IDLE";
+
+	setTextura("topeira", getTam());
 }
 
 Topeira::~Topeira()
@@ -95,6 +97,20 @@ void Topeira::atualizaLado()
 		{
 			lado = -1;
 		}
+
+		const sf::Texture* tex = sprite.getTexture();
+		if (tex) {
+			int w = tex->getSize().x;
+			int h = tex->getSize().y;
+			if (lado == 1) {
+				sprite.setTextureRect(sf::IntRect(0, 0, w, h));
+				sprite.setOrigin(0.0f, 0.0f);
+			}
+			else {
+				sprite.setTextureRect(sf::IntRect(w, 0, -w, h)); // Espelha horizontalmente
+				sprite.setOrigin(0.0f, 0.0f);
+			}
+		}
 	}
 }
 
@@ -124,6 +140,9 @@ void Topeira::executar()
 	}
 
     mover(); 
+
+	corpo.setPosition(x, y);
+    sprite.setPosition(x, y);
 
     if (tiro_cd > 0)
     {

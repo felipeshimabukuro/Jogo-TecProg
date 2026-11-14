@@ -8,6 +8,7 @@
 #include <string>
 #include <list>
 #include <set>
+#include <map>
 
 #include <stdlib.h>
 #include <sstream>
