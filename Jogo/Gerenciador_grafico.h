@@ -21,8 +21,7 @@ namespace Gerenciadores
 		void limpaJanela();
 		void fechaJanela();
 		const bool verificaJanelaAberta();
-		//void desenharEnte(Ente* pE);
-		void desenharQuadrado(int x, int y);
+		void desenharEnte(Ente* pE);
 		void mostrarJanela();
 
 		bool carregarTextura(const std::string& id, const std::string& caminho);

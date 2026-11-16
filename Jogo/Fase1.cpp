@@ -90,7 +90,7 @@ void Fase1::executar() {
 
         pGG->limpaJanela();
         pGG->getWindow()->draw(fundo);
-        list_ents.desenharTodas(pGG->getWindow());
+        list_ents.desenharTodas(pGG);
         pGG->mostrarJanela();
         pGC->limparDestruidos();
         list_ents.limparDestruidos();

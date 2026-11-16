@@ -16,7 +16,7 @@ namespace Entidades
         bool danoso;
 		bool quebravel;
 
-        void salvarDataBuffer();
+        
 
     public:
         Obstaculo(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel);
@@ -29,5 +29,6 @@ namespace Entidades
 		void darDano(Jogador* p);
 		const bool getQuebravel() const;
         virtual void colisao(Entidade* ent, sf::Vector2f ds);
+        void salvarDataBuffer();
     };
 }

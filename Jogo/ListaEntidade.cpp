@@ -50,10 +50,10 @@ void ListaEntidade::percorrer()
 	}
 }
 
-void ListaEntidade::desenharTodas(sf::RenderWindow* window)
+void ListaEntidade::desenharTodas(Gerenciador_grafico* pGG)
 {
 	for (int i = 0; i < LEs.getTamanho(); i++) {
-		LEs.operator[](i)->desenhar(window);
+		pGG->desenharEnte(LEs.operator[](i));
 	}
 }
 

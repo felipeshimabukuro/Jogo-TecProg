@@ -23,7 +23,7 @@ namespace Fases {
 
 	public:
 		Fase();
-		virtual ~Fase();
+		~Fase();
 
 		virtual void executar() = 0;
 	};

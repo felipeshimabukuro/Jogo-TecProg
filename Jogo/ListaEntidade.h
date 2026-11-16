@@ -2,8 +2,10 @@
 #include "Elemento.h"
 #include "Lista.h"
 #include "Entidade.h"
+#include "Gerenciador_grafico.h"
 
 using namespace Entidades;
+using namespace Gerenciadores;
 
 namespace Listas
 {
@@ -21,7 +23,7 @@ namespace Listas
 		Entidade* operator[](int pos);
 		//void percorrer(sf::RenderWindow* window);
 		void percorrer();
-		void desenharTodas(sf::RenderWindow* window);
+		void desenharTodas(Gerenciador_grafico *pGG);
 		void limparDestruidos();
 	};
 }

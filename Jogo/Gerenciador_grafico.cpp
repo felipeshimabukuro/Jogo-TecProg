@@ -83,17 +83,6 @@ void Gerenciador_grafico::mostrarJanela()
 	}
 }
 
-void Gerenciador_grafico::desenharQuadrado(int x, int y)
-{
-	if (window)
-	{
-		sf::RectangleShape quadrado(sf::Vector2f(100.0f, 100.0f));
-		quadrado.setFillColor(sf::Color::Green);
-		quadrado.setPosition(x, y);
-		window->draw(quadrado);
-	}
-}
-
 bool Gerenciador_grafico::carregarTextura(const std::string& id, const std::string& caminho)
 {
 	// Se já foi carregada anteriormente
@@ -123,4 +112,8 @@ sf::Texture* Gerenciador_grafico::getTextura(const string& id)
 
 	cout << "Textura '" << id << "' nao encontrada." << std::endl;
 	return NULL;
+}
+
+void Gerenciador_grafico::desenharEnte(Ente* pE) {
+	pE->desenhar(window);
 }
