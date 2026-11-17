@@ -33,9 +33,11 @@ sf::Vector2f Inimigo::distanciaAlvo(sf::Vector2f posJogador, sf::Vector2f posIni
 	return distancia;
 }
 
-void Inimigo::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo, Jogador* j) {
+void Inimigo::persegueJogador(Jogador* j) {
 	if (!j) return;
 
+	sf::Vector2f posJogador = j->getCorpo().getPosition();
+	sf::Vector2f posInimigo = corpo.getPosition();
 	float tamJogadorX = j->getTam().x;
 	float tamInimigoX = corpo.getSize().x;
 	float deltaX = 0.0f;
@@ -56,6 +58,8 @@ void Inimigo::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo, 
 			x -= deltaX;
 		}
 	}
+
+	corpo.setPosition(x, y);
 }
 
 void Inimigo::mover() {

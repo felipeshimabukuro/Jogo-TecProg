@@ -2,14 +2,15 @@
 #include "Fase.h"
 #include "Terra.h"
 #include "Magma.h"
+#include "Topeira.h"
 
 namespace Fases {
     class Fase1 : public Fase {
     protected:
-        void criarCenario();
         void criarObstaculos();
         void criarInimigos();
         void criarFundo();
+        
 
     public:
         Fase1();

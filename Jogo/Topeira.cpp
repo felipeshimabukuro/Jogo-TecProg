@@ -12,7 +12,9 @@ const int Topeira::tempo_tiro = 5 MINUTOS;
 Topeira::Topeira(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
 	Inimigo(pos, tam, j),
 	cavando(false),
-	tiro_cd(0)
+	tiro_cd(0),
+	ticks(0),
+	max_ticks(60)
 {
 	boss = false;
 	num_vidas = 3;
@@ -71,7 +73,7 @@ void Topeira::seguir()
 
 	if (jogador)
 	{
-		persegueJogador(jogador->getCorpo().getPosition(), corpo.getPosition(), jogador);
+		persegueJogador(jogador);
 	}
 }
 
@@ -171,4 +173,12 @@ void Topeira::colisao(Entidade* ent, sf::Vector2f ds)
 	}
 	Inimigo::colisao(ent, ds);
 	
+}
+
+void Topeira::danificar(Jogador* p) {
+	ticks++;
+	if (ticks == max_ticks) {
+		p->receberDano(5);
+		ticks = 0;
+	}
 }

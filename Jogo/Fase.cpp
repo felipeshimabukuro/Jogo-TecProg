@@ -30,11 +30,6 @@ Fase::~Fase() {
 	pGC = NULL;
 }
 
-void Fase::criarTopeiras() {
-	Topeira* topeira = new Topeira(sf::Vector2f(300.0f, 200.0f), sf::Vector2f(GRID*2, GRID*2), pJogador1);
-	pGC->adicionarInimigo(topeira);
-}
-
 void Fase::blocosColocados() {
 	if (pJogador1 != NULL) {
 		std::list<Entidades::Obstaculo*>* pendentes = pJogador1->getBlocosPendentes();
@@ -57,3 +52,12 @@ void Fase::blocosColocados() {
 		}
 	}
 } 
+
+void Fase::criarCenario() {
+
+}
+
+void Fase::criarTopeiras() {
+	Topeira* topeira = new Topeira(sf::Vector2f(300.0f, 200.0f), sf::Vector2f(GRID * 2, GRID * 2), pJogador1);
+	pGC->adicionarInimigo(topeira);
+}

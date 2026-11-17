@@ -43,6 +43,6 @@ const bool Obstaculo::getQuebravel() const
 	return quebravel;
 }
 
-void Obstaculo::colisao(Entidade* ent, sf::Vector2f ds) {
+/*void Obstaculo::colisao(Entidade* ent, sf::Vector2f ds) {
 
-}
+}*/

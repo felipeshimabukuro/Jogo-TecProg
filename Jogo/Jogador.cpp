@@ -1,6 +1,7 @@
 #include "Jogador.h"
 #include "Obstaculo.h"
 #include "Terra.h"
+#include "Inimigo.h"
 
 using namespace Personagens;
 
@@ -50,7 +51,7 @@ void Jogador::salvar() {
 
 }
 
-int Jogador::getNum(){
+const int Jogador::getNum()const{
     return num;
 }
 void Jogador::mover() {
@@ -194,6 +195,11 @@ void Jogador::colisao(Entidade* ent, sf::Vector2f ds) {
     }
     else {
         Entidades::Entidade::colisao(ent, ds);
+
+        Personagens::Inimigo* inimigo = dynamic_cast<Personagens::Inimigo*>(ent);
+        if (inimigo != NULL) {
+            colidir(inimigo);
+        }
     }
 }
 void Jogador::place() {
@@ -213,7 +219,7 @@ void Jogador::place() {
     }
 }
 
-std::list<Entidades::Obstaculo*>* Jogador::getBlocosPendentes() {
+std::list<Entidades::Obstaculo*>* Jogador::getBlocosPendentes(){
     return &blocosPendentes;
 }
 
@@ -223,4 +229,24 @@ void Jogador::addInventario() {
 
 void Jogador::setChao(bool c) {
     chao = c;
+}
+
+void Jogador::operator++() {
+    num_vidas++;
+}
+
+void Jogador::colidir(Inimigo* pIn) {
+    if (pIn == NULL || !pIn->getAtivo()) {
+        return;
+    }
+
+    // Pulou em cima do inimigo (caindo e pés na parte superior): neutraliza
+    if (vely > 0.0f && (getY() + getTam().y) <= (pIn->getY() + pIn->getTam().y * 0.5f)) {
+        pIn->setAtivo(false);
+        vely = -15.0f * gravidade; // Pequeno impulso para cima ao pisar
+    }
+    else {
+        // Contato lateral: inimigo causa dano
+        pIn->danificar(this);
+    }
 }

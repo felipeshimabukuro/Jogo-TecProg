@@ -15,7 +15,7 @@ namespace Listas
 		~Elemento();
 		TE* getElemento() const;
 		Elemento<TE>* getProximo() const;
-		void setProximo(Elemento<TE>* pProximo);
+		void setProx(Elemento<TE>* pProximo);
 		void incluir(TE* pElemento);
 	};
 
@@ -46,7 +46,7 @@ namespace Listas
 	}
 
 	template<class TE>
-	void Elemento<TE>::setProximo(Elemento<TE>* pProximo)
+	void Elemento<TE>::setProx(Elemento<TE>* pProximo)
 	{
 		this->pProximo = pProximo;
 	}

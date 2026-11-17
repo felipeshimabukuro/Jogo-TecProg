@@ -13,9 +13,6 @@ Fase1::~Fase1() {
 
 }
 
-void Fase1::criarCenario() {
-
-}
 
 void Fase1::criarObstaculos() {
     for (int i = 0; i < 8; i++) {
@@ -96,3 +93,4 @@ void Fase1::executar() {
         list_ents.limparDestruidos();
     }
 }
+

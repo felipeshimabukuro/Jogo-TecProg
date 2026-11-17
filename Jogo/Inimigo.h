@@ -28,7 +28,7 @@ namespace Personagens {
 		//virtual void selecionarAlvo() = 0;
 		void mover();
 		sf::Vector2f distanciaAlvo(sf::Vector2f posJogador, sf::Vector2f posInimigo);
-		void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo, Jogador* j);
+		void persegueJogador(Jogador* j);
 		void movimentoAleatorio();
 		void salvar();
 		void receberDano(int dano);
@@ -37,5 +37,6 @@ namespace Personagens {
 		void colisao(Entidade* ent, sf::Vector2f ds);
 		const bool getBoss() const;
 		std::list<Entidades::Projetil*>* getProjeteisPendentes();
+		virtual void danificar(Jogador* p) = 0;
 	};
 }

@@ -15,11 +15,13 @@ namespace Fases {
 		Jogador* pJogador1;
 		sf::Sprite fundo;
 
-		void criarTopeiras();
+		
 		void blocosColocados();
-		virtual void criarCenario() = 0;
+		virtual void criarCenario();
 		virtual void criarObstaculos() = 0;
 		virtual void criarInimigos() = 0;
+		void criarTopeiras();
+		virtual void criarFundo() = 0;
 
 	public:
 		Fase();

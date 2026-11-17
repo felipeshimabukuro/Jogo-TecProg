@@ -14,7 +14,7 @@ namespace Entidades {
 		~Magma();
 
 		void obstaculizar(Jogador* p);
-		void colisao(Entidade* ent, sf::Vector2f ds);
+		//void colisao(Entidade* ent, sf::Vector2f ds);
 		void executar();
 		void inicializa();
 		void salvar();

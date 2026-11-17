@@ -34,7 +34,7 @@ namespace Personagens
 		void salvar();
 		void mover();
 		void pular();
-		int getNum();
+		const int getNum() const;
 		void cavar();
 		void place();
 		void receberDano(int dano);
@@ -42,5 +42,7 @@ namespace Personagens
 		list<Entidades::Obstaculo*>* getBlocosPendentes();
 		void addInventario();
 		void setChao(bool c);
+		void operator++();
+		void colidir(Inimigo* pIn);
 	};
 }

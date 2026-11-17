@@ -46,7 +46,7 @@ void Magma::obstaculizar(Jogador* p)
     }
 }
 
-void Magma::colisao(Entidade* ent, sf::Vector2f ds)
+/*void Magma::colisao(Entidade* ent, sf::Vector2f ds)
 {
     if (ent == NULL || !ent->getAtivo())
         return;
@@ -56,7 +56,7 @@ void Magma::colisao(Entidade* ent, sf::Vector2f ds)
     {
         obstaculizar(pJog);
     }
-}
+}*/
 
 void Magma::executar()
 {

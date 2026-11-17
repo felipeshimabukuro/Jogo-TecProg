@@ -6,7 +6,7 @@ using namespace Personagens;
 namespace Entidades {
 	class Terra :public Obstaculo {
 	private:
-		int ticks;
+		static int ticks;
 		int max_ticks;
 	public:
 		Terra(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel);
