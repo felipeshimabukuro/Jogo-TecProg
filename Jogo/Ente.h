@@ -19,6 +19,6 @@ public:
 	virtual ~Ente();
 	const int getID() const;
 	virtual void executar() = 0;
-	void desenhar(sf::RenderWindow* window);
+	virtual void desenhar(sf::RenderWindow* window);
 	void setTextura(const std::string& idTextura, const sf::Vector2f& tam = sf::Vector2f(0.0f, 0.0f));
  };

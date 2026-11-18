@@ -149,36 +149,38 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Chefao.cpp" />
+    <ClCompile Include="Chao.cpp" />
+    <ClCompile Include="Ratao.cpp" />
     <ClCompile Include="Ente.cpp" />
     <ClCompile Include="Entidade.cpp" />
     <ClCompile Include="Fase.cpp" />
-    <ClCompile Include="Fase1.cpp" />
+    <ClCompile Include="Caverna_Maldosa.cpp" />
     <ClCompile Include="Gerenciador_Colisao.cpp" />
     <ClCompile Include="Gerenciador_eventos.cpp" />
     <ClCompile Include="Gerenciador_grafico.cpp" />
     <ClCompile Include="Inimigo.cpp" />
     <ClCompile Include="Jogador.cpp" />
-    <ClCompile Include="Jogo.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="ListaEntidade.cpp" />
     <ClCompile Include="Magma.cpp" />
     <ClCompile Include="Obstaculo.cpp" />
     <ClCompile Include="Personagem.cpp" />
-    <ClCompile Include="Principal.cpp" />
+    <ClCompile Include="Jogo.cpp" />
     <ClCompile Include="Projetil.cpp" />
     <ClCompile Include="Proj_boss.cpp" />
     <ClCompile Include="Proj_top.cpp" />
-    <ClCompile Include="Terra.cpp" />
+    <ClCompile Include="Plataforma.cpp" />
     <ClCompile Include="Topeira.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bibliotecas.h" />
-    <ClInclude Include="Chefao.h" />
+    <ClInclude Include="Chao.h" />
+    <ClInclude Include="Ratao.h" />
     <ClInclude Include="Elemento.h" />
     <ClInclude Include="Ente.h" />
     <ClInclude Include="Entidade.h" />
     <ClInclude Include="Fase.h" />
-    <ClInclude Include="Fase1.h" />
+    <ClInclude Include="Caverna_Maldosa.h" />
     <ClInclude Include="Gerenciador_colisao.h" />
     <ClInclude Include="Gerenciador_eventos.h" />
     <ClInclude Include="Gerenciador_grafico.h" />
@@ -189,11 +191,11 @@
     <ClInclude Include="Magma.h" />
     <ClInclude Include="Obstaculo.h" />
     <ClInclude Include="Personagem.h" />
-    <ClInclude Include="Principal.h" />
+    <ClInclude Include="Jogo.h" />
     <ClInclude Include="Projetil.h" />
     <ClInclude Include="Proj_boss.h" />
     <ClInclude Include="Proj_top.h" />
-    <ClInclude Include="Terra.h" />
+    <ClInclude Include="Plataforma.h" />
     <ClInclude Include="Topeira.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

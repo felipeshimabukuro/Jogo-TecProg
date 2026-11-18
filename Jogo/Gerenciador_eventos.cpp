@@ -2,7 +2,7 @@
 #include "Gerenciador_grafico.h"
 #include "Gerenciador_eventos.h"
 #include "Jogador.h"
-#include "Principal.h"
+#include "Jogo.h"
 
 using namespace Gerenciadores;
 

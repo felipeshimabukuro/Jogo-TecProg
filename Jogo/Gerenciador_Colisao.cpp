@@ -1,5 +1,5 @@
 #include "Gerenciador_colisao.h"
-#include "Chefao.h"
+#include "Ratao.h"
 #include <algorithm>
 
 using namespace Gerenciadores;
@@ -108,6 +108,22 @@ void Gerenciador_colisao::removerProjetil(Projetil* pj) {
 	}
 }
 
+/*void Gerenciador_colisao::adicionarChao(Chao* pc) {
+	if (pc)
+	{
+		Entidade* pE = static_cast<Entidade*>(pc);
+		LE->incluir(pE);
+	}
+}
+
+void Gerenciador_colisao::removerChao(Chao* pc) {
+	if (pc)
+	{
+		Entidade* pE = static_cast<Entidade*>(pc);
+		LE->remover(pE);
+	}
+}*/
+
 const sf::Vector2f Gerenciador_colisao::calcularColisao(Entidade* ent1, Entidade* ent2)
 {
 	if (!ent1 || !ent2) return sf::Vector2f(0.0f, 0.0f);
@@ -148,7 +164,7 @@ void Gerenciador_colisao::tratarColisaoJogadorInimigo()
 
 				if(inim->getBoss())
 				{
-					Chefao* boss = static_cast<Chefao*>(inim);
+					Ratao* boss = static_cast<Ratao*>(inim);
 					if (boss && boss->getBatendo())
 					{
 						sf::FloatRect areaHit = boss->getHitboxBatida();
@@ -299,6 +315,7 @@ void Gerenciador_colisao::executar()
 	tratarColisaoJogadorProjetil();
 	tratarColisaoInimigoObstaculo();
 	tratarColisaoProjetilObstaculo();
+	tratarColisaoChao();
 }
 
 
@@ -367,6 +384,47 @@ void Gerenciador_colisao::tratarTiro() {
 					adicionarProjetil(proj);
 				}
 				itProj = pendentes->erase(itProj);
+			}
+		}
+	}
+}
+
+void Gerenciador_colisao::setChao(Entidades::Chao* chao) {
+	pChao = chao;
+	Entidade* pE = static_cast<Entidade*>(chao);
+	LE->incluir(pE);
+}
+
+void Gerenciador_colisao::tratarColisaoChao()
+{
+	if (!pChao) return;
+
+	// Pega a altura do topo do chão (coordenada Y)
+	float topoChao = pChao->getPos().y;
+
+	if (pJog1 && pJog1->getAtivo())
+	{
+		float peJogador = pJog1->getPos().y + pJog1->getTam().y;
+
+		if (peJogador >= topoChao)
+		{
+			pJog1->setPos(sf::Vector2f(pJog1->getPos().x, topoChao - pJog1->getTam().y));
+			pJog1->setChao(true);
+		}
+	}
+
+	std::vector<Personagens::Inimigo*>::iterator itIni;
+	for (itIni = LIs.begin(); itIni != LIs.end(); ++itIni)
+	{
+		Personagens::Inimigo* inim = *itIni;
+
+		if (inim && inim->getAtivo())
+		{
+			float peInimigo = inim->getPos().y + inim->getTam().y;
+
+			if (peInimigo >= topoChao)
+			{
+				inim->setPos(sf::Vector2f(inim->getPos().x, topoChao - inim->getTam().y));
 			}
 		}
 	}

@@ -4,13 +4,13 @@
 using namespace Personagens;
 
 namespace Entidades {
-	class Terra :public Obstaculo {
+	class Plataforma :public Obstaculo {
 	private:
 		static int ticks;
 		int max_ticks;
 	public:
-		Terra(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel);
-		~Terra();
+		Plataforma(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel);
+		~Plataforma();
 		void executar();
 		void salvar();
 		void obstaculizar(Jogador* p);

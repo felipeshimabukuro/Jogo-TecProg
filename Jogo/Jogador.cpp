@@ -1,6 +1,6 @@
 #include "Jogador.h"
 #include "Obstaculo.h"
-#include "Terra.h"
+#include "Plataforma.h"
 #include "Inimigo.h"
 
 using namespace Personagens;
@@ -207,7 +207,7 @@ void Jogador::place() {
         /*float posX = x;
         float posY = y + getTam().y + 2.0f;
         */
-        Entidades::Obstaculo* novoBloco = new Entidades::Terra(
+        Entidades::Obstaculo* novoBloco = new Entidades::Plataforma(
             x,
             y + getTam().y,
             GRID, GRID,

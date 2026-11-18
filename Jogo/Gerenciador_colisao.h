@@ -5,6 +5,7 @@
 #include "Inimigo.h"
 #include "Projetil.h"
 #include "ListaEntidade.h"
+#include "Chao.h"
 
 using namespace Listas;
 using namespace Entidades;
@@ -20,6 +21,7 @@ namespace Gerenciadores
 		set<Projetil*> LPs;
 		Jogador* pJog1;
 		ListaEntidade* LE;
+		Chao* pChao;
 
 		// Singleton
 		static Gerenciador_colisao* pColisao;
@@ -30,6 +32,7 @@ namespace Gerenciadores
 		void tratarColisaoJogadorProjetil();
 		void tratarColisaoInimigoObstaculo();
 		void tratarColisaoProjetilObstaculo();
+		void tratarColisaoChao();
 		const sf::Vector2f calcularColisao(Entidade* ent1, Entidade* ent2);
 		const sf::Vector2f calcularColisao(const sf::Vector2f pos1, const sf::Vector2f tam1, const sf::Vector2f pos2, const sf::Vector2f tam2);
 
@@ -49,5 +52,7 @@ namespace Gerenciadores
 		void executar();
 		void limparDestruidos();
 		void tratarTiro();
+		void setChao(Chao* chao);
+		void testarColisaoChao(Entidade* pEnt);
 	};
 }

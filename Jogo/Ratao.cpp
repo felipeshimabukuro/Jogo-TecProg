@@ -1,5 +1,5 @@
 #include "Bibliotecas.h"
-#include "Chefao.h"
+#include "Ratao.h"
 #include "Proj_boss.h"
 #include "Gerenciador_colisao.h"
 #define SEGUNDOS *60
@@ -9,7 +9,7 @@ using namespace Personagens;
 using namespace Entidades;
 using namespace Gerenciadores;
 
-Chefao::Chefao(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
+Ratao::Ratao(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
 	Inimigo(pos, tam, j),
 	estado("IDLE"),
 	forca(15),                       // Dano
@@ -48,11 +48,11 @@ Chefao::Chefao(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
 	corpo.setPosition(x, y);
 }
 
-Chefao::~Chefao()
+Ratao::~Ratao()
 {
 }
 
-void Chefao::criarTerra(int dir, int ind)
+void Ratao::criarTerra(int dir, int ind)
 {
 	float spawn_x = x_batida + 20;
 	float spawn_y = y_batida;
@@ -72,7 +72,7 @@ void Chefao::criarTerra(int dir, int ind)
 	}
 }
 
-void Chefao::verificarAtaque()
+void Ratao::verificarAtaque()
 {
 	if (ataque_cd > 0)
 	{
@@ -106,7 +106,7 @@ void Chefao::verificarAtaque()
 	}
 }
 
-void Chefao::idle()
+void Ratao::idle()
 {
 	verificarAtaque();
 	if (estado == "BATENDO")
@@ -127,7 +127,7 @@ void Chefao::idle()
 	}
 }
 
-void Chefao::movimentar()
+void Ratao::movimentar()
 {
 	verificarAtaque();
 	if (estado == "BATENDO")
@@ -145,7 +145,7 @@ void Chefao::movimentar()
 	corpo.setPosition(x, y);
 }
 
-void Chefao::bater()
+void Ratao::bater()
 {
 	velx = 0.0f;
 
@@ -201,7 +201,7 @@ void Chefao::bater()
 	}
 }
 
-void Chefao::executar()
+void Ratao::executar()
 {
 	if(estado == "IDLE")
 	{
@@ -261,7 +261,7 @@ void Chefao::executar()
 	}
 }
 
-void Chefao::colisao(Entidade* ent, sf::Vector2f ds)
+void Ratao::colisao(Entidade* ent, sf::Vector2f ds)
 {
 	if (!ent)
 		return;
@@ -294,7 +294,7 @@ void Chefao::colisao(Entidade* ent, sf::Vector2f ds)
 	}
 }
 
-const sf::FloatRect Chefao::getHitboxBatida() const
+const sf::FloatRect Ratao::getHitboxBatida() const
 {
 	if (!batendo)
 		return sf::FloatRect(0.0f, 0.0f, 0.0f, 0.0f);
@@ -307,12 +307,12 @@ const sf::FloatRect Chefao::getHitboxBatida() const
 	);
 }
 
-const bool Chefao::getBatendo() const
+const bool Ratao::getBatendo() const
 {
 	return batendo;
 }
 
-const short int Chefao::getForca() const
+const short int Ratao::getForca() const
 {
 	return forca;
 }
