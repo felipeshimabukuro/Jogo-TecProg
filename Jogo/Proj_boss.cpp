@@ -57,7 +57,7 @@ void Proj_boss::colisao(Entidade* ent, sf::Vector2f ds)
 
 			if (i >= 2)
 			{
-				lado *= 2;
+				lado *= i;
 			}
 
 			Projetil* proj = new Proj_top(lado, spawnX, spawnY);

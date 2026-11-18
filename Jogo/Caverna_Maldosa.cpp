@@ -2,11 +2,13 @@
 
 using namespace Fases;
 
-Caverna_Maldosa::Caverna_Maldosa() :Fase() {
-	criarFundo();
+Caverna_Maldosa::Caverna_Maldosa() :Fase()
+{
+    tilemap.open("fases/caverna_maldosa.txt");
     criarCenario();
-    criarObstaculos();
-    criarInimigos();
+    //criarObstaculos();
+    //criarInimigos();
+	
 }
 
 Caverna_Maldosa::~Caverna_Maldosa() {
@@ -14,31 +16,19 @@ Caverna_Maldosa::~Caverna_Maldosa() {
 }
 
 
-void Caverna_Maldosa::criarObstaculos() {
-    for (int i = 0; i < 8; i++) {
-        Plataforma* terra1 = new Plataforma(GRID * i, 450.0f, GRID, GRID, 0, false, true);
-        pGC->adicionarObstaculo(terra1);
-    }
+/*void Caverna_Maldosa::criarObstaculos() {
 
-    for (int i = 8; i < WIDTH/GRID; i++) {
-        Magma* magma = new Magma(GRID * i, 450.0f, GRID, GRID, 5, true, false);
-        pGC->adicionarObstaculo(magma);
-    }
+}*/
 
-    for (int i = 0; i < WIDTH/GRID; i++) {
-        Plataforma* terra2 = new Plataforma(GRID * i, 300.0f, GRID, GRID, 0, false, true);
-        pGC->adicionarObstaculo(terra2);
-    }
-
-    //Chao* chao = new Chao(sf::Vector2f(0.0f, 600.0f - 50.0f), sf::Vector2f(800.0f, 50.0f));
-    //pGC->adicionarChao(chao);
-    Chao* chao = new Chao(sf::Vector2f(0.0f, 780.0f), sf::Vector2f(WIDTH, 300.0f));
-    pGC->setChao(chao);
+void Caverna_Maldosa::criarMagma(sf::Vector2f pos)
+{
+    Magma* magma = new Magma(pos.x, pos.y, GRID, GRID, 5, true, false);
+    pGC->adicionarObstaculo(magma);
 }
 
-void Caverna_Maldosa::criarInimigos() {
-    criarTopeiras();
-}
+/* void Caverna_Maldosa::criarInimigos() {
+    
+}*/
 
 void Caverna_Maldosa::criarFundo() 
 {
@@ -48,14 +38,14 @@ void Caverna_Maldosa::criarFundo()
         if (tex) 
         {
             tex->setRepeated(true);
-            fundo.setTexture(*tex);
+            sprite.setTexture(*tex);
 
-			fundo.setScale(3.0f, 3.0f); //relacao grid com o tamanho da textura
+            sprite.setScale(3.0f, 3.0f); //relacao grid com o tamanho da textura
 
             int larguraRepeticao = static_cast<int>(WIDTH / 3.0f);
             int alturaRepeticao = static_cast<int>(HEIGHT / 3.0f);
-            fundo.setTextureRect(sf::IntRect(0, 0, larguraRepeticao, alturaRepeticao));
-            fundo.setPosition(0.0f, 0.0f);
+            sprite.setTextureRect(sf::IntRect(0, 0, larguraRepeticao, alturaRepeticao));
+            sprite.setPosition(0.0f, 0.0f);
         }
     }
 }
@@ -64,15 +54,61 @@ void Caverna_Maldosa::executar() {
     while (pGG->verificaJanelaAberta())
     {
         pEv->executar();
-        list_ents.percorrer();
+        lista_ents.percorrer();
         pGC->executar();
         blocosColocados();
         pGG->limpaJanela();
-        pGG->getWindow()->draw(fundo);
-        list_ents.desenharTodas(pGG);
+        pGG->getWindow()->draw(sprite);
+        lista_ents.desenharTodas(pGG);
         pGG->mostrarJanela();
         pGC->limparDestruidos();
-        list_ents.limparDestruidos();
+        lista_ents.limparDestruidos();
     }
 }
 
+void Caverna_Maldosa::criarEntidade(char tipo, sf::Vector2f pos) {
+    switch (tipo)
+    {
+        case('#'):
+            criarChao(pos);
+            break;
+
+        case('@'):
+            criarPlataforma(pos);
+            break;
+
+        case('j'):
+            posJogador(pos);
+            break;
+
+        case('T'):
+            criarTopeira(pos);
+            break;
+
+		case('t'):
+        {
+            if(rand()%3 == 0)
+            {
+                criarTopeira(pos);
+            }
+        }
+            break;
+
+        case('R'):
+            criarTopeira(pos);
+            break;
+
+        case('r'):
+        {
+            if (rand() % 3 == 0)
+            {
+                criarTopeira(pos);
+            }
+        }
+            break;
+
+        case('m'):
+            criarMagma(pos);
+            break;
+    }
+}

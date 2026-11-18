@@ -1,0 +1,15 @@
+cada fase tem 40x22 Grids (48x48)
+
+j -> jogador
+
+# -> chao
+@ -> terra
+m -> magma
+e -> espinho
+
+T -> topeira
+t -> rand topeira
+R -> rato
+r -> rand rato
+B -> ratao
+b -> rand ratao

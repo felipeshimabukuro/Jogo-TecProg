@@ -12,12 +12,13 @@
 
 #include <stdlib.h>
 #include <sstream>
+#include <fstream>
 
 #include <SFML/Graphics.hpp>
 
 using namespace std;
 
 #define WIDTH 1920
-#define HEIGHT 1080
+#define HEIGHT 1056
 
 #define GRID 48.0f

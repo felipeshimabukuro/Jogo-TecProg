@@ -59,7 +59,8 @@ void Inimigo::persegueJogador(Jogador* j) {
 		}
 	}
 
-	corpo.setPosition(x, y);
+	sf::Vector2f pos (x, y);
+	setPos(pos);
 }
 
 void Inimigo::mover() {
@@ -93,6 +94,7 @@ void Inimigo::setPos(const sf::Vector2f pos) {
 	x = pos.x;
 	y = pos.y;
 	corpo.setPosition(x, y);
+	sprite.setPosition(x, y); 
 }
 
 void Inimigo::executar() {

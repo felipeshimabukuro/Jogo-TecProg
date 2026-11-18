@@ -4,17 +4,17 @@
 
 using namespace Fases;
 
-Fase::Fase():Ente(), list_ents(),
+Fase::Fase():Ente(), lista_ents(),
 pGC(Gerenciadores::Gerenciador_colisao::getGerenciadorColisao()),
 pEv(Gerenciadores::Gerenciador_eventos::getGerenciadorEventos()),
 pGG(Gerenciadores::Gerenciador_grafico::getGerenciadorGrafico()),
 pJogador1(NULL)
 {
 	if (pGC) {
-		pGC->setListaEntidade(&list_ents);
+		pGC->setListaEntidade(&lista_ents);
 	}
 
-	pJogador1 = new Jogador(sf::Vector2f(100.0f, 200.0f), sf::Vector2f(GRID, GRID), 0);
+	pJogador1 = new Jogador(sf::Vector2f(0, 0), sf::Vector2f(GRID, GRID), 0);
 
 	if (pGC && pJogador1) {
 		pGC->setJogador(pJogador1);
@@ -53,11 +53,53 @@ void Fase::blocosColocados() {
 	}
 } 
 
-void Fase::criarCenario() {
-
+void Fase::criarTopeira(sf::Vector2f pos) {
+	Topeira* topeira = new Topeira(pos, sf::Vector2f(GRID * 2, GRID * 2), pJogador1);
+	pGC->adicionarInimigo(topeira);
 }
 
-void Fase::criarTopeiras() {
-	Topeira* topeira = new Topeira(sf::Vector2f(300.0f, 200.0f), sf::Vector2f(GRID * 2, GRID * 2), pJogador1);
-	pGC->adicionarInimigo(topeira);
+void Fase::criarChao(sf::Vector2f pos)
+{
+	//Chao* chao = new Chao(sf::Vector2f(0.0f, 600.0f - 50.0f), sf::Vector2f(800.0f, 50.0f));
+	//pGC->adicionarChao(chao);
+	Chao* chao = new Chao(pos, sf::Vector2f(WIDTH, 300.0f));
+	pGC->setChao(chao);
+}
+
+void Fase::criarPlataforma(sf::Vector2f pos)
+{
+	Plataforma* terra2 = new Plataforma(pos.x, pos.y, GRID, GRID, 0, false, true);
+	pGC->adicionarObstaculo(terra2);
+}
+
+void Fase::posJogador(sf::Vector2f pos)
+{
+	pJogador1->setPos(pos);
+}
+
+void Fase::criarCenario() 
+{
+	criarFundo();
+
+	string linha;
+	if (!tilemap.is_open())
+	{
+		cout << "Erro ao abrir o arquivo de tilemap!" << endl;
+		return;
+	}
+
+	int i = 0;
+	while(getline(tilemap, linha))
+	{
+		for(int j = 0; j < linha.length(); j++)
+		{
+			if(linha[j] != ' ')
+			{
+				sf::Vector2f pos(j * GRID, i * GRID);
+				criarEntidade(linha[j], pos);
+			}
+		}
+		i++;
+	}
+	tilemap.close();
 }
