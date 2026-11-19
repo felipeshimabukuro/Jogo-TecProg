@@ -1,11 +1,11 @@
 #include "Fase.h"
-#include "Topeira.h"
-#include "Ratao.h"
-#include "Rato.h"
 
 using namespace Fases;
 
-Fase::Fase():Ente(), lista_ents(),
+Fase::Fase():Ente(), 
+maxTopeiras(5),
+contTopeiras(0),
+lista_ents(),
 pGC(Gerenciadores::Gerenciador_colisao::getGerenciadorColisao()),
 pEv(Gerenciadores::Gerenciador_eventos::getGerenciadorEventos()),
 pGG(Gerenciadores::Gerenciador_grafico::getGerenciadorGrafico()),
@@ -55,10 +55,8 @@ void Fase::blocosColocados() {
 } 
 
 void Fase::criarTopeira(sf::Vector2f pos) {
-	//Topeira* topeira = new Topeira(pos, sf::Vector2f(GRID * 2, GRID * 2), pJogador1);
-	//pGC->adicionarInimigo(topeira);
-	Rato* rato = new Rato(pos, sf::Vector2f(GRID * 2, GRID * 2), pJogador1);
-	pGC->adicionarInimigo(rato);
+	Topeira* topeira = new Topeira(pos, sf::Vector2f(GRID * 2, GRID * 2), pJogador1);
+	pGC->adicionarInimigo(topeira);
 }
 
 void Fase::criarChao(sf::Vector2f pos)

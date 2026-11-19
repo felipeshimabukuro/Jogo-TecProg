@@ -21,6 +21,9 @@ Rato::Rato(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
 	vely = 0.0f;
 	estado = "IDLE";
 
+	corpo.setSize(tam);
+	corpo.setPosition(x, y);
+	sprite.setPosition(x, y);
 	inicializa();
 }
 
@@ -75,6 +78,20 @@ void Rato::atualizaLado()
 		{
 			lado = -1;
 		}
+
+		const sf::Texture* tex = sprite.getTexture();
+		if (tex) {
+			int w = tex->getSize().x;
+			int h = tex->getSize().y;
+			if (lado == 1) {
+				sprite.setTextureRect(sf::IntRect(0, 0, w, h));
+				sprite.setOrigin(0.0f, 0.0f);
+			}
+			else {
+				sprite.setTextureRect(sf::IntRect(w, 0, -w, h));
+				sprite.setOrigin(0.0f, 0.0f);
+			}
+		}
 	}
 }
 
@@ -117,6 +134,7 @@ void Rato::executar()
 	mover();
 
 	corpo.setPosition(x, y);
+	sprite.setPosition(x, y);
 }
 
 void Rato::colisao(Entidade* ent, sf::Vector2f ds)
@@ -157,11 +175,6 @@ void Rato::danificar(Jogador* p) {
 	p->pular();
 }
 
-void Rato::desenhar(sf::RenderWindow* window)
-{
-	window->draw(corpo);
-}
-
 void Rato::inicializa() {
-	corpo.setFillColor(sf::Color(80, 80, 80));
+	setTextura("rato", getTam());
 }

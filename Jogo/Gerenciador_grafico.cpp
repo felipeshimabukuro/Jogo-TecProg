@@ -23,6 +23,11 @@ Gerenciador_grafico::Gerenciador_grafico() :
 	carregarTextura("terra", "assets/terra.png");
 	carregarTextura("magma", "assets/magma.png");
 	carregarTextura("fundo", "assets/fundo.png");
+	carregarTextura("fundo2", "assets/fundo2.png");
+	carregarTextura("espinho", "assets/espinho.png");
+	carregarTextura("rato", "assets/rato.png");
+	carregarTextura("ratao", "assets/boss.png");
+	carregarTextura("boss", "assets/boss.png");
 	// ================================================================
 }
 

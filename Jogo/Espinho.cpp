@@ -26,11 +26,7 @@ void Espinho::obstaculizar(Jogador* p) { // pensar em um obstaculizar melhor
 
 void Espinho::inicializa() {
 	corpo.setSize(sf::Vector2f(largura, altura));
+	setTextura("espinho", sf::Vector2f(largura, altura));
 	corpo.setPosition(x, y);
-	corpo.setFillColor(sf::Color(128, 128, 128));
-}
-
-void Espinho::desenhar(sf::RenderWindow* window)
-{
-	window->draw(corpo);
+	sprite.setPosition(x, y);
 }

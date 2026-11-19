@@ -2,7 +2,7 @@
 
 using namespace Fases;
 
-Caverna_Maldosa::Caverna_Maldosa() :Fase()
+Caverna_Maldosa::Caverna_Maldosa() :Fase(), maxRato(5), contRato(0)
 {
     tilemap.open("fases/caverna_maldosa.txt");
     criarCenario();
@@ -22,10 +22,14 @@ Caverna_Maldosa::~Caverna_Maldosa() {
 
 void Caverna_Maldosa::criarMagma(sf::Vector2f pos)
 {
-    //Magma* magma = new Magma(pos.x, pos.y, GRID, GRID, 5, true, false);
-    //pGC->adicionarObstaculo(magma);
-    Espinho* magma = new Espinho(pos.x, pos.y, GRID, GRID, 5, true, false);
+    Magma* magma = new Magma(pos.x, pos.y, GRID, GRID, 5, true, false);
     pGC->adicionarObstaculo(magma);
+}
+
+void Caverna_Maldosa::criarRato(sf::Vector2f pos)
+{
+    Rato* rato = new Rato(pos, sf::Vector2f(GRID, GRID), pJogador1);
+    pGC->adicionarInimigo(rato);
 }
 
 /* void Caverna_Maldosa::criarInimigos() {
@@ -89,22 +93,24 @@ void Caverna_Maldosa::criarEntidade(char tipo, sf::Vector2f pos) {
 
 		case('t'):
         {
-            if(rand()%3 == 0)
+            if(contTopeiras < maxTopeiras && rand()%3 != 0)
             {
                 criarTopeira(pos);
+                contTopeiras++;
             }
         }
             break;
 
         case('R'):
-            criarTopeira(pos);
+            criarRato(pos);
             break;
 
         case('r'):
         {
-            if (rand() % 3 == 0)
+            if(contRato < maxRato && rand() % 3 != 0)
             {
-                criarTopeira(pos);
+                criarRato(pos);
+                contRato++;
             }
         }
             break;

@@ -24,6 +24,5 @@ namespace Personagens
         void executar() override;
         void colisao(Entidades::Entidade* ent, sf::Vector2f ds) override;
         void danificar(Jogador* p);
-        void desenhar(sf::RenderWindow* window);
     };
 }

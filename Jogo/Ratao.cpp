@@ -46,6 +46,10 @@ Ratao::Ratao(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
 	corpo.setSize(tam);
 	corpo.setFillColor(COR_DEFAULT);
 	corpo.setPosition(x, y);
+
+	setTextura("ratao", getTam());
+	sprite.setPosition(x, y);
+	atualizaLado();
 }
 
 Ratao::~Ratao()
@@ -201,6 +205,23 @@ void Ratao::bater()
 	}
 }
 
+void Ratao::atualizaLado()
+{
+	const sf::Texture* tex = sprite.getTexture();
+	if (tex) {
+		int w = tex->getSize().x;
+		int h = tex->getSize().y;
+		if (lado == 1) {
+			sprite.setTextureRect(sf::IntRect(w, 0, -w, h));
+			sprite.setOrigin(0.0f, 0.0f);
+		}
+		else {
+			sprite.setTextureRect(sf::IntRect(0, 0, w, h));
+			sprite.setOrigin(0.0f, 0.0f);
+		}
+	}
+}
+
 void Ratao::executar()
 {
 	if(estado == "IDLE")
@@ -223,31 +244,35 @@ void Ratao::executar()
 	}
 	y += vely;
 	corpo.setPosition(x, y);
+	sprite.setPosition(x, y);
+	atualizaLado();
 
 	if (tempo_imune > 0)
 	{
 		tempo_imune--;
 
-		// pisca quando tiver acontecendo algo, deve sumir quando implementarmos as texturas
 		if ((tempo_imune / 5) % 2 == 0)
 		{
 			corpo.setFillColor(sf::Color(255, 120, 120));
+			sprite.setColor(sf::Color(255, 120, 120));
 		}
 		else
 		{
 			corpo.setFillColor(COR_DEFAULT);
+			sprite.setColor(sf::Color::White);
 		}
 	}
 	else
 	{
-		//mesma coisa
 		if (batendo)
 		{
 			corpo.setFillColor(sf::Color(220, 50, 20));
+			sprite.setColor(sf::Color(255, 180, 180));
 		}
 		else
 		{
 			corpo.setFillColor(COR_DEFAULT);
+			sprite.setColor(sf::Color::White);
 		}
 	}
 
@@ -315,4 +340,8 @@ const bool Ratao::getBatendo() const
 const short int Ratao::getForca() const
 {
 	return forca;
+}
+
+void Ratao::danificar(Jogador* p)
+{ 
 }

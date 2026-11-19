@@ -15,6 +15,5 @@ namespace Entidades {
 		void salvar();
 		void obstaculizar(Jogador* p);
 		void inicializa();
-		void desenhar(sf::RenderWindow* window);
 	};
 }

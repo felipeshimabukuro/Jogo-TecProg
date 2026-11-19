@@ -9,12 +9,14 @@ Proj_boss::Proj_boss(int vX, int vY, short int direcao):
 	Projetil(vX, vY, direcao),
 	fragmentos(3)
 {
+	velY = 0;
 	srand(time(NULL));
 	setFragmentos(rand() % 2 + 3);
 
 	corpo.setSize(sf::Vector2f(28.0f, 28.0f));
-	corpo.setFillColor(sf::Color::Yellow); 
 	corpo.setPosition(x, y);
+	setTextura("terra", getTam());
+	sprite.setPosition(x, y);
 }
 
 Proj_boss::~Proj_boss()

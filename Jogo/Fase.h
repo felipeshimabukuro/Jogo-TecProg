@@ -1,14 +1,21 @@
 #pragma once
 
 #include "Ente.h"
+
 #include "Gerenciador_colisao.h"
-#include "ListaEntidade.h"
 #include "Gerenciador_eventos.h"
+#include "ListaEntidade.h"
+
+#include "Chao.h"
 #include "Plataforma.h"
+#include "Topeira.h"
 
 namespace Fases {
 	class Fase : public Ente {
 	protected:
+		const int maxTopeiras;
+		int contTopeiras;
+
 		ListaEntidade lista_ents;
 		Gerenciadores::Gerenciador_colisao* pGC;
 		Gerenciadores::Gerenciador_eventos* pEv;

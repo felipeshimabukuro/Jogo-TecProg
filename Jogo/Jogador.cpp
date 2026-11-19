@@ -240,13 +240,15 @@ void Jogador::colidir(Inimigo* pIn) {
         return;
     }
 
-    // Pulou em cima do inimigo (caindo e pés na parte superior): neutraliza
+    if (pIn->getBoss()) {
+        return;
+    }
+
     if (vely > 0.0f && (getY() + getTam().y) <= (pIn->getY() + pIn->getTam().y * 0.5f)) {
         pIn->setAtivo(false);
-        vely = -15.0f * gravidade; // Pequeno impulso para cima ao pisar
+        vely = -15.0f * gravidade;
     }
     else {
-        // Contato lateral: inimigo causa dano
         pIn->danificar(this);
     }
 }

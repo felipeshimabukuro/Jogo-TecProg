@@ -40,11 +40,14 @@ namespace Personagens
 		void idle();
 		void movimentar();
 		void bater();
+		void atualizaLado();
 		void executar();
 		void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f));
 
 		const sf::FloatRect getHitboxBatida() const;
 		const bool getBatendo() const;
 		const short int getForca() const;
+
+		void danificar(Jogador* p);
 	};
 }
