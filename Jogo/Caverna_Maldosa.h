@@ -3,6 +3,7 @@
 #include "Magma.h"
 #include "Topeira.h"
 #include "Chao.h"
+#include "Espinho.h"
 
 namespace Fases {
     class Caverna_Maldosa : public Fase {

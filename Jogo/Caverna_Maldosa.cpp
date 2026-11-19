@@ -22,7 +22,9 @@ Caverna_Maldosa::~Caverna_Maldosa() {
 
 void Caverna_Maldosa::criarMagma(sf::Vector2f pos)
 {
-    Magma* magma = new Magma(pos.x, pos.y, GRID, GRID, 5, true, false);
+    //Magma* magma = new Magma(pos.x, pos.y, GRID, GRID, 5, true, false);
+    //pGC->adicionarObstaculo(magma);
+    Espinho* magma = new Espinho(pos.x, pos.y, GRID, GRID, 5, true, false);
     pGC->adicionarObstaculo(magma);
 }
 

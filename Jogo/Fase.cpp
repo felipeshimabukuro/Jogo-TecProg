@@ -1,6 +1,7 @@
 #include "Fase.h"
 #include "Topeira.h"
 #include "Ratao.h"
+#include "Rato.h"
 
 using namespace Fases;
 
@@ -54,8 +55,10 @@ void Fase::blocosColocados() {
 } 
 
 void Fase::criarTopeira(sf::Vector2f pos) {
-	Topeira* topeira = new Topeira(pos, sf::Vector2f(GRID * 2, GRID * 2), pJogador1);
-	pGC->adicionarInimigo(topeira);
+	//Topeira* topeira = new Topeira(pos, sf::Vector2f(GRID * 2, GRID * 2), pJogador1);
+	//pGC->adicionarInimigo(topeira);
+	Rato* rato = new Rato(pos, sf::Vector2f(GRID * 2, GRID * 2), pJogador1);
+	pGC->adicionarInimigo(rato);
 }
 
 void Fase::criarChao(sf::Vector2f pos)

@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Chao.cpp" />
+    <ClCompile Include="Espinho.cpp" />
     <ClCompile Include="Ratao.cpp" />
     <ClCompile Include="Ente.cpp" />
     <ClCompile Include="Entidade.cpp" />
@@ -170,11 +171,13 @@
     <ClCompile Include="Proj_boss.cpp" />
     <ClCompile Include="Proj_top.cpp" />
     <ClCompile Include="Plataforma.cpp" />
+    <ClCompile Include="Rato.cpp" />
     <ClCompile Include="Topeira.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bibliotecas.h" />
     <ClInclude Include="Chao.h" />
+    <ClInclude Include="Espinho.h" />
     <ClInclude Include="Ratao.h" />
     <ClInclude Include="Elemento.h" />
     <ClInclude Include="Ente.h" />
@@ -196,6 +199,7 @@
     <ClInclude Include="Proj_boss.h" />
     <ClInclude Include="Proj_top.h" />
     <ClInclude Include="Plataforma.h" />
+    <ClInclude Include="Rato.h" />
     <ClInclude Include="Topeira.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
