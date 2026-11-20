@@ -4,7 +4,7 @@ using namespace Entidades;
 
 int Plataforma::ticks(0);
 
-Plataforma::Plataforma(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel):Obstaculo(x,y,largura,altura,dano,danoso,quebravel) , max_ticks(60){
+Plataforma::Plataforma(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel):Obstaculo(x,y,largura,altura,dano,danoso,quebravel) , max_ticks(180){
 	inicializa();
 }
 
@@ -25,7 +25,7 @@ void Plataforma::obstaculizar(Jogador* p) { // pensar em um obstaculizar melhor
 	ticks++;
 	if (ticks == max_ticks) {
 		ticks = 0;
-		p->operator++();
+		p->removerInventario();
 	}
 }
 

@@ -17,7 +17,7 @@ Topeira::Topeira(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
 {
 	dist_detec = 350;
 	boss = false;
-	num_vidas = 3;
+	num_vidas = 5;
 	lado = 1;                        // Olhando para a direita
 	x = pos.x;
 	y = pos.y;
@@ -127,9 +127,6 @@ void Topeira::colisao(Entidade* ent, sf::Vector2f ds)
 		if (ds.x <= ds.y && pesJogador <= y + 15.0f && pJog->getVely() >= 0.0f)
 		{
 			pJog->setPos(sf::Vector2f(pJog->getX(), y - pJog->getTam().y - 8.0f));
-			pJog->setChao(true);
-			pJog->pular();
-			setAtivo(false);
 		}
 		return;
 	}
@@ -140,7 +137,7 @@ void Topeira::colisao(Entidade* ent, sf::Vector2f ds)
 void Topeira::danificar(Jogador* p) {
 	ticks++;
 	if (ticks == max_ticks) {
-		p->receberDano(5);
+		p->receberDano(dano);
 		ticks = 0;
 	}
 }

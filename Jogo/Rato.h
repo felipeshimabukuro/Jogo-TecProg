@@ -21,8 +21,9 @@ namespace Personagens
         bool perto();
         void atualizaLado();
         void inicializa();
-        void executar() override;
+        void executar();
         void colisao(Entidades::Entidade* ent, sf::Vector2f ds) override;
         void danificar(Jogador* p);
+       //void mover();
     };
 }

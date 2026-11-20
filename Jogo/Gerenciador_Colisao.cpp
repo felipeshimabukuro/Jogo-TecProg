@@ -108,22 +108,6 @@ void Gerenciador_colisao::removerProjetil(Projetil* pj) {
 	}
 }
 
-/*void Gerenciador_colisao::adicionarChao(Chao* pc) {
-	if (pc)
-	{
-		Entidade* pE = static_cast<Entidade*>(pc);
-		LE->incluir(pE);
-	}
-}
-
-void Gerenciador_colisao::removerChao(Chao* pc) {
-	if (pc)
-	{
-		Entidade* pE = static_cast<Entidade*>(pc);
-		LE->remover(pE);
-	}
-}*/
-
 const sf::Vector2f Gerenciador_colisao::calcularColisao(Entidade* ent1, Entidade* ent2)
 {
 	if (!ent1 || !ent2) return sf::Vector2f(0.0f, 0.0f);
@@ -302,6 +286,13 @@ bool Gerenciadores::Gerenciador_colisao::posicaoLivre(sf::Vector2f pos, sf::Vect
 		}
 	}
 
+	if (pChao) {
+		sf::Vector2f ds = calcularColisao(pos, tam, pChao->getPos(), pChao->getTam());
+		if (ds.x < 0.0f && ds.y < 0.0f) {
+			return false;
+		}
+	}
+
 	return true;
 }
 
@@ -309,6 +300,7 @@ bool Gerenciadores::Gerenciador_colisao::posicaoLivre(sf::Vector2f pos, sf::Vect
 
 void Gerenciador_colisao::executar()
 {
+	pJog1->resetarChao();
 	tratarTiro();
 	tratarColisaoJogadorInimigo();
 	tratarColisaoJogadorObstaculo();

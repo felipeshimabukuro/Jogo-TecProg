@@ -7,7 +7,7 @@ using namespace Personagens;
 
 int Jogador::pontos = 0;
 
-Jogador::Jogador() :Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), inventario(0) {
+Jogador::Jogador() :Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), inventario(0){
     inicializa();
 }
 
@@ -23,13 +23,14 @@ void Jogador::inicializa() { //tive q mudar pq tava dando mto b.o., nao rodava s
     chaoAtual = NULL;
     acaoPressionada = false;
 	num_vidas = 100;
+    dano = 5;
 
     vel = sf::Vector2f(max_velx, max_vely);
 
     corpo.setSize(sf::Vector2f(GRID, GRID));
     corpo.setPosition(x, y);
 
-	setTextura("jogador1", sf::Vector2f(GRID, GRID));
+	setTextura("jogador1", sf::Vector2f(GRID, GRID));   
 }
 
 Jogador::~Jogador() {
@@ -194,11 +195,13 @@ void Jogador::colisao(Entidade* ent, sf::Vector2f ds) {
         }
     }
     else {
-        Entidades::Entidade::colisao(ent, ds);
-
         Personagens::Inimigo* inimigo = dynamic_cast<Personagens::Inimigo*>(ent);
+
         if (inimigo != NULL) {
-            colidir(inimigo);
+            colidir(inimigo); 
+        }
+        else {
+            Entidades::Entidade::colisao(ent, ds);
         }
     }
 }
@@ -245,10 +248,26 @@ void Jogador::colidir(Inimigo* pIn) {
     }
 
     if (vely > 0.0f && (getY() + getTam().y) <= (pIn->getY() + pIn->getTam().y * 0.5f)) {
-        pIn->setAtivo(false);
-        vely = -15.0f * gravidade;
+        setChao(true);
+        pular();
+        pIn->receberDano(dano);
     }
     else {
         pIn->danificar(this);
     }
+}
+
+/*void Jogador::setVelx(float vel) {
+    velx = vel;
+}*/
+
+void Jogador::removerInventario() {
+    if (inventario > 0) {
+        inventario--;
+    }
+}
+
+void Jogador::resetarChao() {
+    chao = false;
+    chaoAtual = NULL;
 }

@@ -44,5 +44,8 @@ namespace Personagens
 		void setChao(bool c);
 		void operator++();
 		void colidir(Inimigo* pIn);
+		//void setVelx(float vel);
+		void removerInventario();
+		void resetarChao();
 	};
 }

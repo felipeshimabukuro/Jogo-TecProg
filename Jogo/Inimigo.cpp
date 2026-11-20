@@ -6,7 +6,7 @@ using namespace Personagens;
 const int Inimigo::walk_tm = 120;
 
 Inimigo::Inimigo(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j):
-Personagem(pos,tam),relogio(),jogador(j), dist_detec(100)
+Personagem(pos,tam),relogio(),jogador(j), dist_detec(100), nivel_maldade(rand()%5 + 1)
 {
 	inicializa();
 	srand(time(NULL));
@@ -19,6 +19,7 @@ Inimigo::~Inimigo() {
 
 void Inimigo::inicializa() {
 	vel = sf::Vector2f(max_velx/5.0f, max_vely/5.0f);
+	dano = nivel_maldade;
 
 	corpo.setSize(sf::Vector2f(GRID, GRID));
 	corpo.setFillColor(sf::Color::Red);
@@ -73,6 +74,7 @@ void Inimigo::mover() {
 		vely += gravidade;
 	}
 	y += vely;
+	x += velx;
 
 	sf::Vector2f pos(x, y);
 	setPos(pos);
@@ -83,11 +85,12 @@ void Inimigo::salvar() {
 }
 
 void Inimigo::receberDano(int dano) {
-	if (num_vidas > 0) {
-		num_vidas -= dano;
-		cout << "Vidas inimigo" << num_vidas << endl;
+	num_vidas -= dano;
+	if (num_vidas > 0) {	
+		cout << "Vidas inimigo " << num_vidas << endl;
 	}
 	else {
+		cout << "Inimigo neutralizado" << endl;
 		setAtivo(false);
 	}
 }
@@ -95,6 +98,14 @@ void Inimigo::receberDano(int dano) {
 void Inimigo::setPos(const sf::Vector2f pos) {
 	x = pos.x; 
 	y = pos.y;
+
+	if (x < 0.0f) {
+		x = 0.0f;
+	}
+	else if (x > WIDTH - corpo.getSize().x) {
+		x = WIDTH - corpo.getSize().x;
+	}
+
 	corpo.setPosition(x, y);
 	sprite.setPosition(x, y); 
 }
@@ -153,6 +164,13 @@ void Inimigo::movimentoAleatorio()
 		else 
 		{
 			x_alvo = static_cast<int>(x - distancia);
+		}
+
+		if (x_alvo < 0) {
+			x_alvo = 0;
+		}
+		if (x_alvo > WIDTH - corpo.getSize().x) {
+			x_alvo = WIDTH - corpo.getSize().x;
 		}
 	}
 

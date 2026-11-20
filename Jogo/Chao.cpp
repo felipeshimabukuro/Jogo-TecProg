@@ -1,9 +1,10 @@
 #include "Chao.h"
+#include "Jogador.h"
 
 using namespace Entidades;
 
 Chao::Chao(const sf::Vector2f pos, const sf::Vector2f tam) :
-    Entidade(pos.x, pos.y)
+    Entidade(pos.x, pos.y), max_ticks(60), ticks(0)
 {
     x = pos.x;
     y = pos.y;
@@ -33,4 +34,12 @@ void Chao::salvar()
 void Chao::desenhar(sf::RenderWindow* window)
 {
     window->draw(corpo);
+}
+
+void Chao::ajudar(Personagens::Jogador* p) {
+    ticks++;
+    if (ticks == 60) {
+        ticks = 0;
+        p->operator++();
+    }
 }

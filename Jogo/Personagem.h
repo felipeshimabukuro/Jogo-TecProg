@@ -12,6 +12,7 @@ namespace Personagens {
 		const float max_vely;
 		const int pot_queda;
 		bool chao;
+		int dano;
 		static const float gravidade;
 		sf::Vector2f vel;
 	public:
@@ -24,6 +25,7 @@ namespace Personagens {
 		virtual void receberDano(int dano) = 0;
 		const float getVely() const;
 		const float getVelx() const;
+		int getDano() const;
 	};
 
 }

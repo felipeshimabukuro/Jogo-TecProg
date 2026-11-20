@@ -12,7 +12,7 @@ Rato::Rato(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
 	max_ticks(60)
 {
 	boss = false;
-	num_vidas = 3;
+	num_vidas = 15;
 	lado = 1;                        // Olhando para a direita
 	x = pos.x;
 	y = pos.y;
@@ -84,11 +84,11 @@ void Rato::atualizaLado()
 			int w = tex->getSize().x;
 			int h = tex->getSize().y;
 			if (lado == 1) {
-				sprite.setTextureRect(sf::IntRect(0, 0, w, h));
+				sprite.setTextureRect(sf::IntRect(w, 0, -w, h));
 				sprite.setOrigin(0.0f, 0.0f);
 			}
 			else {
-				sprite.setTextureRect(sf::IntRect(w, 0, -w, h));
+				sprite.setTextureRect(sf::IntRect(0, 0, w, h));
 				sprite.setOrigin(0.0f, 0.0f);
 			}
 		}
@@ -110,25 +110,30 @@ void Rato::executar()
 		estado = "IDLE";
 	}
 
+	velx = 0.0f;
+
 	if (estado == "ATAQUE")
 	{
 		atualizaLado();
 		if (jogador) {
 			if (jogador->getX() > x) {
-				velx = 8.0f; 
+				velx = 1.5f * nivel_maldade; 
+			}
+			else if(jogador->getX() < x){
+				velx = -1.5f * nivel_maldade; 
 			}
 			else {
-				velx = -8.0f; 
+				velx = 0.0f;
 			}
 		}
 	}
 	else if (estado == "SEGUIR")
 	{
-		seguir(); 
+		persegueJogador(jogador); 
 	}
 	else
 	{
-		velx = 0.0f; 
+		movimentoAleatorio();
 	}
 
 	mover();
@@ -155,9 +160,6 @@ void Rato::colisao(Entidade* ent, sf::Vector2f ds)
 			if (ds.x <= ds.y && pesJogador <= y + 15.0f && pJog->getVely() >= 0.0f)
 			{
 				pJog->setPos(sf::Vector2f(pJog->getX(), y - pJog->getTam().y - 8.0f));
-				pJog->setChao(true);
-				pJog->pular();
-				setAtivo(false); 
 			}
 			else
 			{
@@ -170,7 +172,7 @@ void Rato::colisao(Entidade* ent, sf::Vector2f ds)
 }
 
 void Rato::danificar(Jogador* p) {
-	p->receberDano(5);
+	p->receberDano(dano);
 	p->setChao(true);
 	p->pular();
 }
