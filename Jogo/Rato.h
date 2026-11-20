@@ -9,8 +9,6 @@ namespace Personagens
     private:
         static const int dist_detec;
         static const int dist_atk;
-        int ticks;
-        int max_ticks;
         string estado;
     public:
         Rato(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j);
