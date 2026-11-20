@@ -11,7 +11,7 @@ namespace Personagens {
 		bool boss;
 		int nivel_maldade;
 		int walk_cd;
-		int walk_tm;
+		static const int walk_tm;
 		int x_alvo;
 		short int lado;
 		Jogador* jogador;
@@ -19,6 +19,8 @@ namespace Personagens {
 		//short moveAleatorio;
 		void inicializa();
 		std::list<Entidades::Projetil*> projeteisPendentes;
+		float dist_detec;
+
 	public:
 		Inimigo(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j);
 		~Inimigo();
@@ -30,6 +32,7 @@ namespace Personagens {
 		sf::Vector2f distanciaAlvo(sf::Vector2f posJogador, sf::Vector2f posInimigo);
 		void persegueJogador(Jogador* j);
 		void movimentoAleatorio();
+		virtual void atualizaLado();
 		void salvar();
 		void receberDano(int dano);
 		sf::RectangleShape getCorpo();
@@ -38,5 +41,6 @@ namespace Personagens {
 		const bool getBoss() const;
 		std::list<Entidades::Projetil*>* getProjeteisPendentes();
 		virtual void danificar(Jogador* p) = 0;
+		bool detectarJogador();
 	};
 }

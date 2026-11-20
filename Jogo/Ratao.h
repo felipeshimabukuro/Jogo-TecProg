@@ -26,9 +26,6 @@ namespace Personagens
 		const int chance_atacar;
 		int ataque_cd;
 		int ataque_tm;
-		int parado_cd;
-		int parado_tm;
-		float dist_atq;
 		int tempo_imune; 
 
 	public:
@@ -40,7 +37,7 @@ namespace Personagens
 		void idle();
 		void movimentar();
 		void bater();
-		void atualizaLado();
+		void atualizaLado() override;
 		void executar();
 		void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f));
 

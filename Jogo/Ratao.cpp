@@ -29,13 +29,11 @@ Ratao::Ratao(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
 	chance_atacar(3),                // Chance percentual por frame de iniciar ataque
 	ataque_cd(0),                    // Cooldown geral entre sequências de ataque 
 	ataque_tm(5 SEGUNDOS),           // Tempo de recarga do ataque
-	parado_cd(60),                   // Tempo restante no estado parado (o tao falado idle)
-	parado_tm(60),                   // Duração parado
-	dist_atq(GRID*4),                   // Distância máxima para disparar ataque
 	tempo_imune(0)                   // Temporizador de invulnerabilidade pós-hit
 {
 	boss = true;
 	num_vidas = 3;
+	dist_detec = GRID * 8;           // Raio de detecção do jogador (usado em detectarJogador e verificarAtaque)
 	lado = 1;                        // Olhando para a direita
 	x = pos.x;
 	y = pos.y;
@@ -84,28 +82,20 @@ void Ratao::verificarAtaque()
 		return;
 	}
 
-	if (jogador)
+	// Usa detectarJogador() da base, que compara com dist_detec
+	if (jogador && detectarJogador())
 	{
-		sf::Vector2f posJogador = jogador->getCorpo().getPosition();
-		sf::Vector2f posInimigo = corpo.getPosition();
-		sf::Vector2f dist = distanciaAlvo(posJogador, posInimigo);
-
-		float hipotenusa = std::hypot(dist.x, dist.y); // Mto foda, quando tempo quero implementar na topeira.
-
-		if (hipotenusa <= (dist_atq))
+		if ((rand() % 100) < chance_atacar)
 		{
-			if ((rand() % 100) < chance_atacar)
-			{
-				batidas_restantes = 6;       
-				batidas_esq = 0;
-				batidas_dir = 0;
-				bater_cd = 20;				//Tempo antes da loucura comecar
-				lado_batida = lado;
-				batendo = false;
-				velx = 0.0f;
+			batidas_restantes = 6;       
+			batidas_esq = 0;
+			batidas_dir = 0;
+			bater_cd = 20;				//Tempo antes da loucura comecar
+			lado_batida = lado;
+			batendo = false;
+			velx = 0.0f;
 
-				estado = "BATENDO";
-			}
+			estado = "BATENDO";
 		}
 	}
 }
@@ -116,19 +106,7 @@ void Ratao::idle()
 	if (estado == "BATENDO")
 		return;
 
-	parado_cd--;
-	if (parado_cd < 0)
-	{
-		parado_tm = 150 + (rand() % 151);
-		parado_cd = parado_tm;
-
-		x_alvo = static_cast<int>(x) + (rand() % (int)GRID*4 - GRID*2);
-
-		lado = (x_alvo > x) ? 1 : -1;
-		velx = static_cast<float>(lado) * 1.0f;
-
-		estado = "MOVENDO";
-	}
+	movimentoAleatorio();
 }
 
 void Ratao::movimentar()
@@ -137,16 +115,12 @@ void Ratao::movimentar()
 	if (estado == "BATENDO")
 		return;
 
-	x += velx;
+	movimentoAleatorio();
 
-	if (std::abs(x_alvo - x) < 8.0f)
+	if (walk_cd > 0)
 	{
-		velx = 0.0f;
-		parado_cd = 60 + (rand() % 61);
 		estado = "IDLE";
 	}
-
-	corpo.setPosition(x, y);
 }
 
 void Ratao::bater()
@@ -198,7 +172,7 @@ void Ratao::bater()
 		else
 		{
 			ataque_cd = ataque_tm;
-			parado_cd = 60 + (rand() % 61);
+			walk_cd = 60 + (rand() % 61);
 			estado = "IDLE";
 			batendo = false;
 		}
@@ -207,6 +181,7 @@ void Ratao::bater()
 
 void Ratao::atualizaLado()
 {
+	//rato maldito tem flip invertido
 	const sf::Texture* tex = sprite.getTexture();
 	if (tex) {
 		int w = tex->getSize().x;
@@ -243,8 +218,7 @@ void Ratao::executar()
 		vely = max_vely * pot_queda;
 	}
 	y += vely;
-	corpo.setPosition(x, y);
-	sprite.setPosition(x, y);
+	setPos(sf::Vector2f(x, y));
 	atualizaLado();
 
 	if (tempo_imune > 0)
@@ -311,10 +285,9 @@ void Ratao::colisao(Entidade* ent, sf::Vector2f ds)
 
 	Inimigo::colisao(ent, ds);
 
-	if (ds.x > ds.y && estado == "MOVENDO")
+	if (ds.x > ds.y && (estado == "MOVENDO" || estado == "IDLE"))
 	{
 		velx = 0.0f;
-		parado_cd = 60 + (rand() % 61);
 		estado = "IDLE";
 	}
 }

@@ -3,8 +3,11 @@
 
 using namespace Personagens;
 
+const int Inimigo::walk_tm = 120;
+
 Inimigo::Inimigo(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j):
-Personagem(pos,tam),relogio(),jogador(j){
+Personagem(pos,tam),relogio(),jogador(j), dist_detec(100)
+{
 	inicializa();
 	srand(time(NULL));
 	//moveAleatorio = rand() % 1;
@@ -19,8 +22,6 @@ void Inimigo::inicializa() {
 
 	corpo.setSize(sf::Vector2f(GRID, GRID));
 	corpo.setFillColor(sf::Color::Red);
-
-	x = x + 500.0f;
 	corpo.setPosition(x, y);
 }
 
@@ -48,6 +49,7 @@ void Inimigo::persegueJogador(Jogador* j) {
 		if (gap > 0.0f) {
 			deltaX = (gap < vel.x) ? gap : vel.x;
 			x += deltaX;
+			lado = 1;
 		}
 	}
 	else {
@@ -56,8 +58,11 @@ void Inimigo::persegueJogador(Jogador* j) {
 		if (gap > 0.0f) {
 			deltaX = (gap < vel.x) ? gap : vel.x;
 			x -= deltaX;
+			lado = -1;
 		}
 	}
+
+	atualizaLado();
 
 	sf::Vector2f pos (x, y);
 	setPos(pos);
@@ -68,18 +73,9 @@ void Inimigo::mover() {
 		vely += gravidade;
 	}
 	y += vely;
-	if (!jogador) return;
-	sf::Vector2f posJogador = jogador->getCorpo().getPosition();
-	sf::Vector2f posInimigo = corpo.getPosition();
-	sf::Vector2f tamJogador = jogador->getTam();
-	sf::Vector2f tamInimigo = getTam();
 
-	float distCentroX = fabs((posJogador.x + tamJogador.x / 2.0f) - (posInimigo.x + tamInimigo.x / 2.0f));
-	float distCentroY = fabs((posJogador.y + tamJogador.y / 2.0f) - (posInimigo.y + tamInimigo.y / 2.0f));
-	float minDistX = (tamJogador.x + tamInimigo.x) / 2.0f;
-	float minDistY = (tamJogador.y + tamInimigo.y) / 2.0f;
-
-	corpo.setPosition(x, y);
+	sf::Vector2f pos(x, y);
+	setPos(pos);
 }
 
 void Inimigo::salvar() {
@@ -97,7 +93,7 @@ void Inimigo::receberDano(int dano) {
 }
 
 void Inimigo::setPos(const sf::Vector2f pos) {
-	x = pos.x;
+	x = pos.x; 
 	y = pos.y;
 	corpo.setPosition(x, y);
 	sprite.setPosition(x, y); 
@@ -111,12 +107,22 @@ void Inimigo::colisao(Entidade* ent, sf::Vector2f ds) {
 	
 	Entidades::Entidade::colisao(ent, ds);
 
-	
 	if (ds.x <= ds.y) {
-		vely = 0.0f; 
-		if (getY() < ent->getY()) {
+		// Só zera vely se o inimigo estiver acima do obstáculo e caindo para baixo
+		if (getY() < ent->getY() && vely >= 0.0f) {
+			vely = 0.0f;
 			chao = true;
 		}
+		else if (getY() > ent->getY() && vely < 0.0f) {
+			vely = 0.0f; // Bateu a cabeça por baixo
+		}
+	}
+	else {
+		// Colisão horizontal (bateu de lado na parede)
+		x_alvo = static_cast<int>(x);
+		lado = -lado;
+		atualizaLado();
+		walk_cd = 45; // Pausa o movimento contra a parede
 	}
 }
 
@@ -126,4 +132,96 @@ const bool Inimigo::getBoss() const {
 
 std::list<Entidades::Projetil*>* Inimigo::getProjeteisPendentes() {
 	return &projeteisPendentes;
+}
+
+void Inimigo::movimentoAleatorio()
+{
+	if (static_cast<int>(x) == x_alvo)
+	{
+		if (walk_cd > 0)
+		{
+			walk_cd--;
+			return;
+		}
+
+		float distancia = static_cast<float>((rand() % 100) + 50);
+
+		if (rand() % 2 == 0) 
+		{
+			x_alvo = static_cast<int>(x + distancia);
+		}
+		else 
+		{
+			x_alvo = static_cast<int>(x - distancia);
+		}
+	}
+
+	float movX = x_alvo - x;
+	if (fabs(movX) > vel.x)
+	{
+		if (movX > 0.0f)
+		{
+			x += vel.x;
+			lado = 1; 
+		}
+		else
+		{
+			x -= vel.x;
+			lado = -1; 
+		}
+	}
+	else
+	{
+		x = static_cast<float>(x_alvo);
+		walk_cd = walk_tm + (rand()%60 - 30);
+	}
+
+	atualizaLado();
+	sf::Vector2f pos(x, y);
+	setPos(pos);
+}
+
+void Inimigo::atualizaLado()
+{
+	if (jogador)
+	{
+		if (detectarJogador())
+		{
+			if (jogador->getCorpo().getPosition().x > x)
+			{
+				lado = 1;
+			}
+			else
+			{
+				lado = -1;
+			}
+		}
+
+		const sf::Texture* tex = sprite.getTexture();
+		if (tex) 
+		{
+			int w = tex->getSize().x;
+			int h = tex->getSize().y;
+			if (lado == 1) 
+			{
+				sprite.setTextureRect(sf::IntRect(0, 0, w, h));
+				sprite.setOrigin(0.0f, 0.0f);
+			}
+			else 
+			{
+				sprite.setTextureRect(sf::IntRect(w, 0, -w, h)); // Espelha horizontalmente
+				sprite.setOrigin(0.0f, 0.0f);
+			}
+		}
+	}
+}
+
+bool Inimigo::detectarJogador()
+{
+	if (jogador == NULL) return false;
+
+	sf::Vector2f posJogador = jogador->getCorpo().getPosition();
+	sf::Vector2f posInimigo = corpo.getPosition();
+	sf::Vector2f distancia = distanciaAlvo(posJogador, posInimigo);
+	return (distancia.x < dist_detec && distancia.y < dist_detec);
 }

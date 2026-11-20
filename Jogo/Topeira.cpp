@@ -5,7 +5,6 @@
 using namespace Entidades;
 using namespace Personagens;
 
-const int Topeira::dist_detec = 360;
 const int Topeira::dist_atk = 180;
 const int Topeira::tempo_tiro = 5 MINUTOS;
 
@@ -16,6 +15,7 @@ Topeira::Topeira(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
 	ticks(0),
 	max_ticks(60)
 {
+	dist_detec = 350;
 	boss = false;
 	num_vidas = 3;
 	lado = 1;                        // Olhando para a direita
@@ -42,8 +42,6 @@ void Topeira::atirar()
 {
 	if (cavando) { cavar(); }
 
-	atualizaLado();
-
 	if (tiro_cd <= 0)
 	{
 		if (!cavando)
@@ -55,20 +53,8 @@ void Topeira::atirar()
 	}
 }
 
-bool Topeira::detectarJogador()
-{
-	if (jogador == NULL) return false;
-
-	sf::Vector2f posJogador = jogador->getCorpo().getPosition();
-	sf::Vector2f posInimigo = corpo.getPosition();
-	sf::Vector2f distancia = distanciaAlvo(posJogador, posInimigo);
-	return (distancia.x < dist_detec && distancia.y < dist_detec);
-}
-
 void Topeira::seguir()
 {
-	atualizaLado();
-
 	if (!cavando) { cavar(); }
 
 	if (jogador)
@@ -87,35 +73,6 @@ bool Topeira::perto()
 	return (distancia.x < dist_atk && distancia.y < dist_atk);
 }
 
-void Topeira::atualizaLado()
-{
-	if (jogador)
-	{
-		if (jogador->getCorpo().getPosition().x > x)
-		{
-			lado = 1;
-		}
-		else
-		{
-			lado = -1;
-		}
-
-		const sf::Texture* tex = sprite.getTexture();
-		if (tex) {
-			int w = tex->getSize().x;
-			int h = tex->getSize().y;
-			if (lado == 1) {
-				sprite.setTextureRect(sf::IntRect(0, 0, w, h));
-				sprite.setOrigin(0.0f, 0.0f);
-			}
-			else {
-				sprite.setTextureRect(sf::IntRect(w, 0, -w, h)); // Espelha horizontalmente
-				sprite.setOrigin(0.0f, 0.0f);
-			}
-		}
-	}
-}
-
 void Topeira::executar()
 {
 	if (perto())
@@ -128,7 +85,7 @@ void Topeira::executar()
 	}
 	else
 	{
-		estado = "IDLE";
+		estado = "LIVRE";
 	}
 
 	if (estado == "ATAQUE")
@@ -141,10 +98,15 @@ void Topeira::executar()
 		seguir();
 	}
 
+	else if (estado == "LIVRE")
+	{
+		movimentoAleatorio();
+	}
+
     mover(); 
 
-	corpo.setPosition(x, y);
-    sprite.setPosition(x, y);
+	sf::Vector2f pos(x, y);
+	setPos(pos);
 
     if (tiro_cd > 0)
     {
