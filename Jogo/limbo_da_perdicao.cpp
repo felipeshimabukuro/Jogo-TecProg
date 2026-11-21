@@ -12,7 +12,11 @@ Limbo_da_perdicao::Limbo_da_perdicao() :Fase(), maxRatao(5), contRatao(0)
 }
 
 Limbo_da_perdicao::~Limbo_da_perdicao() {
-
+    Gerenciadores::Gerenciador_eventos::getGerenciadorEventos()->setJogador(NULL);
+    if (pGC) {
+        delete pGC;
+        pGC = NULL;
+    }
 }
 
 
@@ -59,6 +63,9 @@ void Limbo_da_perdicao::criarFundo()
 void Limbo_da_perdicao::executar() {
     while (pGG->verificaJanelaAberta())
     {
+        if (Gerenciadores::Gerenciador_eventos::getGerenciadorEventos()->getVoltarMenu()) {
+            return; 
+        }
         pEv->executar();
         lista_ents.percorrer();
         pGC->executar();

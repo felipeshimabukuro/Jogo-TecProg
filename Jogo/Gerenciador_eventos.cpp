@@ -3,6 +3,7 @@
 #include "Gerenciador_eventos.h"
 #include "Jogador.h"
 #include "Jogo.h"
+#include "Menu.h"
 
 using namespace Gerenciadores;
 
@@ -10,7 +11,8 @@ Gerenciador_eventos* Gerenciador_eventos::pEventos = NULL;
 Gerenciador_grafico* Gerenciador_eventos::pGG = Gerenciador_grafico::getGerenciadorGrafico();
 
 Gerenciador_eventos::Gerenciador_eventos():
-	pJogador(NULL)	
+	pJogador(NULL),	
+	pJogo(NULL)
 {
 }
 
@@ -19,6 +21,7 @@ Gerenciador_eventos::~Gerenciador_eventos()
 	pGG = NULL;
 	pEventos = NULL;
 	pJogador = NULL;
+	pJogo = NULL;
 }
 
 Gerenciador_eventos* Gerenciador_eventos::getGerenciadorEventos()
@@ -40,18 +43,6 @@ void Gerenciador_eventos::verificarTeclaPressionada(sf::Keyboard::Key tecla)
 	//jogador
 	if(pJogador)
 	{
-		/*if (tecla == sf::Keyboard::A || tecla == sf::Keyboard::Left)
-		{
-			pJogador->mover(-1);
-		}
-		else if(tecla == sf::Keyboard::D || tecla == sf::Keyboard::Right)
-		{
-			pJogador->mover(1);
-		}
-		else if (tecla == sf::Keyboard::Space || tecla == sf::Keyboard::W || tecla == sf::Keyboard::Up)
-		{
-			pJogador->mover(3);
-		}*/
 		if (pJogador->getNum() == 0) {
 			if (tecla == sf::Keyboard::A || tecla == sf::Keyboard::S || tecla == sf::Keyboard::D || tecla == sf::Keyboard::W) {
 				pJogador->executar();
@@ -67,7 +58,13 @@ void Gerenciador_eventos::verificarTeclaPressionada(sf::Keyboard::Key tecla)
 	//interface
 	if(tecla == sf::Keyboard::Escape)
 	{
-		pGG->fechaJanela();
+		if (pJogo) {
+			Menu menuPause(pJogo);
+			menuPause.executarTelaPause();
+		}
+		else {
+			pGG->fechaJanela();
+		}
 	}
 }
 
@@ -94,4 +91,17 @@ void Gerenciador_eventos::executar()
 			pGG->fechaJanela();
 		}
 	}
+}
+
+void Gerenciador_eventos::setJogo(Jogo* p)
+{
+	this->pJogo = p;
+}
+
+bool Gerenciador_eventos::getVoltarMenu()
+{
+	if (pJogo) {
+		return pJogo->deveVoltarMenu();
+	}
+	return false;
 }

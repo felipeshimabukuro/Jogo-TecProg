@@ -8,11 +8,14 @@ Caverna_Maldosa::Caverna_Maldosa() :Fase(), maxRato(5), contRato(0)
     criarCenario();
     //criarObstaculos();
     //criarInimigos();
-	
 }
 
 Caverna_Maldosa::~Caverna_Maldosa() {
-
+    Gerenciadores::Gerenciador_eventos::getGerenciadorEventos()->setJogador(NULL);
+    if (pGC) {
+        delete pGC;
+        pGC = NULL;
+    }
 }
 
 
@@ -59,6 +62,9 @@ void Caverna_Maldosa::criarFundo()
 void Caverna_Maldosa::executar() {
     while (pGG->verificaJanelaAberta())
     {
+        if (Gerenciadores::Gerenciador_eventos::getGerenciadorEventos()->getVoltarMenu()) {
+            return; 
+        }
         pEv->executar();
         lista_ents.percorrer();
         pGC->executar();

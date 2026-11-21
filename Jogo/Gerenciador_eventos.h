@@ -3,6 +3,8 @@
 #include "Gerenciador_grafico.h"
 #include "Jogador.h"
 
+class Jogo;
+
 using namespace Personagens;
 
 namespace Gerenciadores 
@@ -12,6 +14,7 @@ namespace Gerenciadores
 	private:
 		static Gerenciador_grafico* pGG;
 		Jogador* pJogador;
+		Jogo* pJogo;
 
 		//Singleton (ex-monitor Gege++)
 		static Gerenciador_eventos* pEventos;
@@ -24,5 +27,7 @@ namespace Gerenciadores
 		void verificarTeclaPressionada(sf::Keyboard::Key tecla);
 		void verificaTeclaSolta(sf::Keyboard::Key tecla);
 		void executar();
+		void setJogo(Jogo* p);
+		bool getVoltarMenu();
 	};
 }
