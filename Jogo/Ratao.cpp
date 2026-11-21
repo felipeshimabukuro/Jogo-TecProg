@@ -10,7 +10,7 @@ using namespace Entidades;
 using namespace Gerenciadores;
 
 Ratao::Ratao(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
-	Inimigo(pos, tam, j),
+	Inimigo(ID::ratao, pos, tam, j),
 	estado("IDLE"),
 	forca(15),                       // Dano
 	bater_cd(0),                     // Cooldown da próxima batida
@@ -317,4 +317,27 @@ const short int Ratao::getForca() const
 
 void Ratao::danificar(Jogador* p)
 { 
+}
+
+void Ratao::salvarDataBuffer()
+{
+	Inimigo::salvarDataBuffer();
+	buffer << bater_cd << " ";
+	buffer << batidas_restantes << " ";
+	buffer << batidas_esq << " ";
+	buffer << batidas_dir << " ";
+	buffer << lado_batida << " ";
+	buffer << batendo << " ";
+	buffer << tempo_batida << " ";
+	buffer << ataque_cd << " ";
+	buffer << tempo_imune << " ";
+	buffer << estado;
+}
+
+void Ratao::salvar()
+{
+	buffer.str(""); // Limpa dados de saves anteriores no buffer
+	buffer.clear();
+
+	salvarDataBuffer();
 }

@@ -4,7 +4,10 @@ using namespace Entidades;
 
 int Plataforma::ticks(0);
 
-Plataforma::Plataforma(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel):Obstaculo(x,y,largura,altura,dano,danoso,quebravel) , max_ticks(180){
+Plataforma::Plataforma(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel):
+	Obstaculo(ID::plataforma, x, y, largura, altura, dano, danoso, quebravel),
+	max_ticks(180)
+{
 	inicializa();
 }
 
@@ -18,7 +21,9 @@ void Plataforma::executar() {
 }
 
 void Plataforma::salvar() {
-
+	buffer.str("");
+	buffer.clear();
+	salvarDataBuffer();
 }
 
 void Plataforma::obstaculizar(Jogador* p) { // pensar em um obstaculizar melhor

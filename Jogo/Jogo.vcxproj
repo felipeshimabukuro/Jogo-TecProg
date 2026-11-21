@@ -179,6 +179,7 @@
     <ClInclude Include="Bibliotecas.h" />
     <ClInclude Include="Chao.h" />
     <ClInclude Include="Espinho.h" />
+    <ClInclude Include="IDS.h" />
     <ClInclude Include="limbo_da_perdicao.h" />
     <ClInclude Include="Ratao.h" />
     <ClInclude Include="Elemento.h" />

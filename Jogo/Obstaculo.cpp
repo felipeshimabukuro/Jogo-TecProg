@@ -4,8 +4,8 @@
 using namespace Entidades;
 using namespace Personagens;
 
-Obstaculo::Obstaculo(int x, int y, int larg, int alt, int dano, bool danoso, bool queb): 
-    Entidade(x, y), 
+Obstaculo::Obstaculo(ID id, int x, int y, int larg, int alt, int dano, bool danoso, bool queb): 
+    Entidade(id, x, y), 
     largura(larg), 
     altura(alt), 
     dano(dano), 
@@ -46,3 +46,8 @@ const bool Obstaculo::getQuebravel() const
 /*void Obstaculo::colisao(Entidade* ent, sf::Vector2f ds) {
 
 }*/
+
+void Obstaculo::salvarDataBuffer()
+{
+    Entidade::salvarDataBuffer();
+}

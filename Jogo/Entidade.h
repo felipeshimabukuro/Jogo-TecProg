@@ -9,14 +9,14 @@ namespace Entidades
 	protected:
 		float x;
 		float y;
-		ostream buffer;
+		ostringstream buffer;
 		sf::RectangleShape corpo;
 		bool ativo;
 
 		void salvarDataBuffer();
 
 	public:
-		Entidade(float x = 0.0f, float y = 0.0f);
+		Entidade(ID id, float xx = 0.0, float yy = 0.0);
 		virtual ~Entidade();
 
 		virtual void executar() = 0;
@@ -33,5 +33,7 @@ namespace Entidades
 
 		void setAtivo(bool a);
 		const bool getAtivo() const;
+
+		const string getBuffer() const;
 	};
 }

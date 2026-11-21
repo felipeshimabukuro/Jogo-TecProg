@@ -7,15 +7,15 @@ using namespace Personagens;
 
 int Jogador::pontos = 0;
 
-Jogador::Jogador() :Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), inventario(0){
+Jogador::Jogador() :Personagem(ID::jogador, sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), inventario(0){
     inicializa();
 }
 
-Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam, short int n) :Personagem(pos, tam), num(n), inventario(0) {
+Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam, short int n) :Personagem(ID::jogador, pos, tam), num(n), inventario(0) {
     inicializa();
 }
 
-Jogador::Jogador(const sf::RectangleShape corpo) :Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), inventario(0) {
+Jogador::Jogador(const sf::RectangleShape corpo) :Personagem(ID::jogador, sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), inventario(0) {
     inicializa();
 }
 
@@ -44,12 +44,11 @@ void Jogador::setPos(const sf::Vector2f pos) {
     sprite.setPosition(x, y);
 }
 
-void Jogador::executar() {
+void Jogador::executar() 
+{
     mover();
-}
 
-void Jogador::salvar() {
-
+    if (t_dano >= 0) t_dano--;
 }
 
 const int Jogador::getNum()const{
@@ -160,9 +159,10 @@ void Jogador::cavar() {
 }
 
 void Jogador::receberDano(int dano) {
-    if (num_vidas > 0) {
+    if (num_vidas > 0 && !getImune()) {
         num_vidas -= dano;
         cout << "Jogador tomou " << dano << " de dano. Vidas restantes: " << num_vidas << endl;
+        t_dano = t_imune;
     }
 }
 
@@ -270,4 +270,25 @@ void Jogador::removerInventario() {
 void Jogador::resetarChao() {
     chao = false;
     chaoAtual = NULL;
+}
+
+const bool Jogador::getImune() const
+{
+    return t_dano > 0;
+}
+void Jogador::salvarDataBuffer()
+{
+    Personagem::salvarDataBuffer();
+    buffer << pontos << " ";
+    buffer << inventario << " ";
+    buffer << t_dano;
+    //blocos pendentes
+}
+
+void Jogador::salvar() 
+{
+    buffer.str(""); // Limpa dados de saves anteriores no buffer
+    buffer.clear();
+
+    salvarDataBuffer();
 }

@@ -16,7 +16,7 @@ namespace Personagens {
 		static const float gravidade;
 		sf::Vector2f vel;
 	public:
-		Personagem(const sf::Vector2f pos, const sf::Vector2f tam);
+		Personagem(ID id, const sf::Vector2f pos, const sf::Vector2f tam);
 		~Personagem();
 		void salvarDataBuffer();
 		virtual void mover() = 0;

@@ -31,7 +31,6 @@ namespace Personagens
 	public:
 		Ratao(const sf::Vector2f pos = sf::Vector2f(0.0f, 0.0f), const sf::Vector2f tam = sf::Vector2f(80.0f, 80.0f), Jogador* j = nullptr);
 		~Ratao();
-
 		void criarTerra(int dir, int ind);
 		void verificarAtaque();
 		void idle();
@@ -40,11 +39,11 @@ namespace Personagens
 		void atualizaLado() override;
 		void executar();
 		void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f));
-
 		const sf::FloatRect getHitboxBatida() const;
 		const bool getBatendo() const;
 		const short int getForca() const;
-
 		void danificar(Jogador* p);
+		void salvarDataBuffer();
+		void salvar();
 	};
 }

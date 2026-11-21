@@ -15,5 +15,7 @@ namespace Entidades
 		void setDano(int d);
 		const int getDano() const;
 		void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f));
+		void salvarDataBuffer();
+		void salvar();
 	};
 }

@@ -12,8 +12,6 @@ namespace Personagens
 		int tiro_cd;
 		static const int dist_atk;
 		static const int tempo_tiro;
-		int ticks;
-		const int max_ticks;
 
 	public:
 		Topeira(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j);
@@ -25,5 +23,7 @@ namespace Personagens
 		void executar();
 		void colisao(Entidade* ent, sf::Vector2f ds);
 		void danificar(Jogador* p);
+		void salvarDataBuffer();
+		void salvar();
 	};
 }

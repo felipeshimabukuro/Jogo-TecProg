@@ -9,6 +9,7 @@ namespace Entidades {
 		static int ticks;
 		int max_ticks;
 		int dano;
+
 	public:
 		Magma(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel);
 		~Magma();
@@ -18,5 +19,6 @@ namespace Entidades {
 		void executar();
 		void inicializa();
 		void salvar();
+		void salvarDataBuffer();
 	};
 }

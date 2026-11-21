@@ -7,9 +7,7 @@ const int Rato::dist_detec = 360;
 const int Rato::dist_atk = 180;
 
 Rato::Rato(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
-	Inimigo(pos, tam, j),
-	ticks(0),
-	max_ticks(60)
+	Inimigo(ID::rato, pos, tam, j)
 {
 	boss = false;
 	num_vidas = 15;
@@ -172,6 +170,8 @@ void Rato::colisao(Entidade* ent, sf::Vector2f ds)
 }
 
 void Rato::danificar(Jogador* p) {
+	if (p->getImune()) return;
+
 	p->receberDano(dano);
 	p->setChao(true);
 	p->pular();
@@ -179,4 +179,18 @@ void Rato::danificar(Jogador* p) {
 
 void Rato::inicializa() {
 	setTextura("rato", getTam());
+}
+
+void Rato::salvarDataBuffer()
+{
+	Inimigo::salvarDataBuffer();
+	buffer << estado;
+}
+
+void Rato::salvar()
+{
+	buffer.str(""); // Limpa dados de saves anteriores no buffer
+	buffer.clear();
+
+	salvarDataBuffer();
 }

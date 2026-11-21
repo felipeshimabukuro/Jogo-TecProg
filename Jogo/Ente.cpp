@@ -5,9 +5,7 @@ using namespace Gerenciadores;
 
 Gerenciador_grafico* Ente::pGG = Gerenciador_grafico::getGerenciadorGrafico();
 
-int Ente::cont = 0;
-
-Ente::Ente() : id(cont++)
+Ente::Ente(ID id): id(id)
 {	
 }
 
@@ -26,7 +24,7 @@ void Ente::desenhar(sf::RenderWindow* window) {
     }
 }
 
-const int Ente::getID() const
+const ID Ente::getID() const
 {
 	return id;
 }

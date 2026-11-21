@@ -25,5 +25,6 @@ namespace Listas
 		void percorrer();
 		void desenharTodas(Gerenciador_grafico *pGG);
 		void limparDestruidos();
+		void salvar();
 	};
 }

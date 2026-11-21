@@ -3,7 +3,7 @@
 
 using namespace Entidades;
 
-Entidade::Entidade(float xx, float yy) : x(xx), y(yy), buffer(NULL), ativo(true)
+Entidade::Entidade(ID id, float xx, float yy): Ente(id),  x(xx), y(yy), ativo(true)
 {
 }
 
@@ -13,7 +13,10 @@ Entidade::~Entidade()
 
 void Entidade::salvarDataBuffer()
 {
-	
+	buffer << static_cast<int>(id) << " ";
+	buffer << x << " ";
+	buffer << y << " ";
+	buffer << ativo << " ";
 }
 
 const float Entidade::getX() const {
@@ -98,4 +101,9 @@ void Entidade::setAtivo(bool a) {
 
 const bool Entidade::getAtivo() const {
 	return ativo;
+}
+
+const string Entidade::getBuffer() const
+{
+	return buffer.str();
 }

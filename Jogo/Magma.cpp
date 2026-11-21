@@ -6,7 +6,7 @@ using namespace Personagens;
 int Magma::ticks(0);
 
 Magma::Magma(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel):
-	Obstaculo(x, y, largura, altura, dano, danoso, quebravel),
+	Obstaculo(ID::magma, x, y, largura, altura, dano, danoso, quebravel),
     max_ticks(60),dano(dano)
 {
 	inicializa();
@@ -65,4 +65,12 @@ void Magma::executar()
 }
 void Magma::salvar()
 {
+    buffer.str("");
+    buffer.clear();
+    salvarDataBuffer();
+}
+
+void Magma::salvarDataBuffer()
+{
+    Obstaculo::salvarDataBuffer();
 }

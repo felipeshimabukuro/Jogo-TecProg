@@ -57,3 +57,21 @@ void ListaEntidade::limparDestruidos()
 		}
 	}
 }
+
+void ListaEntidade::salvar()
+{
+	ostringstream save;
+
+	for (int i = 0; i < LEs.getTamanho(); i++)
+	{
+		Entidade* ent = LEs[i];
+		ent->salvar();
+		save << ent->getBuffer() << '\n';
+	}
+
+	ofstream arquivo("saves/saveTeste.txt");
+	if (arquivo.is_open())
+	{
+		arquivo << save.str();
+	}
+}

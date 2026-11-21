@@ -4,13 +4,12 @@ using namespace Entidades;
 
 const float Projetil::gravidade = 0.3;
 
-Projetil::Projetil(short int dir, float ix, float iy):
+Projetil::Projetil(ID id, short int dir, float ix, float iy):
+	Entidade(id, ix, iy),
 	direcao(dir)
 {
 	velY = -10;
 	velX = 2.5 * direcao;
-	x = ix;
-	y = iy;
 	corpo = sf::RectangleShape(sf::Vector2f(GRID/2, GRID/2));
 	corpo.setPosition(x, y);
 	sprite.setPosition(x, y);
@@ -30,10 +29,6 @@ void Projetil::trajetoria()
 	setPos(ds);
 }
 
-void Projetil::salvar()
-{
-}
-
 void Projetil::setPos(const sf::Vector2f pos) {
 	x = pos.x;
 	y = pos.y;
@@ -44,4 +39,12 @@ void Projetil::setPos(const sf::Vector2f pos) {
 void Projetil::executar()
 {
 	trajetoria();
+}
+
+void Projetil::salvarDataBuffer()
+{
+	Entidade::salvarDataBuffer();
+	buffer << velX << " ";
+	buffer << velY << " ";
+	buffer << direcao << " ";
 }

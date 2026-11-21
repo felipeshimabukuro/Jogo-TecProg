@@ -69,6 +69,22 @@ void Caverna_Maldosa::executar() {
         pGG->mostrarJanela();
         pGC->limparDestruidos();
         lista_ents.limparDestruidos();
+
+        bool pPressionado = false;
+
+        // Dentro do método executar():
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+        {
+            if (!pPressionado)
+            {
+                salvar();
+                pPressionado = true;
+            }
+        }
+        else
+        {
+            pPressionado = false;
+        }
     }
 }
 

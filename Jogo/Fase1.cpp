@@ -59,10 +59,12 @@ void Fase1::criarFundo()
 }
 
 void Fase1::executar() {
+    bool pPressionado = false;
+
     while (pGG->verificaJanelaAberta())
     {
         pEv->executar();
-        list_ents.percorrer();
+        lista_ents.percorrer();
         pGC->executar();
 
         if (pJogador1 != NULL) {
@@ -81,18 +83,30 @@ void Fase1::executar() {
                         // Se a posição estiver ocupada, devolve ao inventário e elimina a memória
                         delete bloco;
                         bloco = NULL;
-                        // Opcional: devolver 1 ao inventario do jogador aqui
                     }
                 }
-                it = pendentes->erase(it); // Remove da lista temporária do jogador
+                it = pendentes->erase(it);
             }
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+        {
+            if (!pPressionado)
+            {
+                salvar();
+                pPressionado = true;
+            }
+        }
+        else
+        {
+            pPressionado = false;
         }
 
         pGG->limpaJanela();
         pGG->getWindow()->draw(fundo);
-        list_ents.desenharTodas(pGG->getWindow());
+        lista_ents.desenharTodas(pGG->getWindow());
         pGG->mostrarJanela();
         pGC->limparDestruidos();
-        list_ents.limparDestruidos();
+        lista_ents.limparDestruidos();
     }
 }

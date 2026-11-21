@@ -6,7 +6,7 @@ using namespace Gerenciadores;
 using namespace Entidades;
 
 Proj_boss::Proj_boss(int vX, int vY, short int direcao):
-	Projetil(vX, vY, direcao),
+	Projetil(ID::projBoss, vX, vY, direcao),
 	fragmentos(3)
 {
 	velY = 0;
@@ -69,4 +69,18 @@ void Proj_boss::colisao(Entidade* ent, sf::Vector2f ds)
 			}
 		}
 	}
+}
+
+void Proj_boss::salvarDataBuffer()
+{
+	Projetil::salvarDataBuffer();
+	buffer << fragmentos;
+}
+
+void Proj_boss::salvar()
+{
+	buffer.str(""); // Limpa dados de saves anteriores no buffer
+	buffer.clear();
+
+	salvarDataBuffer();
 }

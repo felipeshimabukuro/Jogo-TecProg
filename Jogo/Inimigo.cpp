@@ -5,15 +5,16 @@ using namespace Personagens;
 
 const int Inimigo::walk_tm = 120;
 
-Inimigo::Inimigo(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j):
-Personagem(pos,tam),relogio(),jogador(j), dist_detec(100), nivel_maldade(rand()%5 + 1)
+Inimigo::Inimigo(ID id, const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j):
+Personagem(id, pos, tam),relogio(),jogador(j), dist_detec(100), nivel_maldade(rand()%5 + 1)
 {
 	inicializa();
 	srand(time(NULL));
 	//moveAleatorio = rand() % 1;
 }
 
-Inimigo::~Inimigo() {
+Inimigo::~Inimigo() 
+{
 
 }
 
@@ -78,10 +79,6 @@ void Inimigo::mover() {
 
 	sf::Vector2f pos(x, y);
 	setPos(pos);
-}
-
-void Inimigo::salvar() {
-
 }
 
 void Inimigo::receberDano(int dano) {
@@ -242,4 +239,14 @@ bool Inimigo::detectarJogador()
 	sf::Vector2f posInimigo = corpo.getPosition();
 	sf::Vector2f distancia = distanciaAlvo(posJogador, posInimigo);
 	return (distancia.x < dist_detec && distancia.y < dist_detec);
+}
+
+void Inimigo::salvarDataBuffer()
+{
+	Personagem::salvarDataBuffer();
+	buffer << nivel_maldade << " ";
+	buffer << walk_cd << " ";
+	buffer << lado << " ";
+	buffer << x_alvo << " ";
+	// Projeteis pendentes sla como faz ainda
 }

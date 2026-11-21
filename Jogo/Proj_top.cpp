@@ -5,7 +5,7 @@ using namespace Entidades;
 using namespace Personagens;
 
 Proj_top::Proj_top(short int direcao, float x, float y):
-	Projetil(direcao, x, y),
+	Projetil(ID::projTop, direcao, x, y),
 	dano(10)
 {
 	srand(time(NULL));
@@ -38,4 +38,18 @@ void Proj_top::colisao(Entidade* ent, sf::Vector2f ds)
 			jogador->receberDano(getDano());
 		}
 	}
+}
+
+void Proj_top::salvarDataBuffer()
+{
+	Projetil::salvarDataBuffer();
+	buffer << dano;
+}
+
+void Proj_top::salvar()
+{
+	buffer.str(""); // Limpa dados de saves anteriores no buffer
+	buffer.clear();
+
+	salvarDataBuffer();
 }

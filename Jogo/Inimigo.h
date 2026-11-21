@@ -22,18 +22,18 @@ namespace Personagens {
 		float dist_detec;
 
 	public:
-		Inimigo(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j);
+		Inimigo(ID id, const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j);
 		~Inimigo();
 		virtual void executar() = 0;
 		//virtual void danificar() = 0;
-		//virtual void salvar() = 0;
+		virtual void salvar() = 0;
 		//virtual void selecionarAlvo() = 0;
 		void mover();
 		sf::Vector2f distanciaAlvo(sf::Vector2f posJogador, sf::Vector2f posInimigo);
 		void persegueJogador(Jogador* j);
 		void movimentoAleatorio();
 		virtual void atualizaLado();
-		void salvar();
+		void salvarDataBuffer();
 		void receberDano(int dano);
 		sf::RectangleShape getCorpo();
 		void setPos(const sf::Vector2f pos);

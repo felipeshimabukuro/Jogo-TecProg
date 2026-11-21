@@ -2,7 +2,9 @@
 
 using namespace Entidades;
 
-Espinho::Espinho(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel) :Obstaculo(x, y, largura, altura, dano, danoso, quebravel), max_ticks(60) {
+Espinho::Espinho(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel):
+	Obstaculo(ID::espinho, x, y, largura, altura, dano, danoso, quebravel), 
+	max_ticks(60) {
 	inicializa();
 }
 

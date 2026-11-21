@@ -10,6 +10,7 @@ namespace Personagens
         static const int dist_detec;
         static const int dist_atk;
         string estado;
+
     public:
         Rato(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j);
         ~Rato();
@@ -23,5 +24,7 @@ namespace Personagens
         void colisao(Entidades::Entidade* ent, sf::Vector2f ds) override;
         void danificar(Jogador* p);
        //void mover();
+        void salvarDataBuffer();
+        void salvar();
     };
 }

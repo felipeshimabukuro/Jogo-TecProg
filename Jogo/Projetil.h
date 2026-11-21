@@ -13,11 +13,12 @@ namespace Entidades
 		short int direcao;
 
 	public:
-		Projetil(short int dir, float ix, float iy);
+		Projetil(ID id, short int dir, float ix, float iy);
 		~Projetil();
 		sf::RectangleShape getCorpo();
 		virtual void trajetoria();
-		void salvar();
+		virtual void salvar() = 0;
+		void salvarDataBuffer();
 		void setPos(const sf::Vector2f pos);
 		void executar();
 		virtual void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f)) = 0;

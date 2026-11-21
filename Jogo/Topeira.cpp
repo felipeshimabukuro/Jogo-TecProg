@@ -9,11 +9,9 @@ const int Topeira::dist_atk = 180;
 const int Topeira::tempo_tiro = 5 MINUTOS;
 
 Topeira::Topeira(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
-	Inimigo(pos, tam, j),
+	Inimigo(ID::topeira, pos, tam, j),
 	cavando(false),
-	tiro_cd(0),
-	ticks(0),
-	max_ticks(60)
+	tiro_cd(0)
 {
 	dist_detec = 350;
 	boss = false;
@@ -134,10 +132,22 @@ void Topeira::colisao(Entidade* ent, sf::Vector2f ds)
 	
 }
 
-void Topeira::danificar(Jogador* p) {
-	ticks++;
-	if (ticks == max_ticks) {
-		p->receberDano(dano);
-		ticks = 0;
-	}
+void Topeira::danificar(Jogador* p) 
+{
+	p->receberDano(dano);
+}
+
+void Topeira::salvarDataBuffer()
+{
+	Inimigo::salvarDataBuffer();
+	buffer << tiro_cd << " ";
+	buffer << estado;
+}
+
+void Topeira::salvar()
+{
+	buffer.str(""); // Limpa dados de saves anteriores no buffer
+	buffer.clear();
+
+	salvarDataBuffer();
 }

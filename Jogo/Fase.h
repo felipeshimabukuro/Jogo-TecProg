@@ -10,6 +10,8 @@
 #include "Plataforma.h"
 #include "Topeira.h"
 
+using namespace Gerenciadores;
+
 namespace Fases {
 	class Fase : public Ente {
 	protected:
@@ -17,9 +19,9 @@ namespace Fases {
 		int contTopeiras;
 
 		ListaEntidade lista_ents;
-		Gerenciadores::Gerenciador_colisao* pGC;
-		Gerenciadores::Gerenciador_eventos* pEv;
-		Gerenciadores::Gerenciador_grafico* pGG;
+		Gerenciador_colisao* pGC;
+		Gerenciador_eventos* pEv;
+		Gerenciador_grafico* pGG;
 		Jogador* pJogador1;
 		ifstream tilemap;
 		
@@ -40,6 +42,7 @@ namespace Fases {
 		Fase();
 		~Fase();
 
+		void salvar();
 		virtual void executar() = 0;
 	};
 }

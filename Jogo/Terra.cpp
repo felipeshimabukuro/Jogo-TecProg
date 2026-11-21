@@ -16,7 +16,9 @@ void Terra::executar() {
 }
 
 void Terra::salvar() {
-
+	buffer.str("");
+	buffer.clear();
+	salvarDataBuffer();
 }
 
 void Terra::obstaculizar(Jogador* p) {

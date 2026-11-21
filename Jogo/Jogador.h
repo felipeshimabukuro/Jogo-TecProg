@@ -19,7 +19,7 @@ namespace Personagens
 		int inventario;
 		//std::vector<Entidades::Obstaculo*> inventario;
 		int t_dano;
-		static const int t_imune = 10;
+		static const int t_imune = 60;
 		Entidade* chaoAtual;
 		void inicializa();
 		list<Entidades::Obstaculo*> blocosPendentes;
@@ -47,5 +47,7 @@ namespace Personagens
 		//void setVelx(float vel);
 		void removerInventario();
 		void resetarChao();
+		const bool getImune() const;
+		void salvarDataBuffer();
 	};
 }

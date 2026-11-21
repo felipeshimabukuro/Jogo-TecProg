@@ -2,7 +2,7 @@
 
 using namespace Fases;
 
-Fase::Fase():Ente(), 
+Fase::Fase():Ente(ID::fase), 
 maxTopeiras(5),
 contTopeiras(0),
 lista_ents(),
@@ -103,4 +103,9 @@ void Fase::criarCenario()
 		i++;
 	}
 	tilemap.close();
+}
+
+void Fase::salvar()
+{
+	lista_ents.salvar();
 }
