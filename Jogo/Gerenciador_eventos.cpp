@@ -11,7 +11,8 @@ Gerenciador_eventos* Gerenciador_eventos::pEventos = NULL;
 Gerenciador_grafico* Gerenciador_eventos::pGG = Gerenciador_grafico::getGerenciadorGrafico();
 
 Gerenciador_eventos::Gerenciador_eventos():
-	pJogador(NULL),	
+	pJogador1(NULL),
+	pJogador2(NULL),
 	pJogo(NULL)
 {
 }
@@ -20,7 +21,8 @@ Gerenciador_eventos::~Gerenciador_eventos()
 {
 	pGG = NULL;
 	pEventos = NULL;
-	pJogador = NULL;
+	pJogador1 = NULL;
+	pJogador2 = NULL;
 	pJogo = NULL;
 }
 
@@ -33,25 +35,42 @@ Gerenciador_eventos* Gerenciador_eventos::getGerenciadorEventos()
 	return pEventos;
 }
 
-void Gerenciador_eventos::setJogador(Jogador* pJogador)
+void Gerenciador_eventos::setJogador1(Jogador* pJ1)
 {
-	this->pJogador = pJogador;
+	pJogador1 = pJ1;
+}
+
+void Gerenciador_eventos::setJogador2(Jogador* pJ2)
+{
+	pJogador2 = pJ2;
 }
 
 void Gerenciador_eventos::verificarTeclaPressionada(sf::Keyboard::Key tecla)
 {
-	//jogador
-	if(pJogador)
-	{
-		if (pJogador->getNum() == 0) {
-			if (tecla == sf::Keyboard::A || tecla == sf::Keyboard::S || tecla == sf::Keyboard::D || tecla == sf::Keyboard::W) {
-				pJogador->executar();
-			}
+	//Menu
+	if (pMenu) {
+		if (tecla == sf::Keyboard::Up) {
+			pMenu->moverCima();
 		}
-		else {
-			if (tecla == sf::Keyboard::Up || tecla == sf::Keyboard::Right || tecla == sf::Keyboard::Left || tecla == sf::Keyboard::Down) {
-				pJogador->executar();
-			}
+		else if (tecla == sf::Keyboard::Down) {
+			pMenu->moverBaixo();
+		}
+		else if (tecla == sf::Keyboard::Enter) {
+			pMenu->interagir();
+		}
+		return;
+	}
+	//jogador
+	if (pJogador1) {
+		if (tecla == sf::Keyboard::A || tecla == sf::Keyboard::S || tecla == sf::Keyboard::D || tecla == sf::Keyboard::W) {
+			pJogador1->executar();
+		}
+	}
+
+	//jogador 2
+	if (pJogador2) {
+		if (tecla == sf::Keyboard::Up || tecla == sf::Keyboard::Right || tecla == sf::Keyboard::Left || tecla == sf::Keyboard::Down) {
+			pJogador2->executar();
 		}
 	}
 
@@ -117,4 +136,8 @@ bool Gerenciador_eventos::deveSairDaFase()
 		return pJogo->deveVoltarMenu() || pJogo->deveCarregarSave();
 	}
 	return false;
+}
+
+void Gerenciador_eventos::setMenu(Menu* pM) {
+	pMenu = pM;
 }

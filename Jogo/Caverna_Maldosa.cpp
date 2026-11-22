@@ -3,7 +3,7 @@
 
 using namespace Fases;
 
-Caverna_Maldosa::Caverna_Maldosa(bool save) :Fase(), maxRato(5), contRato(0)
+Caverna_Maldosa::Caverna_Maldosa(bool save, int numJogadores) :Fase(numJogadores), maxRato(5), contRato(0)
 {
     if (!save)
     {
@@ -35,7 +35,7 @@ void Caverna_Maldosa::criarMagma(sf::Vector2f pos)
 
 void Caverna_Maldosa::criarRato(sf::Vector2f pos)
 {
-    Rato* rato = new Rato(pos, sf::Vector2f(GRID, GRID), pJogador1);
+    Rato* rato = new Rato(pos, sf::Vector2f(GRID, GRID), pJogador1,pJogador2);
     pGC->adicionarInimigo(rato);
 }
 
@@ -211,7 +211,7 @@ void Caverna_Maldosa::carregar()
                     >> nivel_maldade >> walk_cd >> lado >> x_alvo
                     >> tiro_cd >> estado;
 
-                Topeira* top = new Topeira(sf::Vector2f(x, y), sf::Vector2f(GRID * 2, GRID * 2), pJogador1);
+                Topeira* top = new Topeira(sf::Vector2f(x, y), sf::Vector2f(GRID * 2, GRID * 2), pJogador1, pJogador2);
                 if (top)
                 {
                     top->setAtivo(ativo);
@@ -238,7 +238,7 @@ void Caverna_Maldosa::carregar()
                     >> nivel_maldade >> walk_cd >> lado >> x_alvo
                     >> estado;
 
-                Rato* rato = new Rato(sf::Vector2f(x, y), sf::Vector2f(GRID, GRID), pJogador1);
+                Rato* rato = new Rato(sf::Vector2f(x, y), sf::Vector2f(GRID, GRID), pJogador1, pJogador2);
                 if (rato)
                 {
                     rato->setAtivo(ativo);

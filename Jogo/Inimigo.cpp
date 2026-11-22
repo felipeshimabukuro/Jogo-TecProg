@@ -5,8 +5,8 @@ using namespace Personagens;
 
 const int Inimigo::walk_tm = 120;
 
-Inimigo::Inimigo(ID id, const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j):
-Personagem(id, pos, tam),relogio(),jogador(j), dist_detec(100), nivel_maldade(rand()%5 + 1)
+Inimigo::Inimigo(ID id, const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador* j2):
+Personagem(id, pos, tam),relogio(),pJogador1(j1),pJogador2(j2), dist_detec(100), nivel_maldade(rand()%5 + 1)
 {
 	inicializa();
 	srand(time(NULL));
@@ -111,26 +111,35 @@ void Inimigo::executar() {
 	mover();
 }
 
-void Inimigo::colisao(Entidade* ent, sf::Vector2f ds) {
-	
+void Inimigo::colisao(Entidade * ent, sf::Vector2f ds) {
+		Jogador* pJog = dynamic_cast<Jogador*>(ent);
+		if (pJog) {
+			if (ds.x > ds.y) {
+				if (pJog->getX() < x) {
+					pJog->setPos(sf::Vector2f(x - pJog->getTam().x, pJog->getY()));
+				}
+				else {
+					pJog->setPos(sf::Vector2f(x + corpo.getSize().x, pJog->getY()));
+				}
+			}
+			return;
+		}
 	Entidades::Entidade::colisao(ent, ds);
 
 	if (ds.x <= ds.y) {
-		// Só zera vely se o inimigo estiver acima do obstáculo e caindo para baixo
 		if (getY() < ent->getY() && vely >= 0.0f) {
 			vely = 0.0f;
 			chao = true;
 		}
 		else if (getY() > ent->getY() && vely < 0.0f) {
-			vely = 0.0f; // Bateu a cabeça por baixo
+			vely = 0.0f; 
 		}
 	}
 	else {
-		// Colisão horizontal (bateu de lado na parede)
 		x_alvo = static_cast<int>(x);
 		lado = -lado;
 		atualizaLado();
-		walk_cd = 45; // Pausa o movimento contra a parede
+		walk_cd = 45; 
 	}
 }
 
@@ -198,6 +207,7 @@ void Inimigo::movimentoAleatorio()
 
 void Inimigo::atualizaLado()
 {
+	Jogador* jogador = getJogadorAlvo();
 	if (jogador)
 	{
 		if (detectarJogador())
@@ -233,6 +243,7 @@ void Inimigo::atualizaLado()
 
 bool Inimigo::detectarJogador()
 {
+	Jogador* jogador = getJogadorAlvo();
 	if (jogador == NULL) return false;
 
 	sf::Vector2f posJogador = jogador->getCorpo().getPosition();
@@ -270,4 +281,27 @@ void Inimigo::setLado(const int l)
 void Inimigo::setXAlvo(const int xa) 
 {
 	x_alvo = xa;
+}
+
+Jogador* Inimigo::getJogadorAlvo()
+{
+	if (!pJogador1 && !pJogador2) return NULL;
+
+	bool jog1Valido = pJogador1 && pJogador1->getAtivo();
+	bool jog2Valido = pJogador2 && pJogador2->getAtivo();
+
+	if (jog1Valido && jog2Valido)
+	{
+		sf::Vector2f posInimigo = corpo.getPosition();
+		sf::Vector2f dist1 = distanciaAlvo(pJogador1->getCorpo().getPosition(), posInimigo);
+		sf::Vector2f dist2 = distanciaAlvo(pJogador2->getCorpo().getPosition(), posInimigo);
+
+		// Compara quem está mais perto somando a distância X e Y
+		if ((dist1.x + dist1.y) < (dist2.x + dist2.y)) return pJogador1;
+		else return pJogador2;
+	}
+	else if (jog1Valido) return pJogador1;
+	else if (jog2Valido) return pJogador2;
+
+	return NULL;
 }

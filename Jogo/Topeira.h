@@ -14,7 +14,7 @@ namespace Personagens
 		static const int tempo_tiro;
 
 	public:
-		Topeira(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j);
+		Topeira(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador* j2);
 		~Topeira();
 		void cavar();
 		void atirar();

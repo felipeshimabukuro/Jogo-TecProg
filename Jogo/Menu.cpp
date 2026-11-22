@@ -61,17 +61,77 @@ void Menu::moverBaixo() {
 void Menu::interagir() {
     if (estadoAtual == EstadoMenu::PRINCIPAL) {
         if (opcaoSelecionada == 0) {
-            pJogo->carregarFase(1);
-            sairDoLoop = true;
+            estadoAtual = EstadoMenu::SELECIONAR_FASE;
+            opcaoSelecionada = 0; 
+
+            textosBotoes.resize(3);
+            textosBotoes[0].setString("Novo Jogo");
+            textosBotoes[1].setString("Carregar Jogo");
+            textosBotoes[2].setString("Sair");
         }
         else if (opcaoSelecionada == 1) {
-            pJogo->carregarFase(2);
+            pJogo->solicitarCarregamento();
             sairDoLoop = true;
         }
         else if (opcaoSelecionada == 2) {
-            exit(0);
+            pJogo->getWindow()->close();
         }
     }
+
+    else if (estadoAtual == EstadoMenu::SELECIONAR_FASE) {
+        if (opcaoSelecionada == 0) {
+            faseMapeada = 1; 
+
+            estadoAtual = EstadoMenu::QTD_JOGADORES; 
+            opcaoSelecionada = 0;
+
+            textosBotoes.resize(3);
+            textosBotoes[0].setString("1 Jogador");
+            textosBotoes[1].setString("2 Jogadores");
+            textosBotoes[2].setString("Voltar");
+        }
+        else if (opcaoSelecionada == 1) {
+            faseMapeada = 2; 
+
+            estadoAtual = EstadoMenu::QTD_JOGADORES;
+            opcaoSelecionada = 0;
+
+            textosBotoes.resize(3);
+            textosBotoes[0].setString("1 Jogador");
+            textosBotoes[1].setString("2 Jogadores");
+            textosBotoes[2].setString("Voltar");
+        }
+        else if (opcaoSelecionada == 2) {
+            estadoAtual = EstadoMenu::PRINCIPAL;
+            opcaoSelecionada = 0;
+
+            textosBotoes.resize(3);
+            textosBotoes[0].setString("Novo Jogo");
+            textosBotoes[1].setString("Carregar Jogo");
+            textosBotoes[2].setString("Sair");
+        }
+    }
+
+    else if (estadoAtual == EstadoMenu::QTD_JOGADORES) {
+        if (opcaoSelecionada == 0) {
+            pJogo->carregarFase(faseMapeada, 1);
+            sairDoLoop = true; 
+        }
+        else if (opcaoSelecionada == 1) {
+            pJogo->carregarFase(faseMapeada, 2);
+            sairDoLoop = true; 
+        }
+        else if (opcaoSelecionada == 2) {
+            estadoAtual = EstadoMenu::SELECIONAR_FASE;
+            opcaoSelecionada = 0;
+
+            textosBotoes.resize(3);
+            textosBotoes[0].setString("1 - Caverna Maldosa");
+            textosBotoes[1].setString("2 - Limbo da Perdicao");
+            textosBotoes[2].setString("Voltar");
+        }
+    }
+
     else if (estadoAtual == EstadoMenu::PAUSE) {
         if (opcaoSelecionada == 0) {
             sairDoLoop = true;
@@ -79,6 +139,15 @@ void Menu::interagir() {
         else if (opcaoSelecionada == 1) {
             pJogo->irParaMenu();
             sairDoLoop = true;
+        }
+    }
+
+    for (size_t i = 0; i < textosBotoes.size(); i++) {
+        if (i == opcaoSelecionada) {
+            textosBotoes[i].setFillColor(sf::Color::Red);
+        }
+        else {
+            textosBotoes[i].setFillColor(sf::Color::White);
         }
     }
 }
@@ -100,61 +169,36 @@ void Menu::executarTelaPause() {
     sairDoLoop = false;
     sf::RenderWindow* window = pJogo->getWindow();
 
+    Gerenciadores::Gerenciador_eventos* pEv = Gerenciadores::Gerenciador_eventos::getGerenciadorEventos();
+    pEv->setMenu(this);
+
     while (window->isOpen() && !sairDoLoop) {
-        sf::Event evento;
-        while (window->pollEvent(evento)) {
-            if (evento.type == sf::Event::Closed) {
-                window->close();
-                exit(0);
-            }
-            if (evento.type == sf::Event::KeyPressed) {
-                if (evento.key.code == sf::Keyboard::Up) {
-                    moverCima();
-                }
-                else if (evento.key.code == sf::Keyboard::Down) {
-                    moverBaixo();
-                }
-                else if (evento.key.code == sf::Keyboard::Enter) {
-                    interagir();
-                }
-            }
-        }
+        pEv->executar();
 
         window->clear(sf::Color::Black);
         desenhar();
         window->display();
     }
+
+    pEv->setMenu(NULL);
 }
 
 void Menu::executar() {
     sairDoLoop = false;
-
     sf::RenderWindow* window = pJogo->getWindow();
 
+    Gerenciadores::Gerenciador_eventos* pEv = Gerenciadores::Gerenciador_eventos::getGerenciadorEventos();
+    pEv->setMenu(this);
+
     while (window->isOpen() && !sairDoLoop) {
-        sf::Event evento;
-        while (window->pollEvent(evento)) {
-            if (evento.type == sf::Event::Closed) {
-                window->close();
-                exit(0);
-            }
-            if (evento.type == sf::Event::KeyPressed) {
-                if (evento.key.code == sf::Keyboard::Up) {
-                    moverCima();
-                }
-                else if (evento.key.code == sf::Keyboard::Down) {
-                    moverBaixo();
-                }
-                else if (evento.key.code == sf::Keyboard::Enter) {
-                    interagir();
-                }
-            }
-        }
+        pEv->executar();
 
         window->clear(sf::Color::Black);
         desenhar();
         window->display();
     }
+
+    pEv->setMenu(NULL);
 }
 
 void Menu::desenhar() {

@@ -12,7 +12,7 @@ namespace Personagens
         string estado;
 
     public:
-        Rato(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j);
+        Rato(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador* j2);
         ~Rato();
 
         bool detectarJogador();

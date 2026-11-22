@@ -8,8 +8,8 @@ using namespace Personagens;
 const int Topeira::dist_atk = 180;
 const int Topeira::tempo_tiro = 5 MINUTOS;
 
-Topeira::Topeira(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
-	Inimigo(ID::topeira, pos, tam, j),
+Topeira::Topeira(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador* j2) :
+	Inimigo(ID::topeira, pos, tam, j1, j2),
 	cavando(false),
 	tiro_cd(0)
 {
@@ -55,6 +55,7 @@ void Topeira::seguir()
 {
 	if (!cavando) { cavar(); }
 
+	Jogador* jogador = getJogadorAlvo();
 	if (jogador)
 	{
 		persegueJogador(jogador);
@@ -63,6 +64,7 @@ void Topeira::seguir()
 
 bool Topeira::perto()
 {
+	Jogador* jogador = getJogadorAlvo();
 	if(jogador == NULL) return false;
 
 	sf::Vector2f posJogador = jogador->getCorpo().getPosition();
@@ -126,7 +128,9 @@ void Topeira::colisao(Entidade* ent, sf::Vector2f ds)
 		{
 			pJog->setPos(sf::Vector2f(pJog->getX(), y - pJog->getTam().y - 8.0f));
 		}
-		return;
+		else {
+			danificar(pJog);
+		}
 	}
 	Inimigo::colisao(ent, ds);
 	

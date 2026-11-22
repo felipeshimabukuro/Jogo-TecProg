@@ -23,6 +23,7 @@ namespace Fases {
 		Gerenciador_eventos* pEv;
 		Gerenciador_grafico* pGG;
 		Jogador* pJogador1;
+		Jogador* pJogador2;
 		ifstream tilemap;
 		
 		void blocosColocados();
@@ -39,7 +40,7 @@ namespace Fases {
 		void criarPlataforma(sf::Vector2f pos);
 
 	public:
-		Fase();
+		Fase(int numJogadores);
 		~Fase();
 
 		void salvar();

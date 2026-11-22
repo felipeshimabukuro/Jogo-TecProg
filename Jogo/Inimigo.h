@@ -14,7 +14,8 @@ namespace Personagens {
 		static const int walk_tm;
 		int x_alvo;
 		short int lado;
-		Jogador* jogador;
+		Jogador* pJogador1;
+		Jogador* pJogador2;
 		sf::Clock relogio;
 		//short moveAleatorio;
 		void inicializa();
@@ -22,7 +23,7 @@ namespace Personagens {
 		float dist_detec;
 
 	public:
-		Inimigo(ID id, const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j);
+		Inimigo(ID id, const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador* j2);
 		~Inimigo();
 		virtual void executar() = 0;
 		//virtual void danificar() = 0;
@@ -46,5 +47,6 @@ namespace Personagens {
 		void setWalkCd(const int cd);
 		void setLado(const int l);
 		void setXAlvo(const int xa);
+		Jogador* getJogadorAlvo();
 	};
 }

@@ -4,7 +4,7 @@
 
 using namespace Fases;
 
-Limbo_da_perdicao::Limbo_da_perdicao(bool save) :Fase(), maxRatao(5), contRatao(0)
+Limbo_da_perdicao::Limbo_da_perdicao(bool save, int numJogadores) :Fase(numJogadores), maxRatao(5), contRatao(0)
 {
     if (!save)
     {
@@ -36,7 +36,7 @@ void Limbo_da_perdicao::criarEspinho(sf::Vector2f pos)
 
 void Limbo_da_perdicao::criarRatao(sf::Vector2f pos)
 {
-    Ratao* ratao = new Ratao(pos, sf::Vector2f(GRID * 2, GRID * 2), pJogador1);
+    Ratao* ratao = new Ratao(pos, sf::Vector2f(GRID * 2, GRID * 2), pJogador1,pJogador2);
     pGC->adicionarInimigo(ratao);
 }
 
@@ -213,7 +213,7 @@ void Limbo_da_perdicao::carregar()
                     >> nivel_maldade >> walk_cd >> lado >> x_alvo
                     >> tiro_cd >> estado;
 
-                Topeira* top = new Topeira(sf::Vector2f(x, y), sf::Vector2f(GRID * 2, GRID * 2), pJogador1);
+                Topeira* top = new Topeira(sf::Vector2f(x, y), sf::Vector2f(GRID * 2, GRID * 2), pJogador1, pJogador2);
                 if (top)
                 {
                     top->setAtivo(ativo);
@@ -245,7 +245,7 @@ void Limbo_da_perdicao::carregar()
                     >> lado_batida >> batendo >> tempo_batida >> ataque_cd
                     >> tempo_imune >> estado;
 
-                Ratao* ratao = new Ratao(sf::Vector2f(x, y), sf::Vector2f(GRID * 2, GRID * 2), pJogador1);
+                Ratao* ratao = new Ratao(sf::Vector2f(x, y), sf::Vector2f(GRID * 2, GRID * 2), pJogador1, pJogador2);
                 if (ratao)
                 {
                     ratao->setAtivo(ativo);

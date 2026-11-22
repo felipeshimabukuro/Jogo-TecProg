@@ -90,12 +90,15 @@ void Jogador::mover() {
         }
     }
     else {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            x -= max_velx;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+            velx = -max_velx;
+            x += velx;
+        }
 
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-            x -= max_velx;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+            velx = max_velx;
+            x += velx;
+        }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
             pular();

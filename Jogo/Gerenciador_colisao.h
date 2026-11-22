@@ -20,6 +20,7 @@ namespace Gerenciadores
 		list<Obstaculo*> LOs;
 		set<Projetil*> LPs;
 		Jogador* pJog1;
+		Jogador* pJog2;
 		ListaEntidade* LE;
 		Chao* pChao;
 
@@ -39,7 +40,8 @@ namespace Gerenciadores
 	public:
 		~Gerenciador_colisao();
 		static Gerenciador_colisao* getGerenciadorColisao();
-		void setJogador(Jogador* pJ);
+		void setJogador1(Jogador* pJ1);
+		void setJogador2(Jogador* pJ2);
 		void setListaEntidade(ListaEntidade* pLE);
 		void adicionarInimigo(Inimigo* pi);
 		void removerInimigo(Inimigo* pi);

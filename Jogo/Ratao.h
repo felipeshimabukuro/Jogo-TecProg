@@ -29,7 +29,7 @@ namespace Personagens
 		int tempo_imune; 
 
 	public:
-		Ratao(const sf::Vector2f pos = sf::Vector2f(0.0f, 0.0f), const sf::Vector2f tam = sf::Vector2f(80.0f, 80.0f), Jogador* j = nullptr);
+		Ratao(const sf::Vector2f pos = sf::Vector2f(0.0f, 0.0f), const sf::Vector2f tam = sf::Vector2f(80.0f, 80.0f), Jogador* j1 = nullptr, Jogador* j2 = nullptr);
 		~Ratao();
 		void criarTerra(int dir, int ind);
 		void verificarAtaque();

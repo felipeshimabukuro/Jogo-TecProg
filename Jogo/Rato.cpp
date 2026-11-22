@@ -6,8 +6,8 @@ using namespace Personagens;
 const int Rato::dist_detec = 360;
 const int Rato::dist_atk = 180;
 
-Rato::Rato(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
-	Inimigo(ID::rato, pos, tam, j)
+Rato::Rato(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador* j2) :
+	Inimigo(ID::rato, pos, tam, j1, j2)
 {
 	boss = false;
 	num_vidas = 15;
@@ -31,6 +31,7 @@ Rato::~Rato()
 
 bool Rato::detectarJogador()
 {
+	Jogador* jogador = getJogadorAlvo();
 	if (jogador == NULL) return false;
 
 	sf::Vector2f posJogador = jogador->getCorpo().getPosition();
@@ -41,6 +42,7 @@ bool Rato::detectarJogador()
 
 void Rato::seguir()
 {
+	Jogador* jogador = getJogadorAlvo();
 	atualizaLado();
 
 	if (jogador)
@@ -56,6 +58,7 @@ void Rato::seguir()
 
 bool Rato::perto()
 {
+	Jogador* jogador = getJogadorAlvo();
 	if (jogador == NULL) return false;
 
 	sf::Vector2f posJogador = jogador->getCorpo().getPosition();
@@ -66,15 +69,18 @@ bool Rato::perto()
 
 void Rato::atualizaLado()
 {
+	Jogador* jogador = getJogadorAlvo();
 	if (jogador)
 	{
-		if (jogador->getCorpo().getPosition().x > x)
-		{
-			lado = 1;
-		}
-		else
-		{
-			lado = -1;
+		if (detectarJogador()) {
+			if (jogador->getCorpo().getPosition().x > x)
+			{
+				lado = 1;
+			}
+			else
+			{
+				lado = -1;
+			}
 		}
 
 		const sf::Texture* tex = sprite.getTexture();
@@ -112,6 +118,7 @@ void Rato::executar()
 
 	if (estado == "ATAQUE")
 	{
+		Jogador* jogador = getJogadorAlvo();
 		atualizaLado();
 		if (jogador) {
 			if (jogador->getX() > x) {
@@ -127,6 +134,7 @@ void Rato::executar()
 	}
 	else if (estado == "SEGUIR")
 	{
+		Jogador* jogador = getJogadorAlvo();
 		persegueJogador(jogador); 
 	}
 	else

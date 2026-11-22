@@ -40,16 +40,25 @@ void Gerenciador_colisao::setListaEntidade(ListaEntidade* pLE)
 	}
 }
 
-void Gerenciador_colisao::setJogador(Jogador* pJ)
+void Gerenciador_colisao::setJogador1(Jogador* pJ1)
 {
-	if(pJ)
+	if (pJ1)
 	{
-		pJog1 = pJ;
-		Entidade* pE = static_cast<Entidade*>(pJ);
+		pJog1 = pJ1;
+		Entidade* pE = static_cast<Entidade*>(pJ1);
 		LE->incluir(pE);
 	}
 }
 
+void Gerenciador_colisao::setJogador2(Jogador* pJ2)
+{
+	if (pJ2)
+	{
+		pJog2 = pJ2;
+		Entidade* pE = static_cast<Entidade*>(pJ2);
+		LE->incluir(pE);
+	}
+}
 void Gerenciador_colisao::adicionarInimigo(Inimigo* pi)
 {
 	if(pi)
@@ -165,6 +174,38 @@ void Gerenciador_colisao::tratarColisaoJogadorInimigo()
 			}
 		}
 	}
+	if (pJog2 && pJog2->getAtivo())
+	{
+		for (auto* inim : LIs)
+		{
+			if (inim && inim->getAtivo())
+			{
+				sf::Vector2f ds = calcularColisao(pJog2, inim);
+				if (ds.x < 0.0f && ds.y < 0.0f)
+				{
+					pJog2->colisao(inim, ds);
+					inim->colisao(pJog2, ds);
+				}
+
+				if (inim->getBoss())
+				{
+					Ratao* boss = static_cast<Ratao*>(inim);
+					if (boss && boss->getBatendo())
+					{
+						sf::FloatRect areaHit = boss->getHitboxBatida();
+						sf::Vector2f posHit(areaHit.left, areaHit.top);
+						sf::Vector2f tamHit(areaHit.width, areaHit.height);
+
+						sf::Vector2f dsHit = calcularColisao(pJog2->getPos(), pJog2->getTam(), posHit, tamHit);
+						if (dsHit.x < 0.0f && dsHit.y < 0.0f)
+						{
+							pJog2->receberDano(boss->getForca());
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 void Gerenciador_colisao::tratarColisaoJogadorObstaculo()
@@ -180,6 +221,22 @@ void Gerenciador_colisao::tratarColisaoJogadorObstaculo()
 				{
 					pJog1->colisao(obs, ds);
 					obs->obstaculizar(pJog1);
+				}
+			}
+		}
+	}
+
+	if (pJog2 && pJog2->getAtivo())
+	{
+		for (auto* obs : LOs)
+		{
+			if (obs && obs->getAtivo())
+			{
+				sf::Vector2f ds = calcularColisao(pJog2, obs);
+				if (ds.x < 0.0f && ds.y < 0.0f)
+				{
+					pJog2->colisao(obs, ds);
+					obs->obstaculizar(pJog2);
 				}
 			}
 		}
@@ -201,6 +258,23 @@ void Gerenciador_colisao::tratarColisaoJogadorProjetil()
 				if (ds.x < 0.0f && ds.y < 0.0f)
 				{
 					proj->colisao(pJog1, ds);
+					projeteisParaRemover.push_back(proj);
+					continue;
+				}
+			}
+		}
+	}
+	if (pJog2 && pJog2->getAtivo())
+	{
+		std::vector<Projetil*> projeteisAtuais(LPs.begin(), LPs.end());
+		for (auto proj : projeteisAtuais)
+		{
+			if (proj && LPs.find(proj) != LPs.end())
+			{
+				sf::Vector2f ds = calcularColisao(proj, pJog2);
+				if (ds.x < 0.0f && ds.y < 0.0f)
+				{
+					proj->colisao(pJog2, ds);
 					projeteisParaRemover.push_back(proj);
 					continue;
 				}
@@ -301,6 +375,7 @@ bool Gerenciadores::Gerenciador_colisao::posicaoLivre(sf::Vector2f pos, sf::Vect
 void Gerenciador_colisao::executar()
 {
 	pJog1->resetarChao();
+	if (pJog2) pJog2->resetarChao();
 	tratarTiro();
 	tratarColisaoJogadorInimigo();
 	tratarColisaoJogadorObstaculo();
@@ -402,6 +477,16 @@ void Gerenciador_colisao::tratarColisaoChao()
 		{
 			pJog1->setPos(sf::Vector2f(pJog1->getPos().x, topoChao - pJog1->getTam().y));
 			pJog1->setChao(true);
+		}
+	}
+
+	if (pJog2 && pJog2->getAtivo())
+	{
+		float peJogador2 = pJog2->getPos().y + pJog2->getTam().y;
+		if (peJogador2 >= topoChao)
+		{
+			pJog2->setPos(sf::Vector2f(pJog2->getPos().x, topoChao - pJog2->getTam().y));
+			pJog2->setChao(true);
 		}
 	}
 

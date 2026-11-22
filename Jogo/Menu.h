@@ -17,9 +17,10 @@ private:
     int opcaoSelecionada;
     bool sairDoLoop;
 
-    enum EstadoMenu { PRINCIPAL, SELECIONAR_FASE, SELECIONAR_JOGADOR, PAUSE, RANKING };
+    enum EstadoMenu { PRINCIPAL, SELECIONAR_FASE, SELECIONAR_JOGADOR, QTD_JOGADORES,PAUSE };
     EstadoMenu estadoAtual;
 
+    int faseMapeada;
 public:
     Menu(Jogo* pJogo = nullptr);
     ~Menu();

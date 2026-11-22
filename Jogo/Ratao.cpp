@@ -9,8 +9,8 @@ using namespace Personagens;
 using namespace Entidades;
 using namespace Gerenciadores;
 
-Ratao::Ratao(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j) :
-	Inimigo(ID::ratao, pos, tam, j),
+Ratao::Ratao(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador* j2) :
+	Inimigo(ID::ratao, pos, tam, j1, j2),
 	estado("IDLE"),
 	forca(15),                       // Dano
 	bater_cd(0),                     // Cooldown da próxima batida
@@ -83,6 +83,7 @@ void Ratao::verificarAtaque()
 	}
 
 	// Usa detectarJogador() da base, que compara com dist_detec
+	Jogador* jogador = getJogadorAlvo();
 	if (jogador && detectarJogador())
 	{
 		if ((rand() % 100) < chance_atacar)
@@ -280,7 +281,6 @@ void Ratao::colisao(Entidade* ent, sf::Vector2f ds)
 				pJog->pular();
 			}
 		}
-		return;
 	}
 
 	Inimigo::colisao(ent, ds);

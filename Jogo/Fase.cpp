@@ -2,14 +2,15 @@
 
 using namespace Fases;
 
-Fase::Fase():Ente(ID::fase), 
+Fase::Fase(int numJogadores):Ente(ID::fase), 
     maxTopeiras(5),
     contTopeiras(0),
     lista_ents(),
     pGC(Gerenciador_colisao::getGerenciadorColisao()),
     pEv(Gerenciador_eventos::getGerenciadorEventos()),
     pGG(Gerenciador_grafico::getGerenciadorGrafico()),
-    pJogador1(NULL)
+    pJogador1(NULL),
+	pJogador2(NULL)
 {
 	if (pGC) {
 		pGC->setListaEntidade(&lista_ents);
@@ -17,31 +18,39 @@ Fase::Fase():Ente(ID::fase),
 
 	pJogador1 = new Jogador(sf::Vector2f(0, 0), sf::Vector2f(GRID, GRID), 0);
 
-	if (pGC && pJogador1) {
-		pGC->setJogador(pJogador1);
+	if (numJogadores == 2) {
+		pJogador2 = new Jogador(sf::Vector2f(0, 0), sf::Vector2f(GRID, GRID), 1);
 	}
 
-	if (pEv && pJogador1) {
-		pEv->setJogador(pJogador1);
+	if (pGC) {
+		pGC->setJogador1(pJogador1);
+		if (pJogador2) {
+			pGC->setJogador2(pJogador2);
+		}
+	}
+
+	if (pEv) {
+		pEv->setJogador1(pJogador1);
+		if (pJogador2) {
+			pEv->setJogador2(pJogador2);
+		}
 	}
 }
 
 Fase::~Fase()
 {
-    if (pEv) 
-    {
-        pEv->setJogador(NULL);
-    }
-
-    if (pGC) 
-    {
-        pGC->limpar();
-    }
-
-    pJogador1 = NULL;
-    pGC = NULL;
-    pEv = NULL;
-    pGG = NULL;
+	if (pEv) {
+		pEv->setJogador1(NULL);
+		pEv->setJogador2(NULL); // <--
+	}
+	if (pGC) {
+		pGC->limpar();
+	}
+	pJogador1 = NULL;
+	pJogador2 = NULL; // <--
+	pGC = NULL;
+	pEv = NULL;
+	pGG = NULL;
 }
 
 void Fase::blocosColocados() {
@@ -65,10 +74,27 @@ void Fase::blocosColocados() {
 			it = pendentes->erase(it);
 		}
 	}
+	if (pJogador2 != NULL) {
+		std::list<Entidades::Obstaculo*>* pendentes2 = pJogador2->getBlocosPendentes();
+		std::list<Entidades::Obstaculo*>::iterator it2 = pendentes2->begin();
+		while (it2 != pendentes2->end()) {
+			Entidades::Obstaculo* bloco = *it2;
+			if (bloco != NULL) {
+				if (pGC->posicaoLivre(bloco->getPos(), bloco->getTam())) {
+					pGC->adicionarObstaculo(bloco);
+				}
+				else {
+					pJogador2->addInventario();
+					delete bloco;
+				}
+			}
+			it2 = pendentes2->erase(it2);
+		}
+	}
 } 
 
 void Fase::criarTopeira(sf::Vector2f pos) {
-	Topeira* topeira = new Topeira(pos, sf::Vector2f(GRID * 2, GRID * 2), pJogador1);
+	Topeira* topeira = new Topeira(pos, sf::Vector2f(GRID * 2, GRID * 2), pJogador1,pJogador2);
 	pGC->adicionarInimigo(topeira);
 }
 
@@ -88,6 +114,9 @@ void Fase::criarPlataforma(sf::Vector2f pos)
 void Fase::posJogador(sf::Vector2f pos)
 {
 	pJogador1->setPos(pos);
+	if (pJogador2) {
+		pJogador2->setPos(sf::Vector2f(pos.x + GRID, pos.y));
+	}
 }
 
 void Fase::criarCenario() 

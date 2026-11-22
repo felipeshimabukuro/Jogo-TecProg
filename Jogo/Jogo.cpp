@@ -40,7 +40,7 @@ sf::RenderWindow* Jogo::getWindow()
     return pGG->getWindow();
 }
 
-void Jogo::carregarFase(int qualFase)
+void Jogo::carregarFase(int qualFase, int numJogadores)
 {
     if (faseAtual) {
         delete faseAtual;
@@ -50,10 +50,10 @@ void Jogo::carregarFase(int qualFase)
     faseID = qualFase;
 
     if (qualFase == 1) {
-        faseAtual = new Caverna_Maldosa();
+        faseAtual = new Caverna_Maldosa(false,numJogadores);
     }
     else if (qualFase == 2) {
-        faseAtual = new Limbo_da_perdicao();
+        faseAtual = new Limbo_da_perdicao(false,numJogadores);
     }
 }
 
