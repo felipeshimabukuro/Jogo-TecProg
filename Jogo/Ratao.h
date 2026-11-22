@@ -45,5 +45,15 @@ namespace Personagens
 		void danificar(Jogador* p);
 		void salvarDataBuffer();
 		void salvar();
+		void setBaterCd(const int cd);
+		void setBatidasRestantes(const int br);
+		void setBatidasEsq(const int be);
+		void setBatidasDir(const int bd);
+		void setLadoBatida(const int lb);
+		void setBatendo(const bool b);
+		void setTempoBatida(const int tb);
+		void setAtaqueCd(const int acd);
+		void setTempoImune(const int ti);
+		void setEstado(const string& est);
 	};
 }

@@ -250,3 +250,24 @@ void Inimigo::salvarDataBuffer()
 	buffer << x_alvo << " ";
 	// Projeteis pendentes sla como faz ainda
 }
+
+void Inimigo::setNivelMaldade(const int nm) 
+{
+	nivel_maldade = nm;
+	dano = nivel_maldade;
+}
+
+void Inimigo::setWalkCd(const int cd) 
+{
+	walk_cd = cd;
+}
+
+void Inimigo::setLado(const int l) 
+{
+	lado = l;
+}
+
+void Inimigo::setXAlvo(const int xa) 
+{
+	x_alvo = xa;
+}

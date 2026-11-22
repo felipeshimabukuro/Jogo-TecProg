@@ -56,6 +56,18 @@ void Gerenciador_eventos::verificarTeclaPressionada(sf::Keyboard::Key tecla)
 	}
 
 	//interface
+	if (tecla == sf::Keyboard::P)
+	{
+		if (pJogo) 
+		{
+			pJogo->salvar();
+		}
+	}
+	if (tecla == sf::Keyboard::L) {
+		if (pJogo) {
+			pJogo->solicitarCarregamento();
+		}
+	}
 	if(tecla == sf::Keyboard::Escape)
 	{
 		if (pJogo) {
@@ -70,7 +82,7 @@ void Gerenciador_eventos::verificarTeclaPressionada(sf::Keyboard::Key tecla)
 
 void Gerenciador_eventos::verificaTeclaSolta(sf::Keyboard::Key tecla)
 {
-	// Implementation for handling key release events
+	
 }
 
 void Gerenciador_eventos::executar()
@@ -98,10 +110,11 @@ void Gerenciador_eventos::setJogo(Jogo* p)
 	this->pJogo = p;
 }
 
-bool Gerenciador_eventos::getVoltarMenu()
+bool Gerenciador_eventos::deveSairDaFase() 
 {
-	if (pJogo) {
-		return pJogo->deveVoltarMenu();
+	if (pJogo) 
+	{
+		return pJogo->deveVoltarMenu() || pJogo->deveCarregarSave();
 	}
 	return false;
 }

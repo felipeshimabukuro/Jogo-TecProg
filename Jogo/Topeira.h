@@ -25,5 +25,7 @@ namespace Personagens
 		void danificar(Jogador* p);
 		void salvarDataBuffer();
 		void salvar();
+		void setTiroCd(const int cd);
+		void setEstado(const string& est);
 	};
 }

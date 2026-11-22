@@ -4,7 +4,6 @@
 #include "Jogador.h"
 
 class Jogo;
-
 using namespace Personagens;
 
 namespace Gerenciadores 
@@ -29,5 +28,6 @@ namespace Gerenciadores
 		void executar();
 		void setJogo(Jogo* p);
 		bool getVoltarMenu();
+		bool deveSairDaFase();
 	};
 }

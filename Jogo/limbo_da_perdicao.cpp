@@ -1,22 +1,25 @@
 #include "Limbo_da_perdicao.h"
+#include "Proj_top.h"
+#include "Proj_boss.h"
 
 using namespace Fases;
 
-Limbo_da_perdicao::Limbo_da_perdicao() :Fase(), maxRatao(5), contRatao(0)
+Limbo_da_perdicao::Limbo_da_perdicao(bool save) :Fase(), maxRatao(5), contRatao(0)
 {
-    tilemap.open("fases/limbo_da_perdicao.txt");
-    criarCenario();
-    //criarObstaculos();
-    //criarInimigos();
-	
+    if (!save)
+    {
+        tilemap.open("fases/limbo_da_perdicao.txt");
+        criarCenario();
+    }
+    else
+    {
+        criarFundo();
+        carregar();
+    }
 }
 
-Limbo_da_perdicao::~Limbo_da_perdicao() {
-    Gerenciadores::Gerenciador_eventos::getGerenciadorEventos()->setJogador(NULL);
-    if (pGC) {
-        delete pGC;
-        pGC = NULL;
-    }
+Limbo_da_perdicao::~Limbo_da_perdicao() 
+{
 }
 
 
@@ -63,7 +66,8 @@ void Limbo_da_perdicao::criarFundo()
 void Limbo_da_perdicao::executar() {
     while (pGG->verificaJanelaAberta())
     {
-        if (Gerenciadores::Gerenciador_eventos::getGerenciadorEventos()->getVoltarMenu()) {
+        if (pEv->deveSairDaFase()) 
+        {
             return; 
         }
         pEv->executar();
@@ -127,5 +131,204 @@ void Limbo_da_perdicao::criarEntidade(char tipo, sf::Vector2f pos) {
         case('e'):
             criarEspinho(pos);
             break;
+    }
+}
+
+void Limbo_da_perdicao::carregar()
+{
+    map<int, string> arquivosSave =
+    {
+        {0, "saves/jogadorSave.txt"},
+        {1, "saves/plataformaSave.txt"},
+        {2, "saves/espinhoSave.txt"},
+        {3, "saves/topeiraSave.txt"},
+        {4, "saves/rataoSave.txt"},
+        {5, "saves/projTopSave.txt"},
+        {6, "saves/projBoss.txt"},
+        {7, "saves/chaoSave.txt"}
+    };
+
+    for (int i = 0; i < 7; i++)
+    {
+        ifstream arquivo(arquivosSave[i]);
+
+        if (!arquivo.is_open()) continue;
+
+        string linha;
+
+        while (getline(arquivo, linha))
+        {
+            if (linha.empty()) continue;
+
+            istringstream ss(linha);
+
+            int id;
+            ss >> id;
+
+            float x, y;
+            bool ativo;
+
+            switch (i)
+            {
+            case 0: // Jogador
+            {
+                float velX, velY;
+                int num_vidas, pontos, inventario, t_dano;
+                ss >> x >> y >> ativo >> velX >> velY >> num_vidas >> pontos >> inventario >> t_dano;
+                if (pJogador1)
+                {
+                    pJogador1->setPos(sf::Vector2f(x, y));
+                    pJogador1->setAtivo(ativo);
+                    pJogador1->setVel(sf::Vector2f(velX, velY));
+                    pJogador1->setNumVidas(num_vidas);
+                    pJogador1->setInventario(inventario);
+                    pJogador1->setTDano(t_dano);
+
+                    Jogador::setPontos(pontos);
+                }
+                break;
+            }
+            case 1: // Plataforma
+            {
+                int ticks;
+                ss >> x >> y >> ativo >> ticks;
+                criarPlataforma(sf::Vector2f(x, y));
+                Plataforma::setTicks(ticks);
+                break;
+            }
+            case 2: // Espinho
+            {
+                ss >> x >> y >> ativo;
+                criarEspinho(sf::Vector2f(x, y));
+                break;
+            }
+            case 3: // Topeira
+            {
+                float velX, velY;
+                int num_vidas, nivel_maldade, walk_cd, lado, x_alvo, tiro_cd;
+                std::string estado;
+
+                ss >> x >> y >> ativo >> velX >> velY >> num_vidas
+                    >> nivel_maldade >> walk_cd >> lado >> x_alvo
+                    >> tiro_cd >> estado;
+
+                Topeira* top = new Topeira(sf::Vector2f(x, y), sf::Vector2f(GRID * 2, GRID * 2), pJogador1);
+                if (top)
+                {
+                    top->setAtivo(ativo);
+                    top->setVel(sf::Vector2f(velX, velY));
+                    top->setNumVidas(num_vidas);
+                    top->setNivelMaldade(nivel_maldade);
+                    top->setWalkCd(walk_cd);
+                    top->setLado(lado);
+                    top->setXAlvo(x_alvo);
+                    top->setTiroCd(tiro_cd);
+                    top->setEstado(estado);
+
+                    pGC->adicionarInimigo(top);
+                }
+                break;
+            }
+            case 4: // Ratao
+            {
+                float velX, velY;
+                int num_vidas, nivel_maldade, walk_cd, lado, x_alvo;
+                int bater_cd, batidas_restantes, batidas_esq, batidas_dir, lado_batida;
+                bool batendo;
+                int tempo_batida, ataque_cd, tempo_imune;
+                string estado;
+
+                ss >> x >> y >> ativo >> velX >> velY >> num_vidas
+                    >> nivel_maldade >> walk_cd >> lado >> x_alvo
+                    >> bater_cd >> batidas_restantes >> batidas_esq >> batidas_dir
+                    >> lado_batida >> batendo >> tempo_batida >> ataque_cd
+                    >> tempo_imune >> estado;
+
+                Ratao* ratao = new Ratao(sf::Vector2f(x, y), sf::Vector2f(GRID * 2, GRID * 2), pJogador1);
+                if (ratao)
+                {
+                    ratao->setAtivo(ativo);
+                    ratao->setVel(sf::Vector2f(velX, velY));
+                    ratao->setNumVidas(num_vidas);
+                    ratao->setNivelMaldade(nivel_maldade);
+                    ratao->setWalkCd(walk_cd);
+                    ratao->setLado(lado);
+                    ratao->setXAlvo(x_alvo);
+
+                    ratao->setBaterCd(bater_cd);
+                    ratao->setBatidasRestantes(batidas_restantes);
+                    ratao->setBatidasEsq(batidas_esq);
+                    ratao->setBatidasDir(batidas_dir);
+                    ratao->setLadoBatida(lado_batida);
+                    ratao->setBatendo(batendo);
+                    ratao->setTempoBatida(tempo_batida);
+                    ratao->setAtaqueCd(ataque_cd);
+                    ratao->setTempoImune(tempo_imune);
+                    ratao->setEstado(estado);
+
+                    ratao->atualizaLado();
+                    pGC->adicionarInimigo(ratao);
+                }
+                break;
+            }
+            case 5: // Tiro Topera
+            {
+                float velX, velY;
+                short int direcao;
+                int dano;
+
+                ss >> x >> y >> ativo >> velX >> velY >> direcao >> dano;
+
+                Proj_top* proj = new Proj_top(direcao, x, y);
+                if (proj)
+                {
+                    proj->setAtivo(ativo);
+                    proj->setVelX(velX);
+                    proj->setVelY(velY);
+                    proj->setDano(dano);
+
+                    pGC->adicionarProjetil(proj);
+                }
+                break;
+            }
+            case 6: // Tiro boss
+            {
+                float velX, velY;
+                short int direcao;
+                int fragmentos;
+
+                ss >> x >> y >> ativo >> velX >> velY >> direcao >> fragmentos;
+
+                Proj_boss* proj = new Proj_boss(direcao, static_cast<int>(x), static_cast<short int>(y));
+                if (proj)
+                {
+                    proj->setPos(sf::Vector2f(x, y));
+                    proj->setAtivo(ativo);
+                    proj->setVelX(velX);
+                    proj->setVelY(velY);
+                    proj->setFragmentos(fragmentos);
+
+                    pGC->adicionarProjetil(proj);
+                }
+                break;
+            }
+            case 7: // chao
+            {
+                int ticks;
+                ss >> x >> y >> ativo >> ticks;
+
+                Chao* chao = new Chao(sf::Vector2f(x, y), sf::Vector2f(WIDTH, 300.0f));
+                if (chao)
+                {
+                    chao->setAtivo(ativo);
+                    chao->setTicks(ticks);
+
+                    pGC->setChao(chao);
+                }
+                break;
+            }
+            }
+        }
+        arquivo.close();
     }
 }

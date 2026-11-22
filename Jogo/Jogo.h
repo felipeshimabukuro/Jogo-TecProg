@@ -20,6 +20,9 @@ private:
 	Fases::Fase* faseAtual;
 	Gerenciadores::Gerenciador_grafico* pGG;
 	bool voltarMenuFlag;
+	int faseID;
+	bool carregarSaveFlag;
+
 public:
 	Jogo();
 	~Jogo();
@@ -27,6 +30,10 @@ public:
 
 	sf::RenderWindow* getWindow();
 	void carregarFase(int qualFase);
+	void salvar();
+	void carregar();
+	void solicitarCarregamento();
+	bool deveCarregarSave();
 
 	void irParaMenu();  
 	bool deveVoltarMenu();

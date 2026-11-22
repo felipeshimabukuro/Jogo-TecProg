@@ -194,3 +194,8 @@ void Rato::salvar()
 
 	salvarDataBuffer();
 }
+
+void Rato::setEstado(const string& est)
+{
+	estado = est;
+}

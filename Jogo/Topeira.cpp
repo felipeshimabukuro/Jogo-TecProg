@@ -151,3 +151,13 @@ void Topeira::salvar()
 
 	salvarDataBuffer();
 }
+
+void Topeira::setTiroCd(const int cd) 
+{
+	tiro_cd = cd;
+}
+
+void Topeira::setEstado(const string& est) 
+{
+	estado = est;
+}

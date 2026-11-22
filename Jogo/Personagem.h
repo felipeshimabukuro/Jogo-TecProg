@@ -15,6 +15,7 @@ namespace Personagens {
 		int dano;
 		static const float gravidade;
 		sf::Vector2f vel;
+
 	public:
 		Personagem(ID id, const sf::Vector2f pos, const sf::Vector2f tam);
 		~Personagem();
@@ -26,6 +27,8 @@ namespace Personagens {
 		const float getVely() const;
 		const float getVelx() const;
 		int getDano() const;
+		void setVel(const sf::Vector2f v);
+		void setNumVidas(const int vidas);
 	};
 
 }

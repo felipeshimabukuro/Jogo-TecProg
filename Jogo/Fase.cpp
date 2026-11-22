@@ -3,13 +3,13 @@
 using namespace Fases;
 
 Fase::Fase():Ente(ID::fase), 
-maxTopeiras(5),
-contTopeiras(0),
-lista_ents(),
-pGC(Gerenciadores::Gerenciador_colisao::getGerenciadorColisao()),
-pEv(Gerenciadores::Gerenciador_eventos::getGerenciadorEventos()),
-pGG(Gerenciadores::Gerenciador_grafico::getGerenciadorGrafico()),
-pJogador1(NULL)
+    maxTopeiras(5),
+    contTopeiras(0),
+    lista_ents(),
+    pGC(Gerenciador_colisao::getGerenciadorColisao()),
+    pEv(Gerenciador_eventos::getGerenciadorEventos()),
+    pGG(Gerenciador_grafico::getGerenciadorGrafico()),
+    pJogador1(NULL)
 {
 	if (pGC) {
 		pGC->setListaEntidade(&lista_ents);
@@ -26,9 +26,22 @@ pJogador1(NULL)
 	}
 }
 
-Fase::~Fase() {
-	pJogador1 = NULL;
-	pGC = NULL;
+Fase::~Fase()
+{
+    if (pEv) 
+    {
+        pEv->setJogador(NULL);
+    }
+
+    if (pGC) 
+    {
+        pGC->limpar();
+    }
+
+    pJogador1 = NULL;
+    pGC = NULL;
+    pEv = NULL;
+    pGG = NULL;
 }
 
 void Fase::blocosColocados() {
@@ -61,16 +74,15 @@ void Fase::criarTopeira(sf::Vector2f pos) {
 
 void Fase::criarChao(sf::Vector2f pos)
 {
-	//Chao* chao = new Chao(sf::Vector2f(0.0f, 600.0f - 50.0f), sf::Vector2f(800.0f, 50.0f));
-	//pGC->adicionarChao(chao);
 	Chao* chao = new Chao(pos, sf::Vector2f(WIDTH, 300.0f));
 	pGC->setChao(chao);
 }
 
 void Fase::criarPlataforma(sf::Vector2f pos)
 {
-	Plataforma* terra2 = new Plataforma(pos.x, pos.y, GRID, GRID, 0, false, true);
-	pGC->adicionarObstaculo(terra2);
+	Plataforma* terra = new Plataforma(pos.x, pos.y, GRID, GRID, 0, false, true);
+	pGC->adicionarObstaculo(terra);
+	terra->setAtivo(1);
 }
 
 void Fase::posJogador(sf::Vector2f pos)

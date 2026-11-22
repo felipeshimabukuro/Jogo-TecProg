@@ -43,6 +43,7 @@ namespace Fases {
 		~Fase();
 
 		void salvar();
+		virtual void carregar() = 0;
 		virtual void executar() = 0;
 	};
 }

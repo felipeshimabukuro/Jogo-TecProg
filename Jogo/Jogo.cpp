@@ -1,33 +1,12 @@
 #include "Bibliotecas.h"
 #include "Jogo.h"
-
-/*Jogo::Jogo() : faseAtual(new Fases::Caverna_Maldosa)
-{
-	executar();
-}
-
-Jogo::~Jogo()
-{
-	if (faseAtual) {
-		delete faseAtual;
-		faseAtual = NULL;
-	}
-}
-
-void Jogo::executar()
-{
-	if (faseAtual) {
-		faseAtual->executar();
-	}
-}*/
-#include "Bibliotecas.h"
-#include "Jogo.h"
 #include "Menu.h"
 #include "Caverna_Maldosa.h"
 #include "Limbo_da_perdicao.h"
 #include "Gerenciador_grafico.h"
 
 using namespace Gerenciadores;
+using namespace Fases;
 
 void Jogo::irParaMenu() { 
     voltarMenuFlag = true;
@@ -37,10 +16,14 @@ bool Jogo::deveVoltarMenu() {
     return voltarMenuFlag;
 }
 
-Jogo::Jogo() : faseAtual(NULL)
+Jogo::Jogo() :
+    faseAtual(NULL),
+    voltarMenuFlag(false),
+    carregarSaveFlag(false),
+    faseID(0)
 {
     pGG = Gerenciador_grafico::getGerenciadorGrafico();
-    Gerenciadores::Gerenciador_eventos::getGerenciadorEventos()->setJogo(this);
+    Gerenciador_eventos::getGerenciadorEventos()->setJogo(this);
     executar();
 }
 
@@ -64,11 +47,13 @@ void Jogo::carregarFase(int qualFase)
         faseAtual = NULL;
     }
 
+    faseID = qualFase;
+
     if (qualFase == 1) {
-        faseAtual = new Fases::Caverna_Maldosa();
+        faseAtual = new Caverna_Maldosa();
     }
     else if (qualFase == 2) {
-        faseAtual = new Fases::Limbo_da_perdicao();
+        faseAtual = new Limbo_da_perdicao();
     }
 }
 
@@ -85,10 +70,67 @@ void Jogo::executar()
                 faseAtual = NULL;
                 voltarMenuFlag = false;
             }
+
+            else if (carregarSaveFlag == true) 
+            {
+                carregarSaveFlag = false;
+                carregar(); 
+            }
         }
         else {
             Menu menuPrincipal(this);
             menuPrincipal.executar();
         }
     }
+}
+
+void Jogo::salvar() 
+{
+    if (faseAtual != NULL)
+    {
+        faseAtual->salvar();
+
+        ofstream arqFase("saves/faseSave.txt");
+        if (arqFase.is_open()) {
+            arqFase << faseID;
+        }
+    }
+}
+
+void Jogo::carregar()
+{
+    ifstream arqFase("saves/faseSave.txt");
+    int qualFase = 0;
+
+    if (arqFase.is_open()) {
+        arqFase >> qualFase;
+        arqFase.close();
+    }
+
+    if (qualFase == 0) {
+        cout << "Nenhum save encontrado!" << std::endl;
+        return;
+    }
+
+    if (faseAtual) {
+        delete faseAtual;
+        faseAtual = NULL;
+    }
+
+    faseID = qualFase;
+
+    if (qualFase == 1) {
+        faseAtual = new Caverna_Maldosa(true);
+    }
+    else if (qualFase == 2) {
+        faseAtual = new Limbo_da_perdicao(true);
+    }
+}
+
+void Jogo::solicitarCarregamento() {
+    carregarSaveFlag = true;
+}
+
+bool Jogo::deveCarregarSave() {
+    return carregarSaveFlag;
 }

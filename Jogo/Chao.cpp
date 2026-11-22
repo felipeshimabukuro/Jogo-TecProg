@@ -53,3 +53,8 @@ void Chao::salvar()
 
     salvarDataBuffer();
 }
+
+void Chao::setTicks(const int t) 
+{
+    ticks = t;
+}

@@ -421,3 +421,13 @@ void Gerenciador_colisao::tratarColisaoChao()
 		}
 	}
 }
+
+void Gerenciador_colisao::limpar()
+{
+	LIs.clear();
+	LOs.clear();
+	LPs.clear();
+	pJog1 = NULL;
+	pChao = NULL;
+	LE = NULL;
+}

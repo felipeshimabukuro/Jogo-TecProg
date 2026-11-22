@@ -20,5 +20,6 @@ namespace Entidades {
 		void inicializa();
 		void salvar();
 		void salvarDataBuffer();
+		static void setTicks(const int t);
 	};
 }

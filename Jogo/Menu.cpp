@@ -14,12 +14,12 @@ Menu::Menu(Jogo* pJogo) :
     }
 
     tituloMenu.setFont(fonte);
-    tituloMenu.setString("Cavadores Intrépidos");
+    tituloMenu.setString("Cavadores Intrepidos");
     tituloMenu.setCharacterSize(50);
     tituloMenu.setFillColor(sf::Color::White);
     tituloMenu.setPosition(200.0f, 100.0f);
 
-    std::vector<std::string> opcoes = { "Jogar Caverna_Maldosa (Fase1)", "Jogar Limbo da Perdicao (Fase2)", "Sair" };
+    std::vector<std::string> opcoes = { "Jogar Caverna Maldosa (Fase1)", "Jogar Limbo da Perdicao (Fase2)", "Sair" };
 
     for (size_t i = 0; i < opcoes.size(); i++) {
         sf::Text texto;

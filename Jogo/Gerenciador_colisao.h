@@ -54,5 +54,6 @@ namespace Gerenciadores
 		void tratarTiro();
 		void setChao(Chao* chao);
 		void testarColisaoChao(Entidade* pEnt);
+		void limpar();
 	};
 }

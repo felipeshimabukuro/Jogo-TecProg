@@ -40,3 +40,8 @@ void Plataforma::inicializa() {
 	corpo.setPosition(x, y);
 	sprite.setPosition(x, y);
 }
+
+void Plataforma::setTicks(const int p)
+{ 
+	ticks = p;
+}

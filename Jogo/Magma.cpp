@@ -74,3 +74,8 @@ void Magma::salvarDataBuffer()
 {
     Obstaculo::salvarDataBuffer();
 }
+
+void Magma::setTicks(const int t)
+{
+    ticks = t;
+}

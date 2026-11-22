@@ -40,3 +40,12 @@ const float Personagem::getVelx() const {
 int Personagem::getDano() const {
 	return dano;
 }
+
+void Personagem::setVel(const sf::Vector2f v) {
+	velx = v.x;
+	vely = v.y;
+}
+
+void Personagem::setNumVidas(const int vidas) {
+	num_vidas = vidas;
+}

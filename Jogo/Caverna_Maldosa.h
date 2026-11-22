@@ -21,9 +21,10 @@ namespace Fases {
         void criarEntidade(char tipo, sf::Vector2f pos);
 
     public:
-        Caverna_Maldosa();
+        Caverna_Maldosa(bool save = 0);
         ~Caverna_Maldosa();
 
         void executar();
+        void carregar();
     };
 }

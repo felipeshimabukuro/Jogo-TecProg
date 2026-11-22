@@ -292,3 +292,15 @@ void Jogador::salvar()
 
     salvarDataBuffer();
 }
+
+void Jogador::setInventario(const int inv) {
+    inventario = inv;
+}
+
+void Jogador::setTDano(const int td) {
+    t_dano = td;
+}
+
+void Jogador::setPontos(const int p) {
+    pontos = p;
+}

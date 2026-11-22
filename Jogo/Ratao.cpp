@@ -341,3 +341,58 @@ void Ratao::salvar()
 
 	salvarDataBuffer();
 }
+
+void Ratao::setBaterCd(const int cd) 
+{
+	bater_cd = cd;
+}
+
+void Ratao::setBatidasRestantes(const int br) 
+{
+	batidas_restantes = br;
+}
+
+void Ratao::setBatidasEsq(const int be) 
+{
+	batidas_esq = be;
+}
+
+void Ratao::setBatidasDir(const int bd) 
+{
+	batidas_dir = bd;
+}
+
+void Ratao::setLadoBatida(const int lb) 
+{
+	lado_batida = lb;
+}
+
+void Ratao::setBatendo(const bool b) 
+{
+	batendo = b;
+	if (batendo) 
+	{
+		y_batida = y + getTam().y - altura_batida;
+		x_batida = (lado_batida == 1) ? (x + getTam().x) : (x - largura_batida);
+	}
+}
+
+void Ratao::setTempoBatida(const int tb) 
+{
+	tempo_batida = tb;
+}
+
+void Ratao::setAtaqueCd(const int acd) 
+{
+	ataque_cd = acd;
+}
+
+void Ratao::setTempoImune(const int ti) 
+{
+	tempo_imune = ti;
+}
+
+void Ratao::setEstado(const std::string& est) 
+{
+	estado = est;
+}

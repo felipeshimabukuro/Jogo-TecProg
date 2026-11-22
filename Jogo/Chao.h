@@ -22,5 +22,6 @@ namespace Entidades
         void salvar();
         void desenhar(sf::RenderWindow* window);
         void ajudar(Personagens::Jogador* p);
+        void setTicks(const int t);
     };
 }

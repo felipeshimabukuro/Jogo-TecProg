@@ -49,5 +49,8 @@ namespace Personagens
 		void resetarChao();
 		const bool getImune() const;
 		void salvarDataBuffer();
+		void setInventario(const int inv);
+		void setTDano(const int td);
+		static void setPontos(const int p);
 	};
 }

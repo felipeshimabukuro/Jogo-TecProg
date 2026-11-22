@@ -21,9 +21,10 @@ namespace Fases {
         void criarEntidade(char tipo, sf::Vector2f pos);
 
     public:
-        Limbo_da_perdicao();
+        Limbo_da_perdicao(bool save = 0);
         ~Limbo_da_perdicao();
 
         void executar();
+        void carregar();
     };
 }

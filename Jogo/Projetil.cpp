@@ -48,3 +48,11 @@ void Projetil::salvarDataBuffer()
 	buffer << velY << " ";
 	buffer << direcao << " ";
 }
+
+void Projetil::setVelX(const float vx) {
+	velX = vx;
+}
+
+void Projetil::setVelY(const float vy) {
+	velY = vy;
+}

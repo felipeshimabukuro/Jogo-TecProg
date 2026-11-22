@@ -15,5 +15,6 @@ namespace Entidades {
 		void salvar();
 		void obstaculizar(Jogador* p);
 		void inicializa();
+		static void setTicks(const int t);
 	};
 }

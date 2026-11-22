@@ -42,5 +42,9 @@ namespace Personagens {
 		std::list<Entidades::Projetil*>* getProjeteisPendentes();
 		virtual void danificar(Jogador* p) = 0;
 		bool detectarJogador();
+		void setNivelMaldade(const int nm);
+		void setWalkCd(const int cd);
+		void setLado(const int l);
+		void setXAlvo(const int xa);
 	};
 }

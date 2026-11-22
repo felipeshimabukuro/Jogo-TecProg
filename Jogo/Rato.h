@@ -26,5 +26,6 @@ namespace Personagens
        //void mover();
         void salvarDataBuffer();
         void salvar();
+        void setEstado(const string& est);
     };
 }

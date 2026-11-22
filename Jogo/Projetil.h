@@ -22,5 +22,7 @@ namespace Entidades
 		void setPos(const sf::Vector2f pos);
 		void executar();
 		virtual void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f)) = 0;
+		void setVelX(const float vx);
+		void setVelY(const float vy);
 	};
 }

@@ -60,18 +60,36 @@ void ListaEntidade::limparDestruidos()
 
 void ListaEntidade::salvar()
 {
-	ostringstream save;
+	int tam = 10;
+	vector<ostringstream> classes (tam);
 
 	for (int i = 0; i < LEs.getTamanho(); i++)
 	{
 		Entidade* ent = LEs[i];
 		ent->salvar();
-		save << ent->getBuffer() << '\n';
+		classes[ static_cast<int>(ent->getID()) - 1 ] << ent->getBuffer() << '\n';
 	}
 
-	ofstream arquivo("saves/saveTeste.txt");
-	if (arquivo.is_open())
+	map<int, string> arquivosSave = 
 	{
-		arquivo << save.str();
+		{0, "saves/jogadorSave.txt"},
+		{1, "saves/plataformaSave.txt"},
+		{2, "saves/magmaSave.txt"},
+		{3, "saves/espinhoSave.txt"},
+		{4, "saves/topeiraSave.txt"},
+		{5, "saves/ratoSave.txt"},
+		{6, "saves/rataoSave.txt"},
+		{7, "saves/projTopSave.txt"},
+		{8, "saves/projBossSave.txt"},
+		{9, "saves/chaoSave.txt"}
+	};
+
+	for (int i = 0; i < tam; i++)
+	{
+		ofstream arquivo(arquivosSave[i]);
+		if (arquivo.is_open())
+		{
+			arquivo << classes[i].str();
+		}
 	}
 }
