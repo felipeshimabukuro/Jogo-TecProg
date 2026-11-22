@@ -31,6 +31,7 @@ void Limbo_da_perdicao::criarEspinho(sf::Vector2f pos)
 {
     Espinho* espinho = new Espinho(pos.x, pos.y, GRID, GRID, 5, true, false);
     pGC->adicionarObstaculo(espinho);
+    espinho->setAtivo(1);
 }
 
 void Limbo_da_perdicao::criarRatao(sf::Vector2f pos)
@@ -148,7 +149,7 @@ void Limbo_da_perdicao::carregar()
         {7, "saves/chaoSave.txt"}
     };
 
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < 8; i++)
     {
         ifstream arquivo(arquivosSave[i]);
 

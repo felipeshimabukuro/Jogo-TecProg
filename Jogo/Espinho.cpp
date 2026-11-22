@@ -17,10 +17,6 @@ void Espinho::executar() {
 	sprite.setPosition(x, y);
 }
 
-void Espinho::salvar() {
-
-}
-
 void Espinho::obstaculizar(Jogador* p) { // pensar em um obstaculizar melhor
 	p->receberDano(15);
 	p->pular();
@@ -31,4 +27,15 @@ void Espinho::inicializa() {
 	setTextura("espinho", sf::Vector2f(largura, altura));
 	corpo.setPosition(x, y);
 	sprite.setPosition(x, y);
+}
+
+void Espinho::salvarDataBuffer()
+{
+	Obstaculo::salvarDataBuffer();
+}
+
+void Espinho::salvar() {
+	buffer.str("");
+	buffer.clear();
+	salvarDataBuffer();
 }

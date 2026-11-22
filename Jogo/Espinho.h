@@ -13,6 +13,7 @@ namespace Entidades {
 		~Espinho();
 		void executar();
 		void salvar();
+		void salvarDataBuffer();
 		void obstaculizar(Jogador* p);
 		void inicializa();
 	};
