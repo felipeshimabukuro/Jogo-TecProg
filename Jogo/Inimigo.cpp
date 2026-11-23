@@ -7,7 +7,8 @@ using namespace Entidades;
 const int Inimigo::walk_tm = 120;
 
 Inimigo::Inimigo(ID id, const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador* j2):
-Personagem(id, pos, tam),relogio(),pJogador1(j1),pJogador2(j2), dist_detec(100), nivel_maldade(rand()%5 + 1)
+Personagem(id, pos, tam),relogio(),pJogador1(j1),pJogador2(j2), dist_detec(100), nivel_maldade(rand()%5 + 1), 
+jaDeuPontos(false), pontosBase(nivel_maldade * 100)
 {
 	inicializa();
 	srand(time(NULL));
@@ -90,6 +91,17 @@ void Inimigo::receberDano(int dano) {
 	else {
 		cout << "Inimigo neutralizado" << endl;
 		setAtivo(false);
+		jaDeuPontos = true;
+
+		float tempoDecorrido = relogio.getElapsedTime().asSeconds();
+
+		int pontosFinais = pontosBase - (int)(tempoDecorrido * 2);
+
+		if (pontosFinais < pontosBase * 0.2f) {
+			pontosFinais = pontosBase * 0.2f;
+		}
+
+		Jogador::setPontos( Jogador::getPontos()  + pontosFinais);
 	}
 }
 
@@ -307,4 +319,14 @@ Jogador* Inimigo::getJogadorAlvo()
 	else if (jog2Valido) return pJogador2;
 
 	return NULL;
+}
+
+int Inimigo::getPontosBase() const {
+	return pontosBase;
+}
+bool Inimigo::getJaDeuPontos() const {
+	return jaDeuPontos;
+}
+void Inimigo::setJaDeuPontos(bool status) {
+	jaDeuPontos = status;
 }

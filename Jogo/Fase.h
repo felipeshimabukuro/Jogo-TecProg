@@ -27,6 +27,11 @@ namespace Fases {
 		Jogador* pJogador1;
 		Jogador* pJogador2;
 		ifstream tilemap;
+
+		sf::Clock relogioFase;
+		bool faseConcluida;
+		sf::Text textoFimDeFase;
+		sf::Font fonteTexto;
 		
 		void blocosColocados();
 		void criarCenario();

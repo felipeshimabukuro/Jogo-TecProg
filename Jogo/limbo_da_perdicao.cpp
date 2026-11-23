@@ -16,6 +16,13 @@ Limbo_da_perdicao::Limbo_da_perdicao(bool save, int numJogadores) :Fase(numJogad
         criarFundo();
         carregar();
     }
+
+    if (fonteTexto.loadFromFile("arial.ttf")) {
+        textoFimDeFase.setFont(fonteTexto);
+        textoFimDeFase.setCharacterSize(50);
+        textoFimDeFase.setFillColor(sf::Color::Yellow);
+        textoFimDeFase.setPosition(sf::Vector2f(200.f, 300.f));
+    }
 }
 
 Limbo_da_perdicao::~Limbo_da_perdicao() 
@@ -63,24 +70,76 @@ void Limbo_da_perdicao::criarFundo()
         }
     }
 }
-
 void Limbo_da_perdicao::executar() {
-    while (pGG->verificaJanelaAberta())
+    bool faseRolando = true;
+
+    while (pGG->verificaJanelaAberta() && faseRolando)
     {
-        if (pEv->deveSairDaFase()) 
+        if (pEv->deveSairDaFase())
         {
-            return; 
+            return;
         }
-        pEv->executar();
-        lista_ents.percorrer();
-        pGC->executar();
-        blocosColocados();
+
+        if (!faseConcluida)
+        {
+            pEv->executar();
+            lista_ents.percorrer();
+            pGC->executar();
+            blocosColocados();
+
+            bool temInimigoVivo = false;
+            for (int i = 0; i < lista_ents.getTamanho(); i++) {
+                Entidade* ent = lista_ents[i];
+                if (ent && ent->getAtivo()) {
+                    if (dynamic_cast<Personagens::Inimigo*>(ent)) {
+                        temInimigoVivo = true;
+                        break;
+                    }
+                }
+            }
+
+            bool jogadorVivo = false;
+            if (pJogador1 && pJogador1->getAtivo()) jogadorVivo = true;
+            if (pJogador2 && pJogador2->getAtivo()) jogadorVivo = true;
+
+            if (!temInimigoVivo) {
+                faseConcluida = true;
+                textoFimDeFase.setString("Fase Concluida!\nPontos do Time: " + std::to_string(Personagens::Jogador::getPontos()));
+            }
+            else if (!jogadorVivo) {
+                faseConcluida = true;
+                textoFimDeFase.setString("Game Over!\nPontos do Time: " + std::to_string(Personagens::Jogador::getPontos()));
+            }
+
+            if (!faseConcluida) {
+                if (pJogador1 && !pJogador1->getAtivo()) {
+                    pJogador1 = NULL;
+                }
+                if (pJogador2 && !pJogador2->getAtivo()) {
+                    pJogador2 = NULL;
+                }
+
+                pGC->limparDestruidos();
+                lista_ents.limparDestruidos();
+            }
+            else {
+                pEv->setJogador1(NULL);
+                pEv->setJogador2(NULL);
+            }
+        }
+
         pGG->limpaJanela();
         pGG->getWindow()->draw(sprite);
-        lista_ents.desenharTodas(pGG);
+
+        if (!faseConcluida) {
+            lista_ents.desenharTodas(pGG);
+        }
+        else {
+            pGG->getWindow()->draw(textoFimDeFase);
+            pEv->executar();
+        }
+
         pGG->mostrarJanela();
-        pGC->limparDestruidos();
-        lista_ents.limparDestruidos();
     }
 }
 

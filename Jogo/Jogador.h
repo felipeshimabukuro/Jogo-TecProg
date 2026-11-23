@@ -51,6 +51,7 @@ namespace Personagens
 		void salvarDataBuffer();
 		void setInventario(const int inv);
 		void setTDano(const int td);
-		static void setPontos(const int p);
+		static int getPontos();
+		static void setPontos(int p);
 	};
 }

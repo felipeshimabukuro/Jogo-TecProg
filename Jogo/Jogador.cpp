@@ -175,7 +175,14 @@ void Jogador::receberDano(int dano) {
     if (num_vidas > 0 && !getImune()) {
         num_vidas -= dano;
         cout << "Jogador tomou " << dano << " de dano. Vidas restantes: " << num_vidas << endl;
-        t_dano = t_imune;
+
+        if (num_vidas <= 0) {
+            cout << "Jogador morreu!" << endl;
+            setAtivo(false); 
+        }
+        else {
+            t_dano = t_imune; 
+        }
     }
 }
 
@@ -315,6 +322,10 @@ void Jogador::setTDano(const int td) {
     t_dano = td;
 }
 
-void Jogador::setPontos(const int p) {
+void Jogador::setPontos(int p) {
     pontos = p;
+}
+
+int Jogador::getPontos(){
+    return pontos;
 }

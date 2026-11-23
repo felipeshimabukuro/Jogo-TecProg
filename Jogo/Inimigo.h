@@ -20,7 +20,8 @@ namespace Personagens {
 		//short moveAleatorio;
 		void inicializa();
 		float dist_detec;
-
+		int pontosBase;
+		bool jaDeuPontos;
 	public:
 		Inimigo(ID id, const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador* j2);
 		~Inimigo();
@@ -46,5 +47,8 @@ namespace Personagens {
 		void setLado(const int l);
 		void setXAlvo(const int xa);
 		Jogador* getJogadorAlvo();
+		int getPontosBase() const;
+		bool getJaDeuPontos() const;
+		void setJaDeuPontos(bool status);
 	};
 }
