@@ -263,10 +263,6 @@ void Jogador::colidir(Inimigo* pIn) {
         return;
     }
 
-    if (pIn->getBoss()) {
-        return;
-    }
-
     if (vely >= 0.0f && getY() <= (pIn->getY() - GRID / 2.0f)) {
         setPos(sf::Vector2f(x, pIn->getY() - getTam().y));
         setChao(true);

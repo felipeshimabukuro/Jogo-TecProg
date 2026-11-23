@@ -30,6 +30,8 @@ namespace Fases {
 
 		sf::Clock relogioFase;
 		bool faseConcluida;
+		bool venceu;
+		int numJogadores;
 		sf::Text textoFimDeFase;
 		sf::Font fonteTexto;
 		
@@ -50,6 +52,8 @@ namespace Fases {
 		Fase(int numJogadores);
 		~Fase();
 
+		const bool getVenceu() const;
+		const int getNumJogadores() const;
 		void salvar();
 		virtual void carregar() = 0;
 		virtual void executar() = 0;

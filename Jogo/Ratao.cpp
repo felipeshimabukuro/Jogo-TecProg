@@ -33,7 +33,7 @@ Ratao::Ratao(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogado
 {
 	nivel_maldade = rand() % 2 + 1;
 	boss = true;
-	inicializarVida(10);
+	inicializarVida(30);
 	dist_detec = GRID * 8;           // Raio de detecção do jogador (usado em detectarJogador e verificarAtaque)
 	lado = 1;                        // Olhando para a direita
 	x = pos.x;

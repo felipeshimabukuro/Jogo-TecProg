@@ -330,3 +330,13 @@ bool Inimigo::getJaDeuPontos() const {
 void Inimigo::setJaDeuPontos(bool status) {
 	jaDeuPontos = status;
 }
+
+void Inimigo::setJogador1(Jogador* j)
+{
+	pJogador1 = j;
+}
+
+void Inimigo::setJogador2(Jogador* j)
+{
+	pJogador2 = j;
+}

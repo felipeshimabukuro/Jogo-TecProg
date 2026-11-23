@@ -12,7 +12,9 @@ Fase::Fase(int numJogadores):Ente(ID::fase),
     pEv(Gerenciador_eventos::getGerenciadorEventos()),
     pGG(Gerenciador_grafico::getGerenciadorGrafico()),
     pJogador1(NULL),
-	pJogador2(NULL)
+	pJogador2(NULL),
+	numJogadores(numJogadores),
+	venceu(false)
 {
 	if (pGC) {
 		pGC->setListaEntidade(&lista_ents);
@@ -151,4 +153,14 @@ void Fase::criarCenario()
 void Fase::salvar()
 {
 	lista_ents.salvar();
+}
+
+const bool Fase::getVenceu() const
+{
+	return venceu;
+}
+
+const int Fase::getNumJogadores() const
+{
+	return numJogadores;
 }

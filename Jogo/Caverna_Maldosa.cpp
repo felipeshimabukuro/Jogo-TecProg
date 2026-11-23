@@ -107,8 +107,9 @@ void Caverna_Maldosa::executar() {
             if (pJogador2 && pJogador2->getAtivo()) jogadorVivo = true;
 
             if (!temInimigoVivo) {
+                venceu = true;
                 faseConcluida = true;
-                textoFimDeFase.setString("Fase Concluida!\nPontos do Time: " + std::to_string(Personagens::Jogador::getPontos()));
+                return;
             }
             else if (!jogadorVivo) {
                 faseConcluida = true;
@@ -118,9 +119,19 @@ void Caverna_Maldosa::executar() {
             if (!faseConcluida) {
                 if (pJogador1 && !pJogador1->getAtivo()) {
                     pJogador1 = NULL;
+                    pEv->setJogador1(NULL);
+                    for (int i = 0; i < lista_ents.getTamanho(); i++) {
+                        Personagens::Inimigo* ini = dynamic_cast<Personagens::Inimigo*>(lista_ents[i]);
+                        if (ini) ini->setJogador1(NULL);
+                    }
                 }
                 if (pJogador2 && !pJogador2->getAtivo()) {
                     pJogador2 = NULL;
+                    pEv->setJogador2(NULL);
+                    for (int i = 0; i < lista_ents.getTamanho(); i++) {
+                        Personagens::Inimigo* ini = dynamic_cast<Personagens::Inimigo*>(lista_ents[i]);
+                        if (ini) ini->setJogador2(NULL);
+                    }
                 }
 
                 pGC->limparDestruidos();
@@ -257,14 +268,15 @@ void Caverna_Maldosa::carregar()
                 float velX, velY;
                 int num_vidas, pontos, inventario, t_dano;
                 ss >> x >> y >> ativo >> velX >> velY >> num_vidas >> pontos >> inventario >> t_dano;
-                if (pJogador1)
+                Jogador* pAlvo = (!pJogador1 || pJogador1->getPos().x != 0.0f || pJogador1->getPos().y != 0.0f) && pJogador2 ? pJogador2 : pJogador1;
+                if (pAlvo)
                 {
-                    pJogador1->setPos(sf::Vector2f(x, y));
-                    pJogador1->setAtivo(ativo);
-                    pJogador1->setVel(sf::Vector2f(velX, velY));
-                    pJogador1->setNumVidas(num_vidas);
-                    pJogador1->setInventario(inventario);
-                    pJogador1->setTDano(t_dano);
+                    pAlvo->setPos(sf::Vector2f(x, y));
+                    pAlvo->setAtivo(ativo);
+                    pAlvo->setVel(sf::Vector2f(velX, velY));
+                    pAlvo->setNumVidas(num_vidas);
+                    pAlvo->setInventario(inventario);
+                    pAlvo->setTDano(t_dano);
 
                     Jogador::setPontos(pontos);
                 }

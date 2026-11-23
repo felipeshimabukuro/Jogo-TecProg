@@ -375,7 +375,7 @@ bool Gerenciadores::Gerenciador_colisao::posicaoLivre(sf::Vector2f pos, sf::Vect
 
 void Gerenciador_colisao::executar()
 {
-	pJog1->resetarChao();
+	if (pJog1) pJog1->resetarChao();
 	if (pJog2) pJog2->resetarChao();
 	tratarTiro();
 	tratarColisaoJogadorInimigo();
@@ -389,6 +389,15 @@ void Gerenciador_colisao::executar()
 
 void Gerenciador_colisao::limparDestruidos()
 {
+	if (pJog1 != NULL && !pJog1->getAtivo())
+	{
+		pJog1 = NULL;
+	}
+	if (pJog2 != NULL && !pJog2->getAtivo())
+	{
+		pJog2 = NULL;
+	}
+
 	// 1. Limpar Obstáculos inativos
 	std::list<Entidades::Obstaculo*>::iterator itObs = LOs.begin();
 	while (itObs != LOs.end())
@@ -534,6 +543,7 @@ void Gerenciador_colisao::limpar()
 	LOs.clear();
 	LPs.clear();
 	pJog1 = NULL;
+	pJog2 = NULL;
 	pChao = NULL;
 	LE = NULL;
 }

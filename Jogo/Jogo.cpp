@@ -40,13 +40,18 @@ sf::RenderWindow* Jogo::getWindow()
     return pGG->getWindow();
 }
 
-void Jogo::carregarFase(int qualFase, int numJogadores)
+void Jogo::carregarFase(int qualFase, int numJogadores, bool resetarPontos)
 {
     if (faseAtual) {
         delete faseAtual;
         faseAtual = NULL;
     }
 
+    carregarSaveFlag = false;
+    voltarMenuFlag = false;
+    if (resetarPontos) {
+        Personagens::Jogador::setPontos(0);
+    }
     faseID = qualFase;
 
     if (qualFase == 1) {
@@ -64,8 +69,6 @@ void Jogo::executar()
             faseAtual->executar();
 
             if (voltarMenuFlag == true) {
-                faseAtual->salvar();
-
                 delete faseAtual; 
                 faseAtual = NULL;
                 voltarMenuFlag = false;
@@ -76,10 +79,34 @@ void Jogo::executar()
                 carregarSaveFlag = false;
                 carregar(); 
             }
+            else if (faseAtual->getVenceu())
+            {
+                if (faseID == 1)
+                {
+                    int qtdJog = faseAtual->getNumJogadores();
+                    carregarFase(2, qtdJog, false);
+                }
+                else if (faseID == 2)
+                {
+                    int pontosFinais = Personagens::Jogador::getPontos();
+                    int qtdJog = faseAtual->getNumJogadores();
+
+                    delete faseAtual;
+                    faseAtual = NULL;
+
+                    Menu menuRanking(this);
+                    menuRanking.registrarRanking(pontosFinais, qtdJog);
+                }
+            }
         }
         else {
             Menu menuPrincipal(this);
             menuPrincipal.executar();
+
+            if (carregarSaveFlag == true) {
+                carregarSaveFlag = false;
+                carregar();
+            }
         }
     }
 }
@@ -112,6 +139,17 @@ void Jogo::carregar()
         return;
     }
 
+    int numJogadores = 0;
+    ifstream arqJog("saves/jogadorSave.txt");
+    string linha;
+    while (getline(arqJog, linha)) {
+        if (!linha.empty()) {
+            numJogadores++;
+        }
+    }
+    arqJog.close();
+    if (numJogadores < 1) numJogadores = 1;
+
     if (faseAtual) {
         delete faseAtual;
         faseAtual = NULL;
@@ -120,10 +158,10 @@ void Jogo::carregar()
     faseID = qualFase;
 
     if (qualFase == 1) {
-        faseAtual = new Caverna_Maldosa(true);
+        faseAtual = new Caverna_Maldosa(true, numJogadores);
     }
     else if (qualFase == 2) {
-        faseAtual = new Limbo_da_perdicao(true);
+        faseAtual = new Limbo_da_perdicao(true, numJogadores);
     }
 }
 

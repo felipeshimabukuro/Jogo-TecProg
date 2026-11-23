@@ -29,7 +29,7 @@ public:
 	void executar();
 
 	sf::RenderWindow* getWindow();
-	void carregarFase(int qualFase, int numJogadores = 1);
+	void carregarFase(int qualFase, int numJogadores = 1, bool resetarPontos = true);
 	void salvar();
 	void carregar();
 	void solicitarCarregamento();

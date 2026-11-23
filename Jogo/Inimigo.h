@@ -50,5 +50,7 @@ namespace Personagens {
 		int getPontosBase() const;
 		bool getJaDeuPontos() const;
 		void setJaDeuPontos(bool status);
+		void setJogador1(Jogador* j);
+		void setJogador2(Jogador* j);
 	};
 }
