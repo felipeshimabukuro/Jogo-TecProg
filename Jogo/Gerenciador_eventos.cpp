@@ -74,14 +74,6 @@ void Gerenciador_eventos::verificarTeclaPressionada(sf::Keyboard::Key tecla)
 		}
 	}
 
-	//interface
-	if (tecla == sf::Keyboard::P)
-	{
-		if (pJogo) 
-		{
-			pJogo->salvar();
-		}
-	}
 	if (tecla == sf::Keyboard::L) {
 		if (pJogo) {
 			pJogo->solicitarCarregamento();

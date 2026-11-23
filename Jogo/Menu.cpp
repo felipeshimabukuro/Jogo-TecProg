@@ -160,6 +160,10 @@ void Menu::interagir() {
             sairDoLoop = true;
         }
         else if (opcaoSelecionada == 1) {
+            pJogo->salvar();
+            textosBotoes[1].setString("Jogo Salvo!");
+        }
+        else if (opcaoSelecionada == 2) {
             pJogo->irParaMenu();
             sairDoLoop = true;
         }
@@ -181,7 +185,7 @@ void Menu::executarTelaPause() {
     tituloMenu.setString("JOGO PAUSADO");
     tituloMenu.setPosition(250.0f, 100.0f);
 
-    atualizarOpcoesBotoes({ "Continuar", "Voltar ao Menu Principal" });
+    atualizarOpcoesBotoes({ "Continuar", "Salvar Jogo", "Voltar Menu Principal"});
 
     sairDoLoop = false;
     sf::RenderWindow* window = pJogo->getWindow();
@@ -241,9 +245,6 @@ void Menu::desenhar() {
 void Menu::setJogo(Jogo* p) {
     pJogo = p;
 }
-
-void Menu::centralizarTexto() {}
-void Menu::continuarJogo() {}
 
 void Menu::registrarRanking(int pontos, int numJogadores) {
     sf::RenderWindow* window = pJogo->getWindow();
