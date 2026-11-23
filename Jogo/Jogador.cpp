@@ -22,7 +22,7 @@ Jogador::Jogador(const sf::RectangleShape corpo) :Personagem(ID::jogador, sf::Ve
 void Jogador::inicializa() { //tive q mudar pq tava dando mto b.o., nao rodava slk
     chaoAtual = NULL;
     acaoPressionada = false;
-	num_vidas = 100;
+    inicializarVida(100);
     dano = 5;
 
     vel = sf::Vector2f(max_velx, max_vely);
@@ -30,7 +30,8 @@ void Jogador::inicializa() { //tive q mudar pq tava dando mto b.o., nao rodava s
     corpo.setSize(sf::Vector2f(GRID, GRID));
     corpo.setPosition(x, y);
 
-	setTextura("jogador1", sf::Vector2f(GRID, GRID));   
+    if(num == 0) setTextura("jogador1", sf::Vector2f(GRID, GRID));
+    else setTextura("jogador2", sf::Vector2f(GRID, GRID));
 }
 
 Jogador::~Jogador() {
@@ -48,7 +49,16 @@ void Jogador::executar()
 {
     mover();
 
-    if (t_dano >= 0) t_dano--;
+    if (t_dano >= 0)
+    {
+        t_dano--;
+        sprite.setColor(sf::Color(255, 255, 255, 179));
+    }
+    else
+    {
+        sprite.setColor(sf::Color(255, 255, 255, 255));
+    }
+        
 }
 
 const int Jogador::getNum()const{
@@ -250,7 +260,8 @@ void Jogador::colidir(Inimigo* pIn) {
         return;
     }
 
-    if (vely > 0.0f && (getY() + getTam().y) <= (pIn->getY() + pIn->getTam().y * 0.5f)) {
+    if (vely >= 0.0f && getY() <= (pIn->getY() - GRID / 2.0f)) {
+        setPos(sf::Vector2f(x, pIn->getY() - getTam().y));
         setChao(true);
         pular();
         pIn->receberDano(dano);

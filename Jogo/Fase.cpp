@@ -5,6 +5,8 @@ using namespace Fases;
 Fase::Fase(int numJogadores):Ente(ID::fase), 
     maxTopeiras(5),
     contTopeiras(0),
+	maxPlataformas(900),
+	contPlataformas(0),
     lista_ents(),
     pGC(Gerenciador_colisao::getGerenciadorColisao()),
     pEv(Gerenciador_eventos::getGerenciadorEventos()),

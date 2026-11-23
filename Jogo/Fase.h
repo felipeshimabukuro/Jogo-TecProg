@@ -17,6 +17,8 @@ namespace Fases {
 	protected:
 		const int maxTopeiras;
 		int contTopeiras;
+		const int maxPlataformas;
+		int contPlataformas;
 
 		ListaEntidade lista_ents;
 		Gerenciador_colisao* pGC;

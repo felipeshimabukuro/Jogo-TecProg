@@ -4,8 +4,10 @@ j -> jogador
 
 # -> chao
 @ -> terra
-m -> magma
-e -> espinho
+M -> magma
+m -> rand magma
+E -> espinho
+e -> ranb espinho
 
 T -> topeira
 t -> rand topeira

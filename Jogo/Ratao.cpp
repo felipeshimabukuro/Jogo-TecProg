@@ -31,8 +31,9 @@ Ratao::Ratao(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogado
 	ataque_tm(5 SEGUNDOS),           // Tempo de recarga do ataque
 	tempo_imune(0)                   // Temporizador de invulnerabilidade pós-hit
 {
+	nivel_maldade = rand() % 2 + 1;
 	boss = true;
-	num_vidas = 3;
+	inicializarVida(10);
 	dist_detec = GRID * 8;           // Raio de detecção do jogador (usado em detectarJogador e verificarAtaque)
 	lado = 1;                        // Olhando para a direita
 	x = pos.x;
@@ -142,7 +143,7 @@ void Ratao::bater()
 	{
 		if (batidas_restantes > 0)
 		{
-			bater_cd = bater_tm;
+			bater_cd = bater_tm/nivel_maldade;
 
 			lado_batida = -lado_batida;
 			lado = lado_batida;
@@ -172,7 +173,7 @@ void Ratao::bater()
 		}
 		else
 		{
-			ataque_cd = ataque_tm;
+			ataque_cd = ataque_tm/nivel_maldade;
 			walk_cd = 60 + (rand() % 61);
 			estado = "IDLE";
 			batendo = false;
@@ -263,33 +264,10 @@ void Ratao::executar()
 
 void Ratao::colisao(Entidade* ent, sf::Vector2f ds)
 {
-	if (!ent)
+	if (!ent || !ent->getAtivo())
 		return;
 
-	Jogador* pJog = dynamic_cast<Jogador*>(ent);
-	if (pJog)
-	{
-		if ((pJog->getY() + pJog->getTam().y <= y + 25.0f) || (ds.x <= ds.y && pJog->getY() < y))
-		{
-			if (tempo_imune <= 0)
-			{
-				receberDano(1);
-				tempo_imune = 60;
-
-				pJog->setPos(sf::Vector2f(pJog->getX(), y - pJog->getTam().y - 8.0f));
-				pJog->setChao(true);
-				pJog->pular();
-			}
-		}
-	}
-
 	Inimigo::colisao(ent, ds);
-
-	if (ds.x > ds.y && (estado == "MOVENDO" || estado == "IDLE"))
-	{
-		velx = 0.0f;
-		estado = "IDLE";
-	}
 }
 
 const sf::FloatRect Ratao::getHitboxBatida() const
@@ -395,4 +373,8 @@ void Ratao::setTempoImune(const int ti)
 void Ratao::setEstado(const std::string& est) 
 {
 	estado = est;
+}
+
+list<Entidades::Projetil*>* Ratao::getProjeteisPendentes() {
+	return &projeteisPendentes;
 }

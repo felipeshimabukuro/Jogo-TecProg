@@ -13,9 +13,10 @@ Topeira::Topeira(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jo
 	cavando(false),
 	tiro_cd(0)
 {
+	nivel_maldade = rand() % 3 + 1;
 	dist_detec = 350;
 	boss = false;
-	num_vidas = 5;
+	inicializarVida(10);
 	lado = 1;                        // Olhando para a direita
 	x = pos.x;
 	y = pos.y;
@@ -47,7 +48,7 @@ void Topeira::atirar()
 			Projetil* novoProjetil = new Proj_top(lado, x + GRID / 2, y + GRID / 2);
 			projeteisPendentes.push_back(novoProjetil);
 		}
-		tiro_cd = tempo_tiro;
+		tiro_cd = tempo_tiro/nivel_maldade;
 	}
 }
 
@@ -119,21 +120,7 @@ void Topeira::colisao(Entidade* ent, sf::Vector2f ds)
 	if (!ent || !ent->getAtivo())
 		return;
 
-	Jogador* pJog = dynamic_cast<Jogador*>(ent);
-	if (pJog)
-	{
-		float pesJogador = pJog->getY() + pJog->getTam().y;
-
-		if (ds.x <= ds.y && pesJogador <= y + 15.0f && pJog->getVely() >= 0.0f)
-		{
-			pJog->setPos(sf::Vector2f(pJog->getX(), y - pJog->getTam().y - 8.0f));
-		}
-		else {
-			danificar(pJog);
-		}
-	}
 	Inimigo::colisao(ent, ds);
-	
 }
 
 void Topeira::danificar(Jogador* p) 
@@ -164,4 +151,8 @@ void Topeira::setTiroCd(const int cd)
 void Topeira::setEstado(const string& est) 
 {
 	estado = est;
+}
+
+list<Entidades::Projetil*>* Topeira::getProjeteisPendentes() {
+	return &projeteisPendentes;
 }

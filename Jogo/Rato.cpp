@@ -10,7 +10,7 @@ Rato::Rato(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador*
 	Inimigo(ID::rato, pos, tam, j1, j2)
 {
 	boss = false;
-	num_vidas = 15;
+	inicializarVida(15);
 	lado = 1;                        // Olhando para a direita
 	x = pos.x;
 	y = pos.y;
@@ -153,27 +153,6 @@ void Rato::colisao(Entidade* ent, sf::Vector2f ds)
 	if (!ent || !ent->getAtivo())
 		return;
 
-	Jogador* pJog = dynamic_cast<Jogador*>(ent);
-	if (pJog)
-	{
-		sf::FloatRect hitboxRato = corpo.getGlobalBounds();
-		sf::FloatRect hitboxJog = pJog->getCorpo().getGlobalBounds();
-
-		if (hitboxRato.intersects(hitboxJog))
-		{
-			float pesJogador = pJog->getY() + pJog->getTam().y;
-
-			if (ds.x <= ds.y && pesJogador <= y + 15.0f && pJog->getVely() >= 0.0f)
-			{
-				pJog->setPos(sf::Vector2f(pJog->getX(), y - pJog->getTam().y - 8.0f));
-			}
-			else
-			{
-				danificar(pJog);
-			}
-		}
-		return;
-	}
 	Inimigo::colisao(ent, ds);
 }
 

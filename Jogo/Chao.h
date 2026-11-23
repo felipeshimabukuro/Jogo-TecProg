@@ -20,7 +20,6 @@ namespace Entidades
         void colisao(Entidade* ent, sf::Vector2f ds);
         void salvarDataBuffer();
         void salvar();
-        void desenhar(sf::RenderWindow* window);
         void ajudar(Personagens::Jogador* p);
         void setTicks(const int t);
     };

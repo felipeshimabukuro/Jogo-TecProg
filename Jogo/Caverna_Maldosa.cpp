@@ -3,7 +3,7 @@
 
 using namespace Fases;
 
-Caverna_Maldosa::Caverna_Maldosa(bool save, int numJogadores) :Fase(numJogadores), maxRato(5), contRato(0)
+Caverna_Maldosa::Caverna_Maldosa(bool save, int numJogadores) :Fase(numJogadores), maxRato(5), contRato(0), maxMagma(50), contMagma(0)
 {
     if (!save)
     {
@@ -83,7 +83,8 @@ void Caverna_Maldosa::executar() {
     }
 }
 
-void Caverna_Maldosa::criarEntidade(char tipo, sf::Vector2f pos) {
+void Caverna_Maldosa::criarEntidade(char tipo, sf::Vector2f pos) 
+{
     switch (tipo)
     {
         case('#'):
@@ -91,7 +92,11 @@ void Caverna_Maldosa::criarEntidade(char tipo, sf::Vector2f pos) {
             break;
 
         case('@'):
-            criarPlataforma(pos);
+            if (contPlataformas < maxPlataformas)
+            {
+                criarPlataforma(pos);
+                contPlataformas++;
+            }
             break;
 
         case('j'):
@@ -126,8 +131,24 @@ void Caverna_Maldosa::criarEntidade(char tipo, sf::Vector2f pos) {
         }
             break;
 
-        case('m'):
+        case('M'):
             criarMagma(pos);
+            contMagma++;
+            break;
+
+        case('m'):
+        {
+            if (contMagma < maxMagma && rand() % 3 != 0)
+            {
+                criarMagma(pos);
+                contMagma++;
+            }
+            else if(contPlataformas < maxPlataformas)
+            {
+                criarPlataforma(pos);
+                contPlataformas++;
+            }
+        }
             break;
     }
 }

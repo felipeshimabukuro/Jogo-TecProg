@@ -19,7 +19,6 @@ namespace Personagens {
 		sf::Clock relogio;
 		//short moveAleatorio;
 		void inicializa();
-		std::list<Entidades::Projetil*> projeteisPendentes;
 		float dist_detec;
 
 	public:
@@ -40,7 +39,6 @@ namespace Personagens {
 		void setPos(const sf::Vector2f pos);
 		void colisao(Entidade* ent, sf::Vector2f ds);
 		const bool getBoss() const;
-		std::list<Entidades::Projetil*>* getProjeteisPendentes();
 		virtual void danificar(Jogador* p) = 0;
 		bool detectarJogador();
 		void setNivelMaldade(const int nm);

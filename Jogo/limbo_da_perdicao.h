@@ -8,6 +8,8 @@ namespace Fases {
     private:
         const int maxRatao;
         int contRatao;
+        const int maxEspinhos;
+        int contEspinhos;
     
     protected:
 

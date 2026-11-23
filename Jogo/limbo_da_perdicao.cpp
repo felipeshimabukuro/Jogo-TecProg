@@ -4,7 +4,7 @@
 
 using namespace Fases;
 
-Limbo_da_perdicao::Limbo_da_perdicao(bool save, int numJogadores) :Fase(numJogadores), maxRatao(5), contRatao(0)
+Limbo_da_perdicao::Limbo_da_perdicao(bool save, int numJogadores) :Fase(numJogadores), maxRatao(5), contRatao(0), maxEspinhos(50), contEspinhos(0)
 {
     if (!save)
     {
@@ -29,7 +29,7 @@ Limbo_da_perdicao::~Limbo_da_perdicao()
 
 void Limbo_da_perdicao::criarEspinho(sf::Vector2f pos)
 {
-    Espinho* espinho = new Espinho(pos.x, pos.y, GRID, GRID, 5, true, false);
+    Espinho* espinho = new Espinho(pos.x, pos.y, GRID, GRID, 5, true, false, pJogador1, pJogador2);
     pGC->adicionarObstaculo(espinho);
     espinho->setAtivo(1);
 }
@@ -92,7 +92,11 @@ void Limbo_da_perdicao::criarEntidade(char tipo, sf::Vector2f pos) {
             break;
 
         case('@'):
-            criarPlataforma(pos);
+            if (contPlataformas < maxPlataformas)
+            {
+                criarPlataforma(pos);
+                contPlataformas++;
+            }
             break;
 
         case('j'):
@@ -129,8 +133,24 @@ void Limbo_da_perdicao::criarEntidade(char tipo, sf::Vector2f pos) {
         }
             break;
 
-        case('e'):
+        case('E'):
             criarEspinho(pos);
+            contEspinhos++;
+            break;
+
+        case('e'):
+        {
+            if (contEspinhos < maxEspinhos && rand() % 3 != 0)
+            {
+                criarEspinho(pos);
+                contEspinhos++;
+            }
+            else if (contPlataformas < maxPlataformas)
+            {
+                criarPlataforma(pos);
+                contPlataformas++;
+            }
+        }
             break;
     }
 }

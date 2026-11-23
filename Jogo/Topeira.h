@@ -12,10 +12,12 @@ namespace Personagens
 		int tiro_cd;
 		static const int dist_atk;
 		static const int tempo_tiro;
+		list<Entidades::Projetil*> projeteisPendentes;
 
 	public:
 		Topeira(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador* j2);
 		~Topeira();
+		list<Entidades::Projetil*>* getProjeteisPendentes();
 		void cavar();
 		void atirar();
 		bool perto();

@@ -2,6 +2,7 @@
 #include "Jogador.h"
 
 using namespace Personagens;
+using namespace Entidades;
 
 const int Inimigo::walk_tm = 120;
 
@@ -111,20 +112,26 @@ void Inimigo::executar() {
 	mover();
 }
 
-void Inimigo::colisao(Entidade * ent, sf::Vector2f ds) {
-		Jogador* pJog = dynamic_cast<Jogador*>(ent);
-		if (pJog) {
-			if (ds.x > ds.y) {
-				if (pJog->getX() < x) {
-					pJog->setPos(sf::Vector2f(x - pJog->getTam().x, pJog->getY()));
-				}
-				else {
-					pJog->setPos(sf::Vector2f(x + corpo.getSize().x, pJog->getY()));
-				}
+void Inimigo::colisao(Entidade* ent, sf::Vector2f ds) 
+{
+	Jogador* pJog = dynamic_cast<Jogador*>(ent);
+	if (pJog) 
+	{
+		if (ds.x > ds.y && pJog->getY() > (y - GRID / 2.0f)) 
+		{
+			if (pJog->getX() < x) 
+			{
+				pJog->setPos(sf::Vector2f(x - pJog->getTam().x, pJog->getY()));
 			}
-			return;
+			else 
+			{
+				pJog->setPos(sf::Vector2f(x + corpo.getSize().x, pJog->getY()));
+			}
 		}
-	Entidades::Entidade::colisao(ent, ds);
+		return;
+	}
+
+	Entidade::colisao(ent, ds);
 
 	if (ds.x <= ds.y) {
 		if (getY() < ent->getY() && vely >= 0.0f) {
@@ -132,23 +139,19 @@ void Inimigo::colisao(Entidade * ent, sf::Vector2f ds) {
 			chao = true;
 		}
 		else if (getY() > ent->getY() && vely < 0.0f) {
-			vely = 0.0f; 
+			vely = 0.0f;
 		}
 	}
 	else {
 		x_alvo = static_cast<int>(x);
 		lado = -lado;
 		atualizaLado();
-		walk_cd = 45; 
+		walk_cd = 45;
 	}
 }
 
 const bool Inimigo::getBoss() const {
 	return boss;
-}
-
-std::list<Entidades::Projetil*>* Inimigo::getProjeteisPendentes() {
-	return &projeteisPendentes;
 }
 
 void Inimigo::movimentoAleatorio()

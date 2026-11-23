@@ -45,7 +45,8 @@ const sf::RectangleShape Entidade::getCorpo() const
 	return corpo;
 }
 
-void Entidade::colisao(Entidade* ent, sf::Vector2f ds) {
+void Entidade::colisao(Entidade* ent, sf::Vector2f ds) 
+{
 	if (!ent) return;
 
 	sf::Vector2f pos1 = getPos();

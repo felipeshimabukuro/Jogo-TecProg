@@ -24,8 +24,8 @@ namespace Gerenciadores
 		void desenharEnte(Ente* pE);
 		void mostrarJanela();
 
-		bool carregarTextura(const std::string& id, const std::string& caminho);
-		sf::Texture* getTextura(const std::string& id);
+		bool carregarTextura(const string& id, const string& caminho);
+		sf::Texture* getTextura(const string& id);
 
 	};
 }

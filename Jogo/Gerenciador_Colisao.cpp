@@ -1,6 +1,7 @@
 #include "Gerenciador_colisao.h"
 #include "Ratao.h"
-#include <algorithm>
+#include "Topeira.h"
+
 
 using namespace Gerenciadores;
 
@@ -435,23 +436,43 @@ void Gerenciador_colisao::limparDestruidos()
 }
 
 void Gerenciador_colisao::tratarTiro() {
-	std::vector<Personagens::Inimigo*>::iterator itIni;
+	vector<Inimigo*>::iterator itIni;
 	for (itIni = LIs.begin(); itIni != LIs.end(); ++itIni)
 	{
-		Personagens::Inimigo* inim = *itIni;
+		Inimigo* inim = *itIni;
 		if (inim && inim->getAtivo())
 		{
-			std::list<Projetil*>* pendentes = inim->getProjeteisPendentes();
-			std::list<Projetil*>::iterator itProj = pendentes->begin();
-			while (itProj != pendentes->end())
+			if(inim->getID() == ID::topeira)
 			{
-				Projetil* proj = *itProj;
-				if (proj != NULL)
+				Topeira* top = dynamic_cast<Topeira*>(inim);
+				list<Projetil*>* pendentes = top->getProjeteisPendentes();
+				list<Projetil*>::iterator itProj = pendentes->begin();
+				while (itProj != pendentes->end())
 				{
-					adicionarProjetil(proj);
+					Projetil* proj = *itProj;
+					if (proj != NULL)
+					{
+						adicionarProjetil(proj);
+					}
+					itProj = pendentes->erase(itProj);
 				}
-				itProj = pendentes->erase(itProj);
 			}
+			else if(inim->getID() == ID::ratao)
+			{
+				Ratao* rat = dynamic_cast<Ratao*>(inim);
+				list<Projetil*>* pendentes = rat->getProjeteisPendentes();
+				list<Projetil*>::iterator itProj = pendentes->begin();
+				while (itProj != pendentes->end())
+				{
+					Projetil* proj = *itProj;
+					if (proj != NULL)
+					{
+						adicionarProjetil(proj);
+					}
+					itProj = pendentes->erase(itProj);
+				}
+			}
+			
 		}
 	}
 }

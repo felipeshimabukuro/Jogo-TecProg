@@ -18,6 +18,7 @@ Gerenciador_grafico::Gerenciador_grafico() :
 
 	// ==================== CARREGAR TEXTURAS AQUI ====================
 	carregarTextura("jogador1", "assets/jogador1.png");
+	carregarTextura("jogador2", "assets/jogador2.png");
 	carregarTextura("topeira", "assets/topeira.png");
 	carregarTextura("p_topeira", "assets/p_topeira.png");
 	carregarTextura("terra", "assets/terra.png");
@@ -27,7 +28,7 @@ Gerenciador_grafico::Gerenciador_grafico() :
 	carregarTextura("espinho", "assets/espinho.png");
 	carregarTextura("rato", "assets/rato.png");
 	carregarTextura("ratao", "assets/boss.png");
-	carregarTextura("boss", "assets/boss.png");
+	carregarTextura("chao", "assets/chao.png");
 	// ================================================================
 }
 

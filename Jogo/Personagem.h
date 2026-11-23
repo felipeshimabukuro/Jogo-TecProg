@@ -1,11 +1,13 @@
 #pragma once
 #include "Bibliotecas.h"
 #include "Entidade.h"
+#include "BarraVida.h"
+
+using namespace Entidades;
 
 namespace Personagens {
-	class Personagem: public Entidades::Entidade {
+	class Personagem: public Entidade, public BarraVida {
 	protected:
-		int num_vidas;
 		float velx;
 		float vely;
 		const float max_velx;
@@ -18,7 +20,8 @@ namespace Personagens {
 
 	public:
 		Personagem(ID id, const sf::Vector2f pos, const sf::Vector2f tam);
-		~Personagem();
+		virtual ~Personagem();
+		virtual void desenhar(sf::RenderWindow* window);
 		void salvarDataBuffer();
 		virtual void mover() = 0;
 		virtual void salvar() = 0;
@@ -28,7 +31,6 @@ namespace Personagens {
 		const float getVelx() const;
 		int getDano() const;
 		void setVel(const sf::Vector2f v);
-		void setNumVidas(const int vidas);
 	};
 
 }

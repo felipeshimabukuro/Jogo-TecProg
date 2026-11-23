@@ -6,6 +6,7 @@ const float Personagem::gravidade = 0.9;
 
 Personagem::Personagem(ID id, const sf::Vector2f pos, const sf::Vector2f tam):
 	Entidade(id, pos.x,pos.y), 
+	BarraVida(),
 	chao(true),
 	vely(0),
 	velx(0), 
@@ -46,6 +47,12 @@ void Personagem::setVel(const sf::Vector2f v) {
 	vely = v.y;
 }
 
-void Personagem::setNumVidas(const int vidas) {
-	num_vidas = vidas;
+void Personagem::desenhar(sf::RenderWindow* window)
+{
+	Ente::desenhar(window);
+
+	if (ativo) 
+	{
+		desenharBarra(window, x, y, getTam().x);
+	}
 }

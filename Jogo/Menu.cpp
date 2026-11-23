@@ -6,6 +6,7 @@ Menu::Menu(Jogo* pJogo) :
     Ente(ID::vazio),
     pJogo(pJogo),
     opcaoSelecionada(0),
+    faseMapeada(1),
     sairDoLoop(false),
     estadoAtual(EstadoMenu::PRINCIPAL)
 {
@@ -51,7 +52,7 @@ void Menu::moverCima() {
 }
 
 void Menu::moverBaixo() {
-    if (opcaoSelecionada + 1 < textosBotoes.size()) {
+    if (opcaoSelecionada + 1 < static_cast<int>(textosBotoes.size())) {
         textosBotoes[opcaoSelecionada].setFillColor(sf::Color::White);
         opcaoSelecionada++;
         textosBotoes[opcaoSelecionada].setFillColor(sf::Color::Red);
@@ -61,28 +62,8 @@ void Menu::moverBaixo() {
 void Menu::interagir() {
     if (estadoAtual == EstadoMenu::PRINCIPAL) {
         if (opcaoSelecionada == 0) {
-            estadoAtual = EstadoMenu::SELECIONAR_FASE;
-            opcaoSelecionada = 0; 
-
-            textosBotoes.resize(3);
-            textosBotoes[0].setString("Novo Jogo");
-            textosBotoes[1].setString("Carregar Jogo");
-            textosBotoes[2].setString("Sair");
-        }
-        else if (opcaoSelecionada == 1) {
-            pJogo->solicitarCarregamento();
-            sairDoLoop = true;
-        }
-        else if (opcaoSelecionada == 2) {
-            pJogo->getWindow()->close();
-        }
-    }
-
-    else if (estadoAtual == EstadoMenu::SELECIONAR_FASE) {
-        if (opcaoSelecionada == 0) {
-            faseMapeada = 1; 
-
-            estadoAtual = EstadoMenu::QTD_JOGADORES; 
+            faseMapeada = 1;
+            estadoAtual = EstadoMenu::QTD_JOGADORES;
             opcaoSelecionada = 0;
 
             textosBotoes.resize(3);
@@ -91,8 +72,7 @@ void Menu::interagir() {
             textosBotoes[2].setString("Voltar");
         }
         else if (opcaoSelecionada == 1) {
-            faseMapeada = 2; 
-
+            faseMapeada = 2;
             estadoAtual = EstadoMenu::QTD_JOGADORES;
             opcaoSelecionada = 0;
 
@@ -102,33 +82,27 @@ void Menu::interagir() {
             textosBotoes[2].setString("Voltar");
         }
         else if (opcaoSelecionada == 2) {
-            estadoAtual = EstadoMenu::PRINCIPAL;
-            opcaoSelecionada = 0;
-
-            textosBotoes.resize(3);
-            textosBotoes[0].setString("Novo Jogo");
-            textosBotoes[1].setString("Carregar Jogo");
-            textosBotoes[2].setString("Sair");
+            pJogo->getWindow()->close();
         }
     }
 
     else if (estadoAtual == EstadoMenu::QTD_JOGADORES) {
         if (opcaoSelecionada == 0) {
             pJogo->carregarFase(faseMapeada, 1);
-            sairDoLoop = true; 
+            sairDoLoop = true;
         }
         else if (opcaoSelecionada == 1) {
             pJogo->carregarFase(faseMapeada, 2);
-            sairDoLoop = true; 
+            sairDoLoop = true;
         }
         else if (opcaoSelecionada == 2) {
-            estadoAtual = EstadoMenu::SELECIONAR_FASE;
+            estadoAtual = EstadoMenu::PRINCIPAL;
             opcaoSelecionada = 0;
 
             textosBotoes.resize(3);
-            textosBotoes[0].setString("1 - Caverna Maldosa");
-            textosBotoes[1].setString("2 - Limbo da Perdicao");
-            textosBotoes[2].setString("Voltar");
+            textosBotoes[0].setString("Jogar Caverna Maldosa (Fase1)");
+            textosBotoes[1].setString("Jogar Limbo da Perdicao (Fase2)");
+            textosBotoes[2].setString("Sair");
         }
     }
 
@@ -143,7 +117,7 @@ void Menu::interagir() {
     }
 
     for (size_t i = 0; i < textosBotoes.size(); i++) {
-        if (i == opcaoSelecionada) {
+        if (static_cast<int>(i) == opcaoSelecionada) {
             textosBotoes[i].setFillColor(sf::Color::Red);
         }
         else {
@@ -184,7 +158,25 @@ void Menu::executarTelaPause() {
 }
 
 void Menu::executar() {
+    estadoAtual = EstadoMenu::PRINCIPAL;
+    opcaoSelecionada = 0;
     sairDoLoop = false;
+
+    tituloMenu.setString("Cavadores Intrepidos");
+    tituloMenu.setPosition(200.0f, 100.0f);
+
+    std::vector<std::string> opcoes = { "Jogar Caverna Maldosa (Fase1)", "Jogar Limbo da Perdicao (Fase2)", "Sair" };
+    textosBotoes.clear();
+    for (size_t i = 0; i < opcoes.size(); i++) {
+        sf::Text texto;
+        texto.setFont(fonte);
+        texto.setString(opcoes[i]);
+        texto.setCharacterSize(30);
+        texto.setPosition(300.0f, 250.0f + (i * 60.0f));
+        texto.setFillColor(i == 0 ? sf::Color::Red : sf::Color::White);
+        textosBotoes.push_back(texto);
+    }
+
     sf::RenderWindow* window = pJogo->getWindow();
 
     Gerenciadores::Gerenciador_eventos* pEv = Gerenciadores::Gerenciador_eventos::getGerenciadorEventos();
@@ -209,8 +201,8 @@ void Menu::desenhar() {
     }
 }
 
-void Menu::setJogo(Jogo* p) { 
-    pJogo = p; 
+void Menu::setJogo(Jogo* p) {
+    pJogo = p;
 }
 void Menu::escolheAcao() {}
 void Menu::escolheJogador() {}
