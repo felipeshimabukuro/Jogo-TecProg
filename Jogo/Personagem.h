@@ -12,10 +12,10 @@ namespace Personagens {
 		float vely;
 		const float max_velx;
 		const float max_vely;
-		const int pot_queda;
 		bool chao;
 		int dano;
 		static const float gravidade;
+		const int pot_queda;
 		sf::Vector2f vel;
 
 	public:

@@ -26,6 +26,6 @@ namespace Gerenciadores
 
 		bool carregarTextura(const string& id, const string& caminho);
 		sf::Texture* getTextura(const string& id);
-
+		//verificar se dá p remover getTextura
 	};
 }

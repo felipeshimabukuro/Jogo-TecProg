@@ -1,3 +1,5 @@
+//verificar os "executar" dos obstaculos
+
 #pragma once
 #include "Bibliotecas.h"
 #include "Entidade.h"
@@ -15,7 +17,7 @@ namespace Entidades
         int dano;
         bool danoso;
 		bool quebravel;
-
+        //tirar dano
     public:
         Obstaculo(ID id, int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel);
         ~Obstaculo();

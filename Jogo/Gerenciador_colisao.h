@@ -28,6 +28,11 @@ namespace Gerenciadores
 		static Gerenciador_colisao* pColisao;
 		Gerenciador_colisao();
 
+		//Jogador = Jogs
+		//Verificar UML e mudar nome funções
+		//Tirar autos
+		//Usar verificarColisao
+
 		void tratarColisaoJogadorInimigo();
 		void tratarColisaoJogadorObstaculo();
 		void tratarColisaoJogadorProjetil();

@@ -9,6 +9,7 @@ namespace Entidades {
 		int distJogador;
 		Jogador* pJogador1;
 		Jogador* pJogador2;
+		int dano;
 
 	public:
 		Espinho(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel, Jogador* j1 = NULL, Jogador* j2 = NULL);

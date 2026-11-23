@@ -1,3 +1,5 @@
+//Adicionar setGG
+
 #pragma once
 #include "bibliotecas.h"
 #include "IDS.h"

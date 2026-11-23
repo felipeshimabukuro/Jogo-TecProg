@@ -7,7 +7,7 @@ namespace Entidades {
 	class Magma :public Obstaculo {
 	private:
 		static int ticks;
-		int max_ticks;
+		const int max_ticks;
 		int dano;
 
 	public:
