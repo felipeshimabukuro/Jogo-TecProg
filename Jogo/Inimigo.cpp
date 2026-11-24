@@ -12,7 +12,6 @@ jaDeuPontos(false), pontosBase(nivel_maldade * 100)
 {
 	inicializa();
 	srand(time(NULL));
-	//moveAleatorio = rand() % 1;
 }
 
 Inimigo::~Inimigo() 

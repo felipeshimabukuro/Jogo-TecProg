@@ -3,8 +3,8 @@
 
 using namespace Fases;
 
-Caverna_Maldosa::Caverna_Maldosa(bool save, int numJogadores) :
-    Fase(numJogadores), maxRato(5), contRato(0), maxMagma(50), contMagma(0)
+Caverna_Maldosa::Caverna_Maldosa(bool save, int numJogadores, Jogador* pJ1, Jogador* pJ2) :
+    Fase(numJogadores, pJ1, pJ2), maxRato(5), contRato(0), maxMagma(50), contMagma(0)
 {
     if (!save)
     {
@@ -248,6 +248,7 @@ void Caverna_Maldosa::carregar()
         if (!arquivo.is_open()) continue;
 
         string linha;
+        int idxJogador = 0;
 
         while (getline(arquivo, linha))
         {

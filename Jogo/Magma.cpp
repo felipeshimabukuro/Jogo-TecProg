@@ -26,6 +26,7 @@ void Magma::obstaculizar(Jogador* p)
 {
     if (p != NULL)
     {
+        if (!danoso) return;
         sf::Vector2f posJog = p->getPos();
         if(p->getVelx() > 0)
         {
@@ -62,6 +63,11 @@ void Magma::executar()
 {
     corpo.setPosition(x, y);
     sprite.setPosition(x, y);
+    if (!rand() % 200) {
+        danoso = false;
+        dano = 0;
+        sprite.setColor(sf::Color::Green);
+    }
 }
 void Magma::salvar()
 {

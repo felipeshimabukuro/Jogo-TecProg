@@ -23,7 +23,7 @@ namespace Fases {
         void criarEntidade(char tipo, sf::Vector2f pos);
 
     public:
-        Caverna_Maldosa(bool save = 0, int numJogadores = 1);
+        Caverna_Maldosa(bool save = 0, int numJogadores = 1, Jogador* pJ1 = NULL, Jogador* pJ2 = NULL);
         ~Caverna_Maldosa();
 
         void executar();

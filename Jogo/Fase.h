@@ -47,7 +47,7 @@ namespace Fases {
 		void criarPlataforma(sf::Vector2f pos);
 
 	public:
-		Fase(int numJogadores);
+		Fase(int numJogadores, Jogador* pJ1, Jogador* pJ2);
 		~Fase();
 
 		const bool getVenceu() const;
@@ -55,5 +55,7 @@ namespace Fases {
 		void salvar();
 		virtual void carregar() = 0;
 		virtual void executar() = 0;
+		void setJogador1(Jogador* pJ1);
+		void setJogador2(Jogador* pJ2);
 	};
 }

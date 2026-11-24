@@ -22,7 +22,8 @@ private:
 	bool voltarMenuFlag;
 	int faseID;
 	bool carregarSaveFlag;
-
+	Jogador* pJogador1;
+	Jogador* pJogador2;
 public:
 	Jogo();
 	~Jogo();
@@ -37,4 +38,5 @@ public:
 
 	void irParaMenu();  
 	bool deveVoltarMenu();
+	void criarJogadores(int numJogadores);
 };

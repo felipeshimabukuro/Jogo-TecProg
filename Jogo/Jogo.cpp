@@ -8,19 +8,15 @@
 using namespace Gerenciadores;
 using namespace Fases;
 
-void Jogo::irParaMenu() { 
-    voltarMenuFlag = true;
-}
 
-bool Jogo::deveVoltarMenu() {
-    return voltarMenuFlag;
-}
 
 Jogo::Jogo() :
     faseAtual(NULL),
     voltarMenuFlag(false),
     carregarSaveFlag(false),
-    faseID(0)
+    faseID(0),
+    pJogador1(NULL),
+    pJogador2(NULL)
 {
     pGG = Gerenciador_grafico::getGerenciadorGrafico();
     Gerenciador_eventos::getGerenciadorEventos()->setJogo(this);
@@ -32,6 +28,8 @@ Jogo::~Jogo()
     if (faseAtual) {
         delete faseAtual;
         faseAtual = NULL;
+        pJogador1 = NULL;
+        pJogador2 = NULL;
     }
 }
 
@@ -45,20 +43,23 @@ void Jogo::carregarFase(int qualFase, int numJogadores, bool resetarPontos)
     if (faseAtual) {
         delete faseAtual;
         faseAtual = NULL;
+        pJogador1 = NULL;
+        pJogador2 = NULL;
     }
 
     carregarSaveFlag = false;
     voltarMenuFlag = false;
-    if (resetarPontos) {
+    if (resetarPontos || !pJogador1) {
         Personagens::Jogador::setPontos(0);
+        criarJogadores(numJogadores);
     }
     faseID = qualFase;
 
     if (qualFase == 1) {
-        faseAtual = new Caverna_Maldosa(false,numJogadores);
+        faseAtual = new Caverna_Maldosa(false,numJogadores,pJogador1,pJogador2);
     }
     else if (qualFase == 2) {
-        faseAtual = new Limbo_da_perdicao(false,numJogadores);
+        faseAtual = new Limbo_da_perdicao(false, numJogadores,pJogador1,pJogador2);
     }
 }
 
@@ -72,6 +73,8 @@ void Jogo::executar()
                 delete faseAtual; 
                 faseAtual = NULL;
                 voltarMenuFlag = false;
+                pJogador1 = NULL;
+                pJogador2 = NULL;
             }
 
             else if (carregarSaveFlag == true) 
@@ -93,6 +96,8 @@ void Jogo::executar()
 
                     delete faseAtual;
                     faseAtual = NULL;
+                    pJogador1 = NULL;
+                    pJogador2 = NULL;
 
                     Menu menuRanking(this);
                     menuRanking.registrarRanking(pontosFinais, qtdJog);
@@ -153,15 +158,19 @@ void Jogo::carregar()
     if (faseAtual) {
         delete faseAtual;
         faseAtual = NULL;
+        pJogador1 = NULL;
+        pJogador2 = NULL;
     }
 
     faseID = qualFase;
 
+    criarJogadores(numJogadores);
+
     if (qualFase == 1) {
-        faseAtual = new Caverna_Maldosa(true, numJogadores);
+        faseAtual = new Caverna_Maldosa(true, numJogadores, pJogador1,pJogador2);
     }
     else if (qualFase == 2) {
-        faseAtual = new Limbo_da_perdicao(true, numJogadores);
+        faseAtual = new Limbo_da_perdicao(true, numJogadores,pJogador1, pJogador2);
     }
 }
 
@@ -171,4 +180,22 @@ void Jogo::solicitarCarregamento() {
 
 bool Jogo::deveCarregarSave() {
     return carregarSaveFlag;
+}
+
+void Jogo::irParaMenu() {
+    voltarMenuFlag = true;
+}
+
+bool Jogo::deveVoltarMenu() {
+    return voltarMenuFlag;
+}
+
+void Jogo::criarJogadores(int numJogadores) {
+    pJogador1 = new Personagens::Jogador(sf::Vector2f(0, 0), sf::Vector2f(GRID, GRID), 0);
+    if (numJogadores == 2) {
+        pJogador2 = new Personagens::Jogador(sf::Vector2f(0, 0), sf::Vector2f(GRID, GRID), 1);
+    }
+    else {
+        pJogador2 = NULL;
+    }
 }

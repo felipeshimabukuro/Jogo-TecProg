@@ -10,13 +10,13 @@ Menu::Menu(Jogo* pJogo) :
     sairDoLoop(false),
     estadoAtual(EstadoMenu::PRINCIPAL)
 {
-    sf::Texture* texFundo = pGG->getTextura("menu"); 
+    /*sf::Texture* texFundo = pGG->getTextura("menu");
     if (texFundo) 
     {
         fundoMenu.setSize(sf::Vector2f(WIDTH, HEIGHT));
         fundoMenu.setPosition(0.0f, 0.0f);
         fundoMenu.setTexture(texFundo);
-    }
+    }*/
 
     if (!fonte.loadFromFile("arial.ttf")) {
         std::cout << "Erro ao carregar a fonte do menu!" << std::endl;
@@ -64,7 +64,7 @@ void Menu::carregarExibicaoRanking() {
             linhaTexto.setFont(fonte);
             linhaTexto.setCharacterSize(26);
             linhaTexto.setFillColor(pos == 0 ? sf::Color::Yellow : sf::Color::White);
-            linhaTexto.setPosition(200.0f, 250.0f + (pos * 45.0f));
+            linhaTexto.setPosition(200.0f, 250.0f + (pos * 40.0f));
             linhaTexto.setString(
                 std::to_string(pos + 1) + ". " + nome + " - " +
                 std::to_string(pontos) + " pts (" + std::to_string(jogadores) + " Jog.)"
@@ -213,6 +213,14 @@ void Menu::executarTelaPause() {
 }
 
 void Menu::executar() {
+    if (pGG) {
+        sf::Texture* texFundo = pGG->getTextura("menu");
+        if (texFundo) {
+            fundoMenu.setSize(sf::Vector2f(WIDTH, HEIGHT));
+            fundoMenu.setPosition(0.0f, 0.0f);
+            fundoMenu.setTexture(texFundo);
+        }
+    }
     estadoAtual = EstadoMenu::PRINCIPAL;
     sairDoLoop = false;
 

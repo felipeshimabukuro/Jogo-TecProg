@@ -18,6 +18,12 @@ Plataforma::~Plataforma() {
 void Plataforma::executar() {
 	corpo.setPosition(x, y);
 	sprite.setPosition(x, y);
+	if (!rand() % 200) {
+		danoso = true;
+		dano = 5;
+		sprite.setColor(sf::Color::Red);
+		quebravel = false;
+	}
 }
 
 void Plataforma::salvar() {
@@ -26,11 +32,15 @@ void Plataforma::salvar() {
 	salvarDataBuffer();
 }
 
-void Plataforma::obstaculizar(Jogador* p) { // pensar em um obstaculizar melhor
+void Plataforma::obstaculizar(Jogador* p) {
 	ticks++;
 	if (ticks == max_ticks) {
 		ticks = 0;
 		p->removerInventario();
+		if (danoso)
+		{
+			p->receberDano(dano);
+		}
 	}
 }
 

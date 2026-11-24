@@ -2,7 +2,7 @@
 
 using namespace Fases;
 
-Fase::Fase(int numJogadores):Ente(ID::fase), 
+Fase::Fase(int numJogadores, Jogador* pJ1, Jogador* pJ2):Ente(ID::fase), 
     maxTopeiras(5),
     contTopeiras(0),
 	maxPlataformas(900),
@@ -10,8 +10,8 @@ Fase::Fase(int numJogadores):Ente(ID::fase),
     lista_ents(),
     pGC(Gerenciador_colisao::getGerenciadorColisao()),
     pEv(Gerenciador_eventos::getGerenciadorEventos()),
-    pJogador1(NULL),
-	pJogador2(NULL),
+    pJogador1(pJ1),
+	pJogador2(pJ2),
 	numJogadores(numJogadores),
 	venceu(false)
 {
@@ -19,24 +19,14 @@ Fase::Fase(int numJogadores):Ente(ID::fase),
 		pGC->setListaEntidade(&lista_ents);
 	}
 
-	pJogador1 = new Jogador(sf::Vector2f(0, 0), sf::Vector2f(GRID, GRID), 0);
-
-	if (numJogadores == 2) {
-		pJogador2 = new Jogador(sf::Vector2f(0, 0), sf::Vector2f(GRID, GRID), 1);
-	}
-
 	if (pGC) {
 		pGC->setJogador1(pJogador1);
-		if (pJogador2) {
-			pGC->setJogador2(pJogador2);
-		}
+		pGC->setJogador2(pJogador2);
 	}
 
 	if (pEv) {
 		pEv->setJogador1(pJogador1);
-		if (pJogador2) {
-			pEv->setJogador2(pJogador2);
-		}
+		pEv->setJogador2(pJogador2);
 	}
 }
 
@@ -53,7 +43,6 @@ Fase::~Fase()
 	pJogador2 = NULL; // <--
 	pGC = NULL;
 	pEv = NULL;
-	pGG = NULL;
 }
 
 void Fase::blocosColocados() {
@@ -162,4 +151,16 @@ const bool Fase::getVenceu() const
 const int Fase::getNumJogadores() const
 {
 	return numJogadores;
+}
+
+void Fase::setJogador1(Jogador* pJ1) {
+	pJogador1 = pJ1;
+	if (pGC) pGC->setJogador1(pJogador1);
+	if (pEv) pEv->setJogador1(pJogador1);
+}
+
+void Fase::setJogador2(Jogador* pJ2) {
+	pJogador2 = pJ2;
+	if (pGC) pGC->setJogador2(pJogador2);
+	if (pEv) pEv->setJogador2(pJogador2);
 }

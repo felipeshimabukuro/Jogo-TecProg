@@ -4,7 +4,8 @@
 
 using namespace Fases;
 
-Limbo_da_perdicao::Limbo_da_perdicao(bool save, int numJogadores) :Fase(numJogadores), maxRatao(5), contRatao(0), maxEspinhos(50), contEspinhos(0)
+Limbo_da_perdicao::Limbo_da_perdicao(bool save, int numJogadores, Jogador* pJ1, Jogador* pJ2) :Fase(numJogadores, pJ1, pJ2)
+, maxRatao(5), contRatao(0), maxEspinhos(50), contEspinhos(0)
 {
     if (!save)
     {
@@ -234,7 +235,7 @@ void Limbo_da_perdicao::carregar()
         {3, "saves/topeiraSave.txt"},
         {4, "saves/rataoSave.txt"},
         {5, "saves/projTopSave.txt"},
-        {6, "saves/projBoss.txt"},
+        {6, "saves/projBossSave.txt"},
         {7, "saves/chaoSave.txt"}
     };
 
@@ -245,6 +246,7 @@ void Limbo_da_perdicao::carregar()
         if (!arquivo.is_open()) continue;
 
         string linha;
+        int idxJogador = 0;
 
         while (getline(arquivo, linha))
         {

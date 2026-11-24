@@ -12,6 +12,7 @@ Gerenciador_colisao::Gerenciador_colisao():
 	LOs(),
 	LPs(),
 	pJog1(NULL),
+	pJog2(NULL),
 	LE(NULL)
 {
 }
