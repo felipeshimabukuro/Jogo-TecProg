@@ -13,12 +13,12 @@ private:
 
     std::vector<sf::Text> textosBotoes;
     std::vector<sf::Text> textosRanking;
-    std::vector<sf::RectangleShape> botoes;
+    sf::RectangleShape fundoMenu;
 
     int opcaoSelecionada;
     bool sairDoLoop;
 
-    enum EstadoMenu { PRINCIPAL, SELECIONAR_FASE, SELECIONAR_JOGADOR, QTD_JOGADORES,PAUSE, RANKING };
+    enum EstadoMenu { PRINCIPAL, SELECIONAR_FASE, QTD_JOGADORES,PAUSE, RANKING };
     EstadoMenu estadoAtual;
 
     int faseMapeada;
@@ -26,7 +26,7 @@ private:
     void atualizarOpcoesBotoes(const std::vector<std::string>& opcoes, float posYInicial = 250.0f);
     void carregarExibicaoRanking();
 public:
-    Menu(Jogo* pJogo = nullptr);
+    Menu(Jogo* pJogo = NULL);
     ~Menu();
 
     void executar();
@@ -36,7 +36,5 @@ public:
     void moverBaixo();
     void interagir();
     void executarTelaPause();
-    void centralizarTexto();
-    void continuarJogo();
     void registrarRanking(int pontos, int numJogadores);
 };

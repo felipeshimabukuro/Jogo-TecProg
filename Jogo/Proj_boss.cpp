@@ -5,7 +5,7 @@
 using namespace Gerenciadores;
 using namespace Entidades;
 
-Proj_boss::Proj_boss(int vX, int vY, short int direcao):
+Proj_boss::Proj_boss(float vX, float vY, short int direcao):
 	Projetil(ID::projBoss, vX, vY, direcao),
 	fragmentos(3)
 {

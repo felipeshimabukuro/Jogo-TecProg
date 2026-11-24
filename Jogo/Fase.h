@@ -23,12 +23,10 @@ namespace Fases {
 		ListaEntidade lista_ents;
 		Gerenciador_colisao* pGC;
 		Gerenciador_eventos* pEv;
-		Gerenciador_grafico* pGG;
 		Jogador* pJogador1;
 		Jogador* pJogador2;
 		ifstream tilemap;
 
-		sf::Clock relogioFase;
 		bool faseConcluida;
 		bool venceu;
 		int numJogadores;

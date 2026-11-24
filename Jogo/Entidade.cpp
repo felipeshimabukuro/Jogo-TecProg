@@ -34,6 +34,16 @@ const sf::Vector2f Entidade::getPos() const {
 void Entidade::setPos(const sf::Vector2f pos) {
 	x = pos.x;
 	y = pos.y;
+
+	if (x < 0.0f) {
+		x = 0.0f;
+	}
+	else if (x > WIDTH - corpo.getSize().x) {
+		x = WIDTH - corpo.getSize().x;
+	}
+
+	corpo.setPosition(x, y);
+	sprite.setPosition(x, y);
 }
 
 const sf::Vector2f Entidade::getTam() {

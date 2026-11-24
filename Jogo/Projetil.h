@@ -15,7 +15,6 @@ namespace Entidades
 	public:
 		Projetil(ID id, short int dir, float ix, float iy);
 		~Projetil();
-		sf::RectangleShape getCorpo();
 		virtual void trajetoria();
 		virtual void salvar() = 0;
 		void salvarDataBuffer();

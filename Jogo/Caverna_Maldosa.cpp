@@ -3,7 +3,8 @@
 
 using namespace Fases;
 
-Caverna_Maldosa::Caverna_Maldosa(bool save, int numJogadores) :Fase(numJogadores), maxRato(5), contRato(0), maxMagma(50), contMagma(0)
+Caverna_Maldosa::Caverna_Maldosa(bool save, int numJogadores) :
+    Fase(numJogadores), maxRato(5), contRato(0), maxMagma(50), contMagma(0)
 {
     if (!save)
     {
@@ -17,7 +18,6 @@ Caverna_Maldosa::Caverna_Maldosa(bool save, int numJogadores) :Fase(numJogadores
     }
 
     faseConcluida = false;
-    relogioFase.restart(); // Começa a contar o tempo da fase
 
     // Configure a fonte e o texto
     if (fonteTexto.loadFromFile("arial.ttf")) {

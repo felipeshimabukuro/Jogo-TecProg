@@ -7,7 +7,7 @@ namespace Listas
 	class Elemento
 	{
 	private:
-		TE* pElemento;
+		TE* pInfo;
 		Elemento<TE>* pProximo;
 
 	public:
@@ -22,7 +22,7 @@ namespace Listas
 	template<class TE>
 	Elemento<TE>::Elemento(TE* pElemento)
 	{
-		this->pElemento = pElemento;
+		this->pInfo = pElemento;
 		this->pProximo = NULL;
 	}
 
@@ -30,13 +30,13 @@ namespace Listas
 	Elemento<TE>::~Elemento()
 	{
 		pProximo = NULL;
-		delete pElemento;
+		delete pInfo;
 	}
 
 	template<class TE>
 	 TE* Elemento<TE>::getElemento() const
 	{
-		return pElemento;
+		return pInfo;
 	}
 
 	template<class TE>
@@ -54,6 +54,6 @@ namespace Listas
 	template<class TE>
 	void Elemento<TE>::incluir(TE* pElemento)
 	{
-		this->pElemento = pElemento;
+		this->pInfo = pElemento;
 	}
 }

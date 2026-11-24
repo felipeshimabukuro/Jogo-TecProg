@@ -36,8 +36,6 @@ namespace Personagens {
 		virtual void atualizaLado();
 		void salvarDataBuffer();
 		void receberDano(int dano);
-		sf::RectangleShape getCorpo();
-		void setPos(const sf::Vector2f pos);
 		void colisao(Entidade* ent, sf::Vector2f ds);
 		const bool getBoss() const;
 		virtual void danificar(Jogador* p) = 0;

@@ -10,7 +10,7 @@ namespace Entidades
 		int fragmentos;
 
 	public:
-		Proj_boss(int vX, int vY, short int direcao);
+		Proj_boss(float vX, float vY, short int direcao);
 		~Proj_boss();
 		void setFragmentos(int frag);
 		const int getFragmentos() const;

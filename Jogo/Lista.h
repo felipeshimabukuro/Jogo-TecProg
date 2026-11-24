@@ -14,9 +14,9 @@ namespace Listas
 	public:
 		Lista();
 		~Lista();
-		void incluir(TL* pElemento);
+		void incluir(TL* p);
 		void limpar();
-		void removerElemento(TL* pElemento);
+		void removerElemento(TL* p);
 		const int getTamanho() const;
 		TL* operator[](int pos);
 	};
@@ -36,11 +36,11 @@ namespace Listas
 	}
 
 	template<class TL>
-	void Lista<TL>::incluir(TL* pElemento)
+	void Lista<TL>::incluir(TL* p)
 	{
-		if(pElemento)
+		if(p)
 		{
-			Elemento<TL>* novoNo = new Elemento<TL>(pElemento);
+			Elemento<TL>* novoNo = new Elemento<TL>(p);
 			novoNo->setProx(NULL); 
 
 			if (pPrimeiro == NULL)
@@ -75,13 +75,13 @@ namespace Listas
 	}
 
 	template<class TL>
-	void Lista<TL>::removerElemento(TL* pElemento) 
+	void Lista<TL>::removerElemento(TL* p)
 	{
-		if (pElemento == NULL || pPrimeiro == NULL)
+		if (p == NULL || pPrimeiro == NULL)
 			return;
 
 		// CASO oelemento a ser removido é o PRIMEIRO da lista
-		if (pPrimeiro->getElemento() == pElemento)
+		if (pPrimeiro->getElemento() == p)
 		{
 			Elemento<TL>* pDelete = pPrimeiro;
 			pPrimeiro = pPrimeiro->getProximo();
@@ -99,7 +99,7 @@ namespace Listas
 		Elemento<TL>* temp = pPrimeiro;
 		while (temp->getProximo() != NULL)
 		{
-			if (temp->getProximo()->getElemento() == pElemento)
+			if (temp->getProximo()->getElemento() == p)
 			{
 				Elemento<TL>* pDelete = temp->getProximo();
 				temp->setProx(temp->getProximo()->getProximo());

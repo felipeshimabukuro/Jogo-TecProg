@@ -38,13 +38,6 @@ Jogador::~Jogador() {
 
 }
 
-void Jogador::setPos(const sf::Vector2f pos) {
-    x = pos.x;
-    y = pos.y;
-    corpo.setPosition(x, y);
-    sprite.setPosition(x, y);
-}
-
 void Jogador::executar() 
 {
     mover();

@@ -29,6 +29,7 @@ Gerenciador_grafico::Gerenciador_grafico() :
 	carregarTextura("rato", "assets/rato.png");
 	carregarTextura("ratao", "assets/boss.png");
 	carregarTextura("chao", "assets/chao.png");
+	carregarTextura("menu", "assets/menu.png");
 	// ================================================================
 }
 

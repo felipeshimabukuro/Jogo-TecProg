@@ -105,21 +105,6 @@ void Inimigo::receberDano(int dano) {
 	}
 }
 
-void Inimigo::setPos(const sf::Vector2f pos) {
-	x = pos.x; 
-	y = pos.y;
-
-	if (x < 0.0f) {
-		x = 0.0f;
-	}
-	else if (x > WIDTH - corpo.getSize().x) {
-		x = WIDTH - corpo.getSize().x;
-	}
-
-	corpo.setPosition(x, y);
-	sprite.setPosition(x, y); 
-}
-
 void Inimigo::executar() {
 	mover();
 }

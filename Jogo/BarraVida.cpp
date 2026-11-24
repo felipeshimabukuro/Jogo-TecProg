@@ -9,7 +9,6 @@ BarraVida::BarraVida(const int vidasMax) :
     barraFundo.setFillColor(sf::Color(40, 40, 40, 200));
     barraFundo.setOutlineThickness(1.0f);
     barraFundo.setOutlineColor(sf::Color::Black);
-
     barraVida.setFillColor(sf::Color(50, 205, 50));
 }
 

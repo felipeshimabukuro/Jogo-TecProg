@@ -10,6 +10,14 @@ Menu::Menu(Jogo* pJogo) :
     sairDoLoop(false),
     estadoAtual(EstadoMenu::PRINCIPAL)
 {
+    sf::Texture* texFundo = pGG->getTextura("menu"); 
+    if (texFundo) 
+    {
+        fundoMenu.setSize(sf::Vector2f(WIDTH, HEIGHT));
+        fundoMenu.setPosition(0.0f, 0.0f);
+        fundoMenu.setTexture(texFundo);
+    }
+
     if (!fonte.loadFromFile("arial.ttf")) {
         std::cout << "Erro ao carregar a fonte do menu!" << std::endl;
     }
@@ -35,7 +43,7 @@ void Menu::atualizarOpcoesBotoes(const std::vector<std::string>& opcoes, float p
         texto.setFont(fonte);
         texto.setString(opcoes[i]);
         texto.setCharacterSize(30);
-        texto.setPosition(300.0f, posYInicial + (i * 60.0f));
+        texto.setPosition(175.0f, posYInicial + (i * 60.0f));
         texto.setFillColor(i == 0 ? sf::Color::Red : sf::Color::White);
         textosBotoes.push_back(texto);
     }
@@ -56,7 +64,7 @@ void Menu::carregarExibicaoRanking() {
             linhaTexto.setFont(fonte);
             linhaTexto.setCharacterSize(26);
             linhaTexto.setFillColor(pos == 0 ? sf::Color::Yellow : sf::Color::White);
-            linhaTexto.setPosition(220.0f, 190.0f + (pos * 45.0f));
+            linhaTexto.setPosition(200.0f, 250.0f + (pos * 45.0f));
             linhaTexto.setString(
                 std::to_string(pos + 1) + ". " + nome + " - " +
                 std::to_string(pontos) + " pts (" + std::to_string(jogadores) + " Jog.)"
@@ -209,7 +217,7 @@ void Menu::executar() {
     sairDoLoop = false;
 
     tituloMenu.setString("Cavadores Intrepidos");
-    tituloMenu.setPosition(200.0f, 100.0f);
+    tituloMenu.setPosition(147.5f, 160.0f);
 
     atualizarOpcoesBotoes({ "Novo Jogo", "Carregar Jogo", "Ranking", "Sair" });
 
@@ -231,6 +239,12 @@ void Menu::executar() {
 
 void Menu::desenhar() {
     sf::RenderWindow* window = pJogo->getWindow();
+    if (estadoAtual == EstadoMenu::PRINCIPAL ||
+        estadoAtual == EstadoMenu::SELECIONAR_FASE ||
+        estadoAtual == EstadoMenu::QTD_JOGADORES)
+    {
+        window->draw(fundoMenu);
+    }
     window->draw(tituloMenu);
     if (estadoAtual == EstadoMenu::RANKING) {
         for (auto& linha : textosRanking) {
