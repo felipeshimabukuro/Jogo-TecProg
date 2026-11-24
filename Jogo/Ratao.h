@@ -57,5 +57,6 @@ namespace Personagens
 		void setAtaqueCd(const int acd);
 		void setTempoImune(const int ti);
 		void setEstado(const string& est);
+		string getArquivoSave() const;
 	};
 }

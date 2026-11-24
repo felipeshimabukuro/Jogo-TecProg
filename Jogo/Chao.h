@@ -22,5 +22,6 @@ namespace Entidades
         void salvar();
         void ajudar(Personagens::Jogador* p);
         void setTicks(const int t);
+        string getArquivoSave() const;
     };
 }

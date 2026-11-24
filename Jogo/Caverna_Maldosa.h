@@ -26,7 +26,7 @@ namespace Fases {
         Caverna_Maldosa(bool save = 0, int numJogadores = 1, Jogador* pJ1 = NULL, Jogador* pJ2 = NULL);
         ~Caverna_Maldosa();
 
-        void executar();
+        //void executar();
         void carregar();
     };
 }

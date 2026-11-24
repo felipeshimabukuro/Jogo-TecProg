@@ -89,3 +89,8 @@ void Espinho::calculaDistancia()
 
 	distJogador = static_cast<int>(menorDist);
 }
+
+std::string Espinho::getArquivoSave() const
+{
+	return "saves/espinhoSave.txt";
+}

@@ -21,5 +21,6 @@ namespace Entidades {
 		void salvar();
 		void salvarDataBuffer();
 		static void setTicks(const int t);
+		string getArquivoSave() const;
 	};
 }

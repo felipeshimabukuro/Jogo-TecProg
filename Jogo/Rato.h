@@ -27,5 +27,6 @@ namespace Personagens
         void salvarDataBuffer();
         void salvar();
         void setEstado(const string& est);
+        string getArquivoSave() const;
     };
 }

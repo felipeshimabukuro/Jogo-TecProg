@@ -85,3 +85,8 @@ void Magma::setTicks(const int t)
 {
     ticks = t;
 }
+
+string Magma::getArquivoSave() const
+{
+    return "saves/magmaSave.txt";
+}

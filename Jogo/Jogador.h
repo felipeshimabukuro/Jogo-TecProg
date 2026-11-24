@@ -52,5 +52,6 @@ namespace Personagens
 		void setTDano(const int td);
 		static int getPontos();
 		static void setPontos(int p);
+		string getArquivoSave() const;
 	};
 }

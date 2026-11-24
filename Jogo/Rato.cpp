@@ -186,3 +186,8 @@ void Rato::setEstado(const string& est)
 {
 	estado = est;
 }
+
+string Rato::getArquivoSave() const
+{
+	return "saves/ratoSave.txt";
+}

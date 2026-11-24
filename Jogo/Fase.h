@@ -54,7 +54,7 @@ namespace Fases {
 		const int getNumJogadores() const;
 		void salvar();
 		virtual void carregar() = 0;
-		virtual void executar() = 0;
+		virtual void executar();
 		void setJogador1(Jogador* pJ1);
 		void setJogador2(Jogador* pJ2);
 	};

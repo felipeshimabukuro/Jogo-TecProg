@@ -60,36 +60,30 @@ void ListaEntidade::limparDestruidos()
 
 void ListaEntidade::salvar()
 {
-	int tam = 10;
-	vector<ostringstream> classes (tam);
+	map<string, ostringstream> arquivos;
+
+	arquivos["saves/jogadorSave.txt"];
+	arquivos["saves/plataformaSave.txt"];
+	arquivos["saves/magmaSave.txt"];
+	arquivos["saves/topeiraSave.txt"];
+	arquivos["saves/ratoSave.txt"];
+	arquivos["saves/projTopSave.txt"];
+	arquivos["saves/chaoSave.txt"];
 
 	for (int i = 0; i < LEs.getTamanho(); i++)
 	{
 		Entidade* ent = LEs[i];
 		ent->salvar();
-		classes[ static_cast<int>(ent->getID()) - 1 ] << ent->getBuffer() << '\n';
+		arquivos[ent->getArquivoSave()] << ent->getBuffer() << '\n';
 	}
 
-	map<int, string> arquivosSave = 
+	std::map<std::string, std::ostringstream>::const_iterator it;
+	for (it = arquivos.begin(); it != arquivos.end(); ++it)
 	{
-		{0, "saves/jogadorSave.txt"},
-		{1, "saves/plataformaSave.txt"},
-		{2, "saves/magmaSave.txt"},
-		{3, "saves/espinhoSave.txt"},
-		{4, "saves/topeiraSave.txt"},
-		{5, "saves/ratoSave.txt"},
-		{6, "saves/rataoSave.txt"},
-		{7, "saves/projTopSave.txt"},
-		{8, "saves/projBossSave.txt"},
-		{9, "saves/chaoSave.txt"}
-	};
-
-	for (int i = 0; i < tam; i++)
-	{
-		ofstream arquivo(arquivosSave[i]);
+		std::ofstream arquivo(it->first);
 		if (arquivo.is_open())
 		{
-			arquivo << classes[i].str();
+			arquivo << it->second.str();
 		}
 	}
 }

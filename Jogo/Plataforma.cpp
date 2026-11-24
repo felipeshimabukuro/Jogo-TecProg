@@ -55,3 +55,8 @@ void Plataforma::setTicks(const int p)
 { 
 	ticks = p;
 }
+
+string Plataforma::getArquivoSave() const
+{
+	return "saves/plataformaSave.txt";
+}

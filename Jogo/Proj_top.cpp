@@ -53,3 +53,8 @@ void Proj_top::salvar()
 
 	salvarDataBuffer();
 }
+
+string Proj_top::getArquivoSave() const
+{
+	return "saves/projTopSave.txt";
+}

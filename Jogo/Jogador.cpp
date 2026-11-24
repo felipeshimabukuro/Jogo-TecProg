@@ -318,3 +318,8 @@ void Jogador::setPontos(int p) {
 int Jogador::getPontos(){
     return pontos;
 }
+
+string Jogador::getArquivoSave() const
+{
+    return "saves/jogadorSave.txt";
+}

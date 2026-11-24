@@ -378,3 +378,8 @@ void Ratao::setEstado(const std::string& est)
 list<Entidades::Projetil*>* Ratao::getProjeteisPendentes() {
 	return &projeteisPendentes;
 }
+
+string Ratao::getArquivoSave() const
+{
+	return "saves/rataoSave.txt";
+}

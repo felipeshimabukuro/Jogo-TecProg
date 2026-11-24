@@ -84,3 +84,8 @@ void Proj_boss::salvar()
 
 	salvarDataBuffer();
 }
+
+std::string Proj_boss::getArquivoSave() const
+{
+	return "saves/projBoss.txt";
+}

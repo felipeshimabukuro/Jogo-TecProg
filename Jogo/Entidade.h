@@ -35,5 +35,7 @@ namespace Entidades
 		const bool getAtivo() const;
 
 		const string getBuffer() const;
+
+		virtual string getArquivoSave() const = 0;
 	};
 }

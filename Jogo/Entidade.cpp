@@ -13,7 +13,7 @@ Entidade::~Entidade()
 
 void Entidade::salvarDataBuffer()
 {
-	buffer << static_cast<int>(id) << " ";
+	//buffer << static_cast<int>(id) << " ";
 	buffer << x << " ";
 	buffer << y << " ";
 	buffer << ativo << " ";

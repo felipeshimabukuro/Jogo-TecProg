@@ -29,5 +29,6 @@ namespace Personagens
 		void salvar();
 		void setTiroCd(const int cd);
 		void setEstado(const string& est);
+		string getArquivoSave() const;
 	};
 }

@@ -156,3 +156,8 @@ void Topeira::setEstado(const string& est)
 list<Entidades::Projetil*>* Topeira::getProjeteisPendentes() {
 	return &projeteisPendentes;
 }
+
+string Topeira::getArquivoSave() const
+{
+	return "saves/topeiraSave.txt";
+}

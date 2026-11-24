@@ -17,5 +17,6 @@ namespace Entidades
 		void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f));
 		void salvarDataBuffer();
 		void salvar();
+		string getArquivoSave() const;
 	};
 }

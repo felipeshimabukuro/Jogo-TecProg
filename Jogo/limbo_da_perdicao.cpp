@@ -1,4 +1,5 @@
 #include "Limbo_da_perdicao.h"
+#include "Limbo_da_perdicao.h"
 #include "Proj_top.h"
 #include "Proj_boss.h"
 
@@ -71,89 +72,7 @@ void Limbo_da_perdicao::criarFundo()
         }
     }
 }
-void Limbo_da_perdicao::executar() {
-    bool faseRolando = true;
 
-    while (pGG->verificaJanelaAberta() && faseRolando)
-    {
-        if (pEv->deveSairDaFase())
-        {
-            return;
-        }
-
-        if (!faseConcluida)
-        {
-            pEv->executar();
-            lista_ents.percorrer();
-            pGC->executar();
-            blocosColocados();
-
-            bool temInimigoVivo = false;
-            for (int i = 0; i < lista_ents.getTamanho(); i++) {
-                Entidade* ent = lista_ents[i];
-                if (ent && ent->getAtivo()) {
-                    if (dynamic_cast<Personagens::Inimigo*>(ent)) {
-                        temInimigoVivo = true;
-                        break;
-                    }
-                }
-            }
-
-            bool jogadorVivo = false;
-            if (pJogador1 && pJogador1->getAtivo()) jogadorVivo = true;
-            if (pJogador2 && pJogador2->getAtivo()) jogadorVivo = true;
-
-            if (!temInimigoVivo) {
-                venceu = true;
-                faseConcluida = true;
-                return;
-            }
-            else if (!jogadorVivo) {
-                faseConcluida = true;
-                textoFimDeFase.setString("Game Over!\nPontos do Time: " + std::to_string(Personagens::Jogador::getPontos()));
-            }
-
-            if (!faseConcluida) {
-                if (pJogador1 && !pJogador1->getAtivo()) {
-                    pJogador1 = NULL;
-                    pEv->setJogador1(NULL);
-                    for (int i = 0; i < lista_ents.getTamanho(); i++) {
-                        Personagens::Inimigo* ini = dynamic_cast<Personagens::Inimigo*>(lista_ents[i]);
-                        if (ini) ini->setJogador1(NULL);
-                    }
-                }
-                if (pJogador2 && !pJogador2->getAtivo()) {
-                    pJogador2 = NULL;
-                    pEv->setJogador2(NULL);
-                    for (int i = 0; i < lista_ents.getTamanho(); i++) {
-                        Personagens::Inimigo* ini = dynamic_cast<Personagens::Inimigo*>(lista_ents[i]);
-                        if (ini) ini->setJogador2(NULL);
-                    }
-                }
-
-                pGC->limparDestruidos();
-                lista_ents.limparDestruidos();
-            }
-            else {
-                pEv->setJogador1(NULL);
-                pEv->setJogador2(NULL);
-            }
-        }
-
-        pGG->limpaJanela();
-        pGG->getWindow()->draw(sprite);
-
-        if (!faseConcluida) {
-            lista_ents.desenharTodas(pGG);
-        }
-        else {
-            pGG->getWindow()->draw(textoFimDeFase);
-            pEv->executar();
-        }
-
-        pGG->mostrarJanela();
-    }
-}
 void Limbo_da_perdicao::criarEntidade(char tipo, sf::Vector2f pos) {
     switch (tipo)
     {
@@ -246,16 +165,12 @@ void Limbo_da_perdicao::carregar()
         if (!arquivo.is_open()) continue;
 
         string linha;
-        int idxJogador = 0;
 
         while (getline(arquivo, linha))
         {
             if (linha.empty()) continue;
 
             istringstream ss(linha);
-
-            int id;
-            ss >> id;
 
             float x, y;
             bool ativo;

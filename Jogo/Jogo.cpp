@@ -49,9 +49,9 @@ void Jogo::carregarFase(int qualFase, int numJogadores, bool resetarPontos)
 
     carregarSaveFlag = false;
     voltarMenuFlag = false;
-    if (resetarPontos || !pJogador1) {
+    criarJogadores(numJogadores);
+    if (resetarPontos) {
         Personagens::Jogador::setPontos(0);
-        criarJogadores(numJogadores);
     }
     faseID = qualFase;
 

@@ -56,3 +56,8 @@ void Chao::setTicks(const int t)
 {
     ticks = t;
 }
+
+string Chao::getArquivoSave() const
+{
+    return "saves/chaoSave.txt";
+}

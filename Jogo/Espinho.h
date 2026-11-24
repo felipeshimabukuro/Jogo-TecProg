@@ -21,5 +21,6 @@ namespace Entidades {
 		void obstaculizar(Jogador* p);
 		void calculaDistancia();
 		void setJogadores(Jogador* j1, Jogador* j2 = NULL);
+		string getArquivoSave() const;
 	};
 }
