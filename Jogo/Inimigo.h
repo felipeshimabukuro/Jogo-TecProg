@@ -24,6 +24,7 @@ namespace Personagens {
 		bool jaDeuPontos;
 	public:
 		Inimigo(ID id, const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador* j2);
+		Inimigo(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador* j2);
 		~Inimigo();
 		virtual void executar() = 0;
 		//virtual void danificar() = 0;

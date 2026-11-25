@@ -7,15 +7,15 @@ using namespace Personagens;
 
 int Jogador::pontos = 0;
 
-Jogador::Jogador() :Personagem(ID::jogador, sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), inventario(0){
+Jogador::Jogador() :Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), inventario(0){
     inicializa();
 }
 
-Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam, short int n) :Personagem(ID::jogador, pos, tam), num(n), inventario(0) {
+Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam, short int n) :Personagem(pos, tam), num(n), inventario(0) {
     inicializa();
 }
 
-Jogador::Jogador(const sf::RectangleShape corpo) :Personagem(ID::jogador, sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), inventario(0) {
+Jogador::Jogador(const sf::RectangleShape corpo) :Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), inventario(0) {
     inicializa();
 }
 

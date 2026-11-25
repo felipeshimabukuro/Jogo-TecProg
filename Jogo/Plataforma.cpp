@@ -5,7 +5,7 @@ using namespace Entidades;
 int Plataforma::ticks(0);
 
 Plataforma::Plataforma(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel):
-	Obstaculo(ID::plataforma, x, y, largura, altura, dano, danoso, quebravel),
+	Obstaculo(x, y, largura, altura, dano, danoso, quebravel),
 	max_ticks(180)
 {
 	inicializa();

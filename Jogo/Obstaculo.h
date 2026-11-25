@@ -19,7 +19,7 @@ namespace Entidades
 		bool quebravel;
 
     public:
-        Obstaculo(ID id, int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel);
+        Obstaculo(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel);
         ~Obstaculo();
 		virtual void executar() = 0;
 		virtual void salvar() = 0;

@@ -3,7 +3,6 @@
 #include "Jogo.h"
 
 Menu::Menu(Jogo* pJogo) :
-    Ente(ID::vazio),
     pJogo(pJogo),
     opcaoSelecionada(0),
     faseMapeada(1),

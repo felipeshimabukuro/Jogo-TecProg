@@ -15,6 +15,16 @@ Entidade::Entidade(ID id, float xx, float yy) :
 {
 }
 
+Entidade::Entidade(float xx, float yy) :
+	Ente(),
+	x(xx),
+	y(yy),
+	ativo(true),
+	vely(0.0f),
+	max_vely(15.0f)
+{
+}
+
 Entidade::~Entidade()
 {
 }
@@ -30,7 +40,6 @@ void Entidade::aplicarGravidade()
 
 void Entidade::salvarDataBuffer()
 {
-	//buffer << static_cast<int>(id) << " ";
 	buffer << x << " ";
 	buffer << y << " ";
 	buffer << ativo << " ";

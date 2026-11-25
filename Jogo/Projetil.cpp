@@ -2,8 +2,8 @@
 
 using namespace Entidades;
 
-Projetil::Projetil(ID id, short int dir, float ix, float iy) :
-	Entidade(id, ix, iy),
+Projetil::Projetil(short int dir, float ix, float iy) :
+	Entidade(ix, iy),
 	direcao(dir)
 {
 	vely = -16.0f;     

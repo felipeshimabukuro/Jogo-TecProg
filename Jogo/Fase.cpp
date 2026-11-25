@@ -2,7 +2,7 @@
 
 using namespace Fases;
 
-Fase::Fase(int numJogadores, Jogador* pJ1, Jogador* pJ2):Ente(ID::fase), 
+Fase::Fase(int numJogadores, Jogador* pJ1, Jogador* pJ2):
     maxTopeiras(5),
     contTopeiras(0),
 	maxPlataformas(900),

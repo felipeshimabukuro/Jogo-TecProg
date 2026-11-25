@@ -3,7 +3,7 @@
 using namespace Entidades;
 
 Espinho::Espinho(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel, Jogador* j1, Jogador* j2):
-	Obstaculo(ID::espinho, x, y, largura, altura, dano, danoso, quebravel),
+	Obstaculo(x, y, largura, altura, dano, danoso, quebravel),
 	distJogador(0),
 	pJogador1(j1),
 	pJogador2(j2)

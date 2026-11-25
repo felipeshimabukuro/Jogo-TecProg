@@ -149,7 +149,6 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BarraVida.cpp" />
     <ClCompile Include="Chao.cpp" />
     <ClCompile Include="Espinho.cpp" />
     <ClCompile Include="limbo_da_perdicao.cpp" />
@@ -178,7 +177,6 @@
     <ClCompile Include="Topeira.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BarraVida.h" />
     <ClInclude Include="Bibliotecas.h" />
     <ClInclude Include="Chao.h" />
     <ClInclude Include="Espinho.h" />

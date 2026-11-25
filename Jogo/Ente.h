@@ -19,7 +19,7 @@ protected:
 	sf::Sprite sprite;
 
 public:
-	Ente(ID id);
+	Ente(ID id = ID::vazio);
 	virtual ~Ente();
 	const ID getID() const;
 	virtual void executar() = 0;

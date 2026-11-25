@@ -4,7 +4,7 @@
 using namespace Entidades;
 
 Chao::Chao(const sf::Vector2f pos, const sf::Vector2f tam) :
-    Entidade(ID::chao, pos.x, pos.y), max_ticks(60), ticks(0)
+    Entidade(pos.x, pos.y), max_ticks(60), ticks(0)
 {
     x = pos.x;
     y = pos.y;
