@@ -3,30 +3,27 @@
 #include "Espinho.h"
 #include "Ratao.h"
 
-namespace Fases {
-    class Limbo_da_perdicao : public Fase {
-    private:
-        const int maxRatao;
-        int contRatao;
-        const int maxEspinhos;
-        int contEspinhos;
-    
-    protected:
+namespace Escavadores_intrepidos {
+    namespace Fases {
+        class Limbo_da_perdicao : public Fase {
+        private:
+            const int maxRatao;
+            int contRatao;
+            const int maxEspinhos;
+            int contEspinhos;
 
-        //void criarObstaculos();
-		void criarEspinho(sf::Vector2f pos);
+        protected:
+            void criarEspinho(sf::Vector2f pos);
+            void criarRatao(sf::Vector2f pos);
 
-        //void criarInimigos();
-        void criarRatao(sf::Vector2f pos);
+            void criarFundo();
+            void criarEntidade(char tipo, sf::Vector2f pos);
 
-        void criarFundo();
-        void criarEntidade(char tipo, sf::Vector2f pos);
+        public:
+            Limbo_da_perdicao(bool save = 0, int numJogadores = 1, Jogador* pJ1 = NULL, Jogador* pJ2 = NULL);
+            ~Limbo_da_perdicao();
 
-    public:
-        Limbo_da_perdicao(bool save = 0, int numJogadores = 1, Jogador* pJ1 = NULL, Jogador* pJ2 = NULL);
-        ~Limbo_da_perdicao();
-
-        //void executar();
-        void carregar();
-    };
+            void carregar();
+        };
+    }
 }

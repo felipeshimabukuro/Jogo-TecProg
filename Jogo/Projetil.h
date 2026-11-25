@@ -2,23 +2,25 @@
 #include "Bibliotecas.h"
 #include "Entidade.h"
 
-namespace Entidades
-{
-	class Projetil : public Entidade
+namespace Escavadores_intrepidos {
+	namespace Entidades
 	{
-	protected:
-		float velX;
-		short int direcao;
+		class Projetil : public Entidade
+		{
+		protected:
+			float velX;
+			short int direcao;
 
-	public:
-		Projetil(ID id, short int dir, float ix, float iy);
-		~Projetil();
-		virtual void trajetoria();
-		virtual void salvar() = 0;
-		void salvarDataBuffer();
-		void executar();
-		virtual void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f)) = 0;
-		void setVelX(const float vx);
-		void setVelY(const float vy);
-	};
+		public:
+			Projetil(ID id, short int dir, float ix, float iy);
+			~Projetil();
+			virtual void trajetoria();
+			virtual void salvar() = 0;
+			void salvarDataBuffer();
+			void executar();
+			virtual void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f)) = 0;
+			void setVelX(const float vx);
+			void setVelY(const float vy);
+		};
+	}
 }

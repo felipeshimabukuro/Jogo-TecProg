@@ -2,21 +2,23 @@
 #include "Bibliotecas.h"
 #include "Projetil.h"
 
-namespace Entidades
-{
-	class Proj_boss : public Projetil
+namespace Escavadores_intrepidos {
+	namespace Entidades
 	{
-	private:
-		int fragmentos;
+		class Proj_boss : public Projetil
+		{
+		private:
+			int fragmentos;
 
-	public:
-		Proj_boss(float vX, float vY, short int direcao);
-		~Proj_boss();
-		void setFragmentos(int frag);
-		const int getFragmentos() const;
-		void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f));
-		void salvarDataBuffer();
-		void salvar();
-		string getArquivoSave() const;
-	};
+		public:
+			Proj_boss(float vX, float vY, short int direcao);
+			~Proj_boss();
+			void setFragmentos(int frag);
+			const int getFragmentos() const;
+			void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f));
+			void salvarDataBuffer();
+			void salvar();
+			string getArquivoSave() const;
+		};
+	}
 }

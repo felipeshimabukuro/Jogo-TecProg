@@ -2,39 +2,42 @@
 #include "Ente.h"
 #include "Bibliotecas.h"
 
-class Jogo;
+namespace Escavadores_intrepidos {
 
-class Menu : public Ente {
-private:
-    Jogo* pJogo;
+    class Jogo;
 
-    sf::Font fonte;
-    sf::Text tituloMenu;
+    class Menu : public Ente {
+    private:
+        Jogo* pJogo;
 
-    std::vector<sf::Text> textosBotoes;
-    std::vector<sf::Text> textosRanking;
-    sf::RectangleShape fundoMenu;
+        sf::Font fonte;
+        sf::Text tituloMenu;
 
-    int opcaoSelecionada;
-    bool sairDoLoop;
+        std::vector<sf::Text> textosBotoes;
+        std::vector<sf::Text> textosRanking;
+        sf::RectangleShape fundoMenu;
 
-    enum EstadoMenu { PRINCIPAL, SELECIONAR_FASE, QTD_JOGADORES,PAUSE, RANKING };
-    EstadoMenu estadoAtual;
+        int opcaoSelecionada;
+        bool sairDoLoop;
 
-    int faseMapeada;
+        enum EstadoMenu { PRINCIPAL, SELECIONAR_FASE, QTD_JOGADORES, PAUSE, RANKING };
+        EstadoMenu estadoAtual;
 
-    void atualizarOpcoesBotoes(const std::vector<std::string>& opcoes, float posYInicial = 250.0f);
-    void carregarExibicaoRanking();
-public:
-    Menu(Jogo* pJogo = NULL);
-    ~Menu();
+        int faseMapeada;
 
-    void executar();
-    void setJogo(Jogo* p);
-    void desenhar();
-    void moverCima();
-    void moverBaixo();
-    void interagir();
-    void executarTelaPause();
-    void registrarRanking(int pontos, int numJogadores);
-};
+        void atualizarOpcoesBotoes(const std::vector<std::string>& opcoes, float posYInicial = 250.0f);
+        void carregarExibicaoRanking();
+    public:
+        Menu(Jogo* pJogo = NULL);
+        ~Menu();
+
+        void executar();
+        void setJogo(Jogo* p);
+        void desenhar();
+        void moverCima();
+        void moverBaixo();
+        void interagir();
+        void executarTelaPause();
+        void registrarRanking(int pontos, int numJogadores);
+    };
+}

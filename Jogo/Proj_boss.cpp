@@ -2,91 +2,94 @@
 #include "Proj_top.h"
 #include "Gerenciador_colisao.h"
 
-using namespace Gerenciadores;
-using namespace Entidades;
+namespace Escavadores_intrepidos {
+	namespace Entidades {
+		using namespace Gerenciadores;
 
-Proj_boss::Proj_boss(float vX, float vY, short int direcao):
-	Projetil(ID::projBoss, vX, vY, direcao),
-	fragmentos(3)
-{
-	vely = 0.0f;
-	srand(time(NULL));
-	setFragmentos(rand() % 2 + 3);
-
-	corpo.setSize(sf::Vector2f(28.0f, 28.0f));
-	corpo.setPosition(x, y);
-	setTextura("terra", getTam());
-	sprite.setPosition(x, y);
-}
-
-Proj_boss::~Proj_boss()
-{
-}
-
-void Proj_boss::setFragmentos(int frag)
-{
-	fragmentos = frag;
-}
-
-const int Proj_boss::getFragmentos() const
-{
-	return fragmentos;
-}
-
-void Proj_boss::colisao(Entidade* ent, sf::Vector2f ds)
-{
-	if (ent)
-	{
-		//mudar para o novo ///////////////////////////////////////////////////
-		Gerenciador_colisao* pGC = Gerenciador_colisao::getGerenciadorColisao();
-		if (!pGC)
-			return;
-
-		float spawnX = x + getTam().x / 2.0f;
-		float spawnY = y - 15.0f;
-
-		for (int i = 0; i < fragmentos; i++)
+		Proj_boss::Proj_boss(float vX, float vY, short int direcao) :
+			Projetil(ID::projBoss, vX, vY, direcao),
+			fragmentos(3)
 		{
-			short int lado;
-			if (i%2 == 0)
-			{
-				lado = -1;
-			}
-			else
-			{
-				lado = 1;
-			}
+			vely = 0.0f;
+			srand(time(NULL));
+			setFragmentos(rand() % 2 + 3);
 
-			if (i >= 2)
-			{
-				lado *= i;
-			}
+			corpo.setSize(sf::Vector2f(28.0f, 28.0f));
+			corpo.setPosition(x, y);
+			setTextura("terra", getTam());
+			sprite.setPosition(x, y);
+		}
 
-			Projetil* proj = new Proj_top(lado, spawnX, spawnY);
-			if (proj)
+		Proj_boss::~Proj_boss()
+		{
+		}
+
+		void Proj_boss::setFragmentos(int frag)
+		{
+			fragmentos = frag;
+		}
+
+		const int Proj_boss::getFragmentos() const
+		{
+			return fragmentos;
+		}
+
+		void Proj_boss::colisao(Entidade* ent, sf::Vector2f ds)
+		{
+			if (ent)
 			{
-				proj->setVelX(1.5f * lado); 
-				pGC->adicionarProjetil(proj);
+				//mudar para o novo ///////////////////////////////////////////////////
+				Gerenciador_colisao* pGC = Gerenciador_colisao::getGerenciadorColisao();
+				if (!pGC)
+					return;
+
+				float spawnX = x + getTam().x / 2.0f;
+				float spawnY = y - 15.0f;
+
+				for (int i = 0; i < fragmentos; i++)
+				{
+					short int lado;
+					if (i % 2 == 0)
+					{
+						lado = -1;
+					}
+					else
+					{
+						lado = 1;
+					}
+
+					if (i >= 2)
+					{
+						lado *= i;
+					}
+
+					Projetil* proj = new Proj_top(lado, spawnX, spawnY);
+					if (proj)
+					{
+						proj->setVelX(1.5f * lado);
+						pGC->adicionarProjetil(proj);
+					}
+				}
 			}
 		}
+
+		void Proj_boss::salvarDataBuffer()
+		{
+			Projetil::salvarDataBuffer();
+			buffer << fragmentos;
+		}
+
+		void Proj_boss::salvar()
+		{
+			buffer.str(""); // Limpa dados de saves anteriores no buffer
+			buffer.clear();
+
+			salvarDataBuffer();
+		}
+
+		std::string Proj_boss::getArquivoSave() const
+		{
+			return "saves/projBoss.txt";
+		}
 	}
-}
-
-void Proj_boss::salvarDataBuffer()
-{
-	Projetil::salvarDataBuffer();
-	buffer << fragmentos;
-}
-
-void Proj_boss::salvar()
-{
-	buffer.str(""); // Limpa dados de saves anteriores no buffer
-	buffer.clear();
-
-	salvarDataBuffer();
-}
-
-std::string Proj_boss::getArquivoSave() const
-{
-	return "saves/projBoss.txt";
 }
