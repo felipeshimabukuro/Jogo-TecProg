@@ -5,13 +5,17 @@
 namespace Escavadores_intrepidos {
 	namespace Entidades {
 		namespace Personagens {
-			class Personagem : public Entidade, public BarraVida {
+			class Personagem : public Entidade {
 			protected:
 				float velx;
 				const float max_velx;
 				bool chao;
 				int dano;
 				sf::Vector2f vel;
+				int num_vidas;
+				int max_vidas;
+				sf::RectangleShape barraFundo;
+				sf::RectangleShape barraVida;
 
 			public:
 				Personagem(ID id, const sf::Vector2f pos, const sf::Vector2f tam);
@@ -26,6 +30,11 @@ namespace Escavadores_intrepidos {
 				const float getVelx() const;
 				int getDano() const;
 				void setVel(const sf::Vector2f v);
+				void inicializarVida(const int vidasMax);
+				void desenharBarra(sf::RenderWindow* window, const float x, const float y, const float largura);
+				void setNumVidas(const int vidas);
+				const int getNumVidas() const;
+				const int getMaxVidas() const;
 			};
 
 		}
