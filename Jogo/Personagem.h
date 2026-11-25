@@ -1,7 +1,6 @@
 #pragma once
 #include "Bibliotecas.h"
 #include "Entidade.h"
-#include "BarraVida.h"
 
 namespace Escavadores_intrepidos {
 	namespace Entidades {
