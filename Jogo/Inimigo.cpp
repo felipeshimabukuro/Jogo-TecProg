@@ -71,11 +71,9 @@ void Inimigo::persegueJogador(Jogador* j) {
 	setPos(pos);
 }
 
-void Inimigo::mover() {
-	if (vely < max_vely) {
-		vely += gravidade;
-	}
-	y += vely;
+void Inimigo::mover() 
+{
+	aplicarGravidade();
 	x += velx;
 
 	sf::Vector2f pos(x, y);

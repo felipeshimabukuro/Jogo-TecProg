@@ -57,11 +57,9 @@ void Jogador::executar()
 const int Jogador::getNum()const{
     return num;
 }
-void Jogador::mover() {
-    if (vely < max_vely) {
-        vely += gravidade;
-    }
-    y += vely;
+void Jogador::mover() 
+{
+    aplicarGravidade();
     velx = 0;
     if (num == 0) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {

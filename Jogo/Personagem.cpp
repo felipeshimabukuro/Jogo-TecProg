@@ -2,17 +2,12 @@
 
 using namespace Personagens;
 
-const float Personagem::gravidade = 0.9;
-
 Personagem::Personagem(ID id, const sf::Vector2f pos, const sf::Vector2f tam):
 	Entidade(id, pos.x,pos.y), 
 	BarraVida(),
 	chao(true),
-	vely(0),
 	velx(0), 
-	max_velx(5.0f),
-	max_vely(15.0f), 
-	pot_queda(10), 
+	max_velx(5.0f),	
 	dano(dano)
 {
 

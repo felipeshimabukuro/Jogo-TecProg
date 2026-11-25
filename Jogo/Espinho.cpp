@@ -17,8 +17,9 @@ Espinho::~Espinho() {
 
 void Espinho::executar()
 {
+	aplicarGravidade();
+	desGravitar();
 	calculaDistancia();
-
 	if (distJogador <= 510)
 	{
 		sprite.setColor(sf::Color(255, 255, 255, 255 - distJogador/2));

@@ -15,9 +15,10 @@ Plataforma::~Plataforma() {
 
 }
 
-void Plataforma::executar() {
-	corpo.setPosition(x, y);
-	sprite.setPosition(x, y);
+void Plataforma::executar() 
+{
+	aplicarGravidade();
+	desGravitar();
 	if (!rand() % 200) {
 		danoso = true;
 		dano = 5;

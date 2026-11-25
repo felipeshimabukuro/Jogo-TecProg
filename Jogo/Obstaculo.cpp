@@ -51,3 +51,10 @@ void Obstaculo::salvarDataBuffer()
 {
     Entidade::salvarDataBuffer();
 }
+
+void Obstaculo::desGravitar()
+{
+    y -= vely;
+    vely = 0.0f;
+    setPos(sf::Vector2f(x, y));
+}

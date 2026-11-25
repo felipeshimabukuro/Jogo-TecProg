@@ -8,8 +8,6 @@ namespace Entidades
 	{
 	protected:
 		float velX;
-		float velY;
-		static const float gravidade;
 		short int direcao;
 
 	public:
@@ -18,7 +16,6 @@ namespace Entidades
 		virtual void trajetoria();
 		virtual void salvar() = 0;
 		void salvarDataBuffer();
-		void setPos(const sf::Vector2f pos);
 		void executar();
 		virtual void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f)) = 0;
 		void setVelX(const float vx);

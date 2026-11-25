@@ -3,12 +3,29 @@
 
 using namespace Entidades;
 
-Entidade::Entidade(ID id, float xx, float yy): Ente(id),  x(xx), y(yy), ativo(true)
+const float Entidade::gravidade = 0.9f;
+
+Entidade::Entidade(ID id, float xx, float yy) :
+	Ente(id),
+	x(xx),
+	y(yy),
+	ativo(true),
+	vely(0.0f),
+	max_vely(15.0f)
 {
 }
 
 Entidade::~Entidade()
 {
+}
+
+void Entidade::aplicarGravidade()
+{
+	if (vely < max_vely) {
+		vely += gravidade;
+	}
+	y += vely;
+	setPos(sf::Vector2f(x, y));
 }
 
 void Entidade::salvarDataBuffer()

@@ -22,8 +22,8 @@ Chao::~Chao()
 
 void Chao::executar()
 {
-    corpo.setPosition(x, y);
-    sprite.setPosition(x, y);
+    aplicarGravidade();
+    desGravitar();
 }
 
 void Chao::colisao(Entidade* ent, sf::Vector2f ds)
@@ -60,4 +60,11 @@ void Chao::setTicks(const int t)
 string Chao::getArquivoSave() const
 {
     return "saves/chaoSave.txt";
+}
+
+void Chao::desGravitar()
+{
+    y -= vely;
+    vely = 0.0f;
+    setPos(sf::Vector2f(x, y));
 }

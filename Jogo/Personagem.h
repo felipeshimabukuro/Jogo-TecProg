@@ -9,13 +9,9 @@ namespace Personagens {
 	class Personagem: public Entidade, public BarraVida {
 	protected:
 		float velx;
-		float vely;
 		const float max_velx;
-		const float max_vely;
 		bool chao;
 		int dano;
-		static const float gravidade;
-		const int pot_queda;
 		sf::Vector2f vel;
 
 	public:

@@ -61,8 +61,8 @@ void Magma::obstaculizar(Jogador* p)
 
 void Magma::executar()
 {
-    corpo.setPosition(x, y);
-    sprite.setPosition(x, y);
+    aplicarGravidade();
+    desGravitar();
     if (!rand() % 200) {
         danoso = false;
         dano = 0;

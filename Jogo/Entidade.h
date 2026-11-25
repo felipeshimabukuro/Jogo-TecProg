@@ -12,6 +12,9 @@ namespace Entidades
 		ostringstream buffer;
 		sf::RectangleShape corpo;
 		bool ativo;
+		static const float gravidade;
+		float vely;
+		float max_vely;
 
 		void salvarDataBuffer();
 
@@ -33,9 +36,9 @@ namespace Entidades
 
 		void setAtivo(bool a);
 		const bool getAtivo() const;
+		void aplicarGravidade();
 
 		const string getBuffer() const;
-
 		virtual string getArquivoSave() const = 0;
 	};
 }

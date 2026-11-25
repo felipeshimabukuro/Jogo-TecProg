@@ -214,13 +214,7 @@ void Ratao::executar()
 		bater();
 	}
 
-	vely += gravidade;
-	if (vely > max_vely * pot_queda)
-	{
-		vely = max_vely * pot_queda;
-	}
-	y += vely;
-	setPos(sf::Vector2f(x, y));
+	aplicarGravidade();
 	atualizaLado();
 
 	if (tempo_imune > 0)

@@ -9,7 +9,7 @@ Proj_boss::Proj_boss(float vX, float vY, short int direcao):
 	Projetil(ID::projBoss, vX, vY, direcao),
 	fragmentos(3)
 {
-	velY = 0;
+	vely = 0.0f;
 	srand(time(NULL));
 	setFragmentos(rand() % 2 + 3);
 
@@ -65,6 +65,7 @@ void Proj_boss::colisao(Entidade* ent, sf::Vector2f ds)
 			Projetil* proj = new Proj_top(lado, spawnX, spawnY);
 			if (proj)
 			{
+				proj->setVelX(1.5f * lado); 
 				pGC->adicionarProjetil(proj);
 			}
 		}
