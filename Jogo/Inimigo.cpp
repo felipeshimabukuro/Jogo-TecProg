@@ -7,8 +7,8 @@ namespace Escavadores_intrepidos {
 
 			const int Inimigo::walk_tm = 120;
 
-			Inimigo::Inimigo(ID id, const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador* j2) :
-				Personagem(id, pos, tam), relogio(), pJogador1(j1), pJogador2(j2), dist_detec(100), nivel_maldade(rand() % 5 + 1),
+			Inimigo::Inimigo(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador* j2) :
+				Personagem(pos, tam), relogio(), pJogador1(j1), pJogador2(j2), dist_detec(100), nivel_maldade(rand() % 5 + 1),
 				jaDeuPontos(false), pontosBase(nivel_maldade * 100)
 			{
 				inicializa();

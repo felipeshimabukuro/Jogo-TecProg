@@ -3,9 +3,9 @@
 #include "Jogo.h"
 
 namespace Escavadores_intrepidos {
+    using namespace Gerenciadores;
 
     Menu::Menu(Jogo* pJogo) :
-        Ente(ID::vazio),
         pJogo(pJogo),
         opcaoSelecionada(0),
         faseMapeada(1),
@@ -21,7 +21,7 @@ namespace Escavadores_intrepidos {
         }*/
 
         if (!fonte.loadFromFile("arial.ttf")) {
-            std::cout << "Erro ao carregar a fonte do menu!" << std::endl;
+            cout << "Erro ao carregar a fonte do menu!" << endl;
         }
 
         tituloMenu.setFont(fonte);
@@ -36,7 +36,7 @@ namespace Escavadores_intrepidos {
     Menu::~Menu() {
     }
 
-    void Menu::atualizarOpcoesBotoes(const std::vector<std::string>& opcoes, float posYInicial) {
+    void Menu::atualizarOpcoesBotoes(const vector<string>& opcoes, float posYInicial) {
         textosBotoes.clear();
         opcaoSelecionada = 0;
 
@@ -54,8 +54,8 @@ namespace Escavadores_intrepidos {
     void Menu::carregarExibicaoRanking() {
         textosRanking.clear();
 
-        std::ifstream arqLeitura("saves/ranking.txt");
-        std::string nome;
+        ifstream arqLeitura("saves/ranking.txt");
+        string nome;
         int pontos = 0;
         int jogadores = 1;
         int pos = 0;
@@ -68,8 +68,8 @@ namespace Escavadores_intrepidos {
                 linhaTexto.setFillColor(pos == 0 ? sf::Color::Yellow : sf::Color::White);
                 linhaTexto.setPosition(200.0f, 250.0f + (pos * 40.0f));
                 linhaTexto.setString(
-                    std::to_string(pos + 1) + ". " + nome + " - " +
-                    std::to_string(pontos) + " pts (" + std::to_string(jogadores) + " Jog.)"
+                    to_string(pos + 1) + ". " + nome + " - " +
+                    to_string(pontos) + " pts (" + to_string(jogadores) + " Jog.)"
                 );
                 textosRanking.push_back(linhaTexto);
                 pos++;
@@ -200,7 +200,7 @@ namespace Escavadores_intrepidos {
         sairDoLoop = false;
         sf::RenderWindow* window = pJogo->getWindow();
 
-        Gerenciadores::Gerenciador_eventos* pEv = Gerenciadores::Gerenciador_eventos::getGerenciadorEventos();
+        Gerenciador_eventos* pEv = Gerenciador_eventos::getGerenciadorEventos();
         pEv->setMenu(this);
 
         while (window->isOpen() && !sairDoLoop) {
@@ -233,7 +233,7 @@ namespace Escavadores_intrepidos {
 
         sf::RenderWindow* window = pJogo->getWindow();
 
-        Gerenciadores::Gerenciador_eventos* pEv = Gerenciadores::Gerenciador_eventos::getGerenciadorEventos();
+        Gerenciador_eventos* pEv = Gerenciador_eventos::getGerenciadorEventos();
         pEv->setMenu(this);
 
         while (window->isOpen() && !sairDoLoop) {
@@ -274,7 +274,7 @@ namespace Escavadores_intrepidos {
         sf::RenderWindow* window = pJogo->getWindow();
         if (!window) return;
 
-        std::string nomeJogador = "";
+        string nomeJogador = "";
         bool confirmado = false;
 
         sf::Text txtTitulo;
@@ -286,7 +286,7 @@ namespace Escavadores_intrepidos {
 
         sf::Text txtInfo;
         txtInfo.setFont(fonte);
-        txtInfo.setString("Pontuacao: " + std::to_string(pontos) + "  |  Jogadores: " + std::to_string(numJogadores));
+        txtInfo.setString("Pontuacao: " + to_string(pontos) + "  |  Jogadores: " + to_string(numJogadores));
         txtInfo.setCharacterSize(28);
         txtInfo.setFillColor(sf::Color::White);
         txtInfo.setPosition(200.0f, 160.0f);
@@ -344,14 +344,14 @@ namespace Escavadores_intrepidos {
 
         if (confirmado && !nomeJogador.empty()) {
             struct RegistroRanking {
-                std::string nome;
+                string nome;
                 int pontos;
                 int jogadores;
             };
 
-            std::vector<RegistroRanking> ranking;
+            vector<RegistroRanking> ranking;
 
-            std::ifstream arqLeitura("saves/ranking.txt");
+            ifstream arqLeitura("saves/ranking.txt");
             if (arqLeitura.is_open()) {
                 RegistroRanking reg;
                 while (arqLeitura >> reg.nome >> reg.pontos >> reg.jogadores) {
@@ -362,11 +362,11 @@ namespace Escavadores_intrepidos {
 
             ranking.push_back({ nomeJogador, pontos, numJogadores });
 
-            std::sort(ranking.begin(), ranking.end(), [](const RegistroRanking& a, const RegistroRanking& b) {
+            sort(ranking.begin(), ranking.end(), [](const RegistroRanking& a, const RegistroRanking& b) {
                 return a.pontos > b.pontos;
                 });
 
-            std::ofstream arqEscrita("saves/ranking.txt");
+            ofstream arqEscrita("saves/ranking.txt");
             if (arqEscrita.is_open()) {
                 for (size_t i = 0; i < ranking.size(); i++) {
                     arqEscrita << ranking[i].nome << " " << ranking[i].pontos << " " << ranking[i].jogadores << "\n";

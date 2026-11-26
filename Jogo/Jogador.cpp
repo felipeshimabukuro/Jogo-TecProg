@@ -9,15 +9,15 @@ namespace Escavadores_intrepidos {
 
             int Jogador::pontos = 0;
 
-            Jogador::Jogador() :Personagem(ID::jogador, sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), inventario(0) {
+            Jogador::Jogador() :Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), inventario(0) {
                 inicializa();
             }
 
-            Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam, short int n) :Personagem(ID::jogador, pos, tam), num(n), inventario(0) {
+            Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam, short int n) :Personagem(pos, tam), num(n), inventario(0) {
                 inicializa();
             }
 
-            Jogador::Jogador(const sf::RectangleShape corpo) :Personagem(ID::jogador, sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), inventario(0) {
+            Jogador::Jogador(const sf::RectangleShape corpo) :Personagem(sf::Vector2f(0.f, 0.f), sf::Vector2f(0.f, 0.f)), inventario(0) {
                 inicializa();
             }
 
@@ -154,7 +154,7 @@ namespace Escavadores_intrepidos {
                 if (chaoAtual == NULL) {
                     return;
                 }
-                Obstaculos::Obstaculo* chaoAt = dynamic_cast<Obstaculos::Obstaculo*>(chaoAtual);
+                Obstaculo* chaoAt = dynamic_cast<Obstaculo*>(chaoAtual);
                 if (chao == true && chaoAt != NULL && chaoAt->getQuebravel() == true) {
                     chaoAt->setAtivo(false);
 
@@ -184,13 +184,13 @@ namespace Escavadores_intrepidos {
                     return;
                 }
 
-                Obstaculos::Obstaculo* bloco = dynamic_cast<Obstaculos::Obstaculo*>(ent);
+                Obstaculo* bloco = dynamic_cast<Obstaculo*>(ent);
 
                 if (bloco != NULL) {
                     if (ds.x <= ds.y) {
                         if (getY() < ent->getY()) {
                             if (vely >= 0.0f) {
-                                Entidades::Entidade::colisao(ent, ds);
+                                Entidade::colisao(ent, ds);
                                 vely = 0.0f;
                                 chao = true;
                                 chaoAtual = bloco;
@@ -198,23 +198,23 @@ namespace Escavadores_intrepidos {
                         }
                         else {
                             if (vely < 0.0f) {
-                                Entidades::Entidade::colisao(ent, ds);
+                                Entidade::colisao(ent, ds);
                                 vely = 0.0f;
                             }
                         }
                     }
                     else {
-                        Entidades::Entidade::colisao(ent, ds);
+                        Entidade::colisao(ent, ds);
                     }
                 }
                 else {
-                    Personagens::Inimigo* inimigo = dynamic_cast<Personagens::Inimigo*>(ent);
+                    Inimigo* inimigo = dynamic_cast<Inimigo*>(ent);
 
                     if (inimigo != NULL) {
                         colidir(inimigo);
                     }
                     else {
-                        Entidades::Entidade::colisao(ent, ds);
+                        Entidade::colisao(ent, ds);
                     }
                 }
             }
@@ -223,7 +223,7 @@ namespace Escavadores_intrepidos {
                     /*float posX = x;
                     float posY = y + getTam().y + 2.0f;
                     */
-                    Obstaculos::Obstaculo* novoBloco = new Obstaculos::Plataforma(
+                    Obstaculo* novoBloco = new Plataforma(
                         x,
                         y + getTam().y,
                         GRID, GRID,
@@ -235,7 +235,7 @@ namespace Escavadores_intrepidos {
                 }
             }
 
-            std::list<Obstaculos::Obstaculo*>* Jogador::getBlocosPendentes() {
+            list<Obstaculo*>* Jogador::getBlocosPendentes() {
                 return &blocosPendentes;
             }
 

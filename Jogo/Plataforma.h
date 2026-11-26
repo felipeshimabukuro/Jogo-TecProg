@@ -16,6 +16,7 @@ namespace Escavadores_intrepidos {
 				~Plataforma();
 				void executar();
 				void salvar();
+				void salvarDataBuffer();
 				void obstaculizar(Jogador* p);
 				static void setTicks(const int t);
 				string getArquivoSave() const;

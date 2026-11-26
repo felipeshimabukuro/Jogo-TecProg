@@ -78,10 +78,10 @@ namespace Escavadores_intrepidos {
 				arquivos[ent->getArquivoSave()] << ent->getBuffer() << '\n';
 			}
 
-			std::map<std::string, std::ostringstream>::const_iterator it;
+			map<string, ostringstream>::const_iterator it;
 			for (it = arquivos.begin(); it != arquivos.end(); ++it)
 			{
-				std::ofstream arquivo(it->first);
+				ofstream arquivo(it->first);
 				if (arquivo.is_open())
 				{
 					arquivo << it->second.str();

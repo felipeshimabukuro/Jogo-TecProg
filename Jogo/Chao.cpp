@@ -3,9 +3,10 @@
 
 namespace Escavadores_intrepidos {
     namespace Entidades {
+        using namespace Personagens;
 
         Chao::Chao(const sf::Vector2f pos, const sf::Vector2f tam) :
-            Entidade(ID::chao, pos.x, pos.y), max_ticks(60), ticks(0)
+            Entidade(pos.x, pos.y), max_ticks(60), ticks(0)
         {
             x = pos.x;
             y = pos.y;
@@ -31,7 +32,7 @@ namespace Escavadores_intrepidos {
         {
         }
 
-        void Chao::ajudar(Personagens::Jogador* p) {
+        void Chao::ajudar(Jogador* p) {
             ticks++;
             if (ticks == max_ticks) {
                 ticks = 0;

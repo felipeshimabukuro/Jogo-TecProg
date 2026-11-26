@@ -215,7 +215,7 @@ namespace Escavadores_intrepidos {
                     {
                         float velX, velY;
                         int num_vidas, nivel_maldade, walk_cd, lado, x_alvo, tiro_cd;
-                        std::string estado;
+                        string estado;
 
                         ss >> x >> y >> ativo >> velX >> velY >> num_vidas
                             >> nivel_maldade >> walk_cd >> lado >> x_alvo

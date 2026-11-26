@@ -122,9 +122,6 @@
     <ClInclude Include="Inimigo.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="Elemento.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
     <ClInclude Include="Gerenciador_eventos.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
@@ -174,9 +171,6 @@
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="limbo_da_perdicao.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="IDS.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">

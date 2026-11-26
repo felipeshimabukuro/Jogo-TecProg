@@ -9,8 +9,8 @@ namespace Escavadores_intrepidos {
 
     using namespace Entidades;
     using namespace Gerenciadores;
-    using namespace Gerenciadores;
     using namespace Fases;
+    using namespace Personagens;
 
 
     Jogo::Jogo() :
@@ -54,7 +54,7 @@ namespace Escavadores_intrepidos {
         voltarMenuFlag = false;
         criarJogadores(numJogadores);
         if (resetarPontos) {
-            Personagens::Jogador::setPontos(0);
+            Jogador::setPontos(0);
         }
         faseID = qualFase;
 
@@ -94,7 +94,7 @@ namespace Escavadores_intrepidos {
                     }
                     else if (faseID == 2)
                     {
-                        int pontosFinais = Personagens::Jogador::getPontos();
+                        int pontosFinais = Jogador::getPontos();
                         int qtdJog = faseAtual->getNumJogadores();
 
                         delete faseAtual;
@@ -143,7 +143,7 @@ namespace Escavadores_intrepidos {
         }
 
         if (qualFase == 0) {
-            cout << "Nenhum save encontrado!" << std::endl;
+            cout << "Nenhum save encontrado!" << endl;
             return;
         }
 
@@ -194,9 +194,9 @@ namespace Escavadores_intrepidos {
     }
 
     void Jogo::criarJogadores(int numJogadores) {
-        pJogador1 = new Personagens::Jogador(sf::Vector2f(0, 0), sf::Vector2f(GRID, GRID), 0);
+        pJogador1 = new Jogador(sf::Vector2f(0, 0), sf::Vector2f(GRID, GRID), 0);
         if (numJogadores == 2) {
-            pJogador2 = new Personagens::Jogador(sf::Vector2f(0, 0), sf::Vector2f(GRID, GRID), 1);
+            pJogador2 = new Jogador(sf::Vector2f(0, 0), sf::Vector2f(GRID, GRID), 1);
         }
         else {
             pJogador2 = NULL;

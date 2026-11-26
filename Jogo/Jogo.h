@@ -24,8 +24,8 @@ namespace Escavadores_intrepidos {
 	class Jogo
 	{
 	private:
-		Fases::Fase* faseAtual;
-		Gerenciadores::Gerenciador_grafico* pGG;
+		Fase* faseAtual;
+		Gerenciador_grafico* pGG;
 		bool voltarMenuFlag;
 		int faseID;
 		bool carregarSaveFlag;

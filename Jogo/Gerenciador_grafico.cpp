@@ -83,7 +83,7 @@ namespace Escavadores_intrepidos {
 			}
 		}
 
-		bool Gerenciador_grafico::carregarTextura(const std::string& id, const std::string& caminho)
+		bool Gerenciador_grafico::carregarTextura(const string& id, const string& caminho)
 		{
 			// Se já foi carregada anteriormente
 			if (mapaTexturas.find(id) != mapaTexturas.end())
@@ -110,7 +110,7 @@ namespace Escavadores_intrepidos {
 				return &(it->second);
 			}
 
-			cout << "Textura '" << id << "' nao encontrada." << std::endl;
+			cout << "Textura '" << id << "' nao encontrada." << endl;
 			return NULL;
 		}
 

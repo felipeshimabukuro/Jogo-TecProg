@@ -8,6 +8,7 @@ namespace Escavadores_intrepidos
         namespace Personagens {
             class Jogador;
         }
+        using namespace Personagens;
         class Chao : public Entidade
         {
         private:
@@ -21,7 +22,7 @@ namespace Escavadores_intrepidos
             void colisao(Entidade* ent, sf::Vector2f ds);
             void salvarDataBuffer();
             void salvar();
-            void ajudar(Personagens::Jogador* p);
+            void ajudar(Jogador* p);
             void setTicks(const int t);
             string getArquivoSave() const;
             void desGravitar();

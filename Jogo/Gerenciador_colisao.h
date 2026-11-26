@@ -42,8 +42,13 @@ namespace Escavadores_intrepidos {
 			void tratarColisaoInimigoObstaculo();
 			void tratarColisaoProjetilObstaculo();
 			void tratarColisaoChao();
-			const sf::Vector2f calcularColisao(Entidade* ent1, Entidade* ent2);
-			const sf::Vector2f calcularColisao(const sf::Vector2f pos1, const sf::Vector2f tam1, const sf::Vector2f pos2, const sf::Vector2f tam2);
+
+			const sf::Vector2f calcularColisao(Entidade* ent1, Entidade* ent2) const;
+			const sf::Vector2f calcularColisao(const sf::Vector2f pos1, const sf::Vector2f tam1, const sf::Vector2f pos2, const sf::Vector2f tam2) const;
+
+			const bool verificaColisao(Entidade* pe1, Entidade* pe2) const;
+			const bool verificaColisao(Entidade* pe1, Entidade* pe2, sf::Vector2f& ds) const;
+			const bool verificaColisao(const sf::Vector2f pos1, const sf::Vector2f tam1, const sf::Vector2f pos2, const sf::Vector2f tam2) const;
 
 		public:
 			~Gerenciador_colisao();
@@ -58,7 +63,6 @@ namespace Escavadores_intrepidos {
 			void adicionarProjetil(Projetil* pj);
 			void removerProjetil(Projetil* pj);
 			bool posicaoLivre(sf::Vector2f pos, sf::Vector2f tam);
-			//const bool verificaColisao(Entidade* pe1, Entidade* pe2) const;
 			void executar();
 			void limparDestruidos();
 			void tratarTiro();

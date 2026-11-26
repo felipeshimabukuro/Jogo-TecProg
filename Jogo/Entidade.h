@@ -20,7 +20,7 @@ namespace Escavadores_intrepidos {
 			void salvarDataBuffer();
 
 		public:
-			Entidade(ID id, float xx = 0.0, float yy = 0.0);
+			Entidade(float xx = 0.0, float yy = 0.0);
 			virtual ~Entidade();
 
 			virtual void executar() = 0;

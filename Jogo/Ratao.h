@@ -29,12 +29,12 @@ namespace Escavadores_intrepidos {
 				int ataque_cd;
 				int ataque_tm;
 				int tempo_imune;
-				list<Entidades::Projetil*> projeteisPendentes;
+				list<Projetil*> projeteisPendentes;
 
 			public:
-				Ratao(const sf::Vector2f pos = sf::Vector2f(0.0f, 0.0f), const sf::Vector2f tam = sf::Vector2f(80.0f, 80.0f), Jogador* j1 = nullptr, Jogador* j2 = nullptr);
+				Ratao(const sf::Vector2f pos = sf::Vector2f(0.0f, 0.0f), const sf::Vector2f tam = sf::Vector2f(80.0f, 80.0f), Jogador* j1 = NULL, Jogador* j2 = NULL);
 				~Ratao();
-				list<Entidades::Projetil*>* getProjeteisPendentes();
+				list<Projetil*>* getProjeteisPendentes();
 				void criarTerra(int dir, int ind);
 				void verificarAtaque();
 				void idle();

@@ -6,11 +6,12 @@ namespace Escavadores_intrepidos {
 		namespace Obstaculos {
 			class Obstaculo;
 		}
+		using namespace Obstaculos;
 		namespace Personagens
 		{
 			class Inimigo;
 
-			class Jogador : public Personagens::Personagem {
+			class Jogador : public Personagem {
 			private:
 				bool acaoPressionada;
 				short int num;
@@ -20,7 +21,7 @@ namespace Escavadores_intrepidos {
 				static const int t_imune = 60;
 				Entidade* chaoAtual;
 				void inicializa();
-				list<Obstaculos::Obstaculo*> blocosPendentes;
+				list<Obstaculo*> blocosPendentes;
 
 			public:
 				Jogador(const sf::Vector2f pos, const sf::Vector2f tam, short int n);
@@ -36,7 +37,7 @@ namespace Escavadores_intrepidos {
 				void cavar();
 				void place();
 				void receberDano(int dano);
-				list<Obstaculos::Obstaculo*>* getBlocosPendentes();
+				list<Obstaculo*>* getBlocosPendentes();
 				void addInventario();
 				void setChao(bool c);
 				void operator++();

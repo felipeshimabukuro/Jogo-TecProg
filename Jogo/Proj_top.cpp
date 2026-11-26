@@ -6,7 +6,7 @@ namespace Escavadores_intrepidos {
 		using namespace Personagens;
 
 		Proj_top::Proj_top(short int direcao, float x, float y) :
-			Projetil(ID::projTop, direcao, x, y),
+			Projetil(direcao, x, y),
 			dano(10)
 		{
 			srand(time(NULL));

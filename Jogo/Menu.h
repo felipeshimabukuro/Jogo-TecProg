@@ -13,8 +13,8 @@ namespace Escavadores_intrepidos {
         sf::Font fonte;
         sf::Text tituloMenu;
 
-        std::vector<sf::Text> textosBotoes;
-        std::vector<sf::Text> textosRanking;
+        vector<sf::Text> textosBotoes;
+        vector<sf::Text> textosRanking;
         sf::RectangleShape fundoMenu;
 
         int opcaoSelecionada;
@@ -25,7 +25,7 @@ namespace Escavadores_intrepidos {
 
         int faseMapeada;
 
-        void atualizarOpcoesBotoes(const std::vector<std::string>& opcoes, float posYInicial = 250.0f);
+        void atualizarOpcoesBotoes(const vector<string>& opcoes, float posYInicial = 250.0f);
         void carregarExibicaoRanking();
     public:
         Menu(Jogo* pJogo = NULL);

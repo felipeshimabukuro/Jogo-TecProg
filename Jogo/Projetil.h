@@ -12,7 +12,7 @@ namespace Escavadores_intrepidos {
 			short int direcao;
 
 		public:
-			Projetil(ID id, short int dir, float ix, float iy);
+			Projetil(short int dir, float ix, float iy);
 			~Projetil();
 			virtual void trajetoria();
 			virtual void salvar() = 0;

@@ -1,5 +1,5 @@
 #pragma once
-#include "Elemento.h"
+#include "Bibliotecas.h"
 
 namespace Escavadores_intrepidos {
 	namespace Listas
@@ -8,6 +8,24 @@ namespace Escavadores_intrepidos {
 		class Lista
 		{
 		private:
+			template<class TE>
+
+			// Classe aninhada p/ elemento =================
+			class Elemento
+			{
+			private:
+				TE* pInfo;
+				Elemento<TE>* pProximo;
+
+			public:
+				Elemento(TE* pElemento = NULL);
+				~Elemento();
+				TE* getElemento() const;
+				Elemento<TE>* getProximo() const;
+				void setProx(Elemento<TE>* pProximo);
+				void incluir(TE* pElemento);
+			};
+
 			Elemento<TL>* pPrimeiro;
 			Elemento<TL>* pUltimo;
 			unsigned int tamanho;
@@ -21,6 +39,54 @@ namespace Escavadores_intrepidos {
 			const int getTamanho() const;
 			TL* operator[](int pos);
 		};
+
+		// IMPLEMENTAÇÕES DE ELEMENTO =================
+
+		template<class TL>
+		template<class TE>
+		Lista<TL>::Elemento<TE>::Elemento(TE* pElemento)
+		{
+			this->pInfo = pElemento;
+			this->pProximo = NULL;
+		}
+
+		template<class TL>
+		template<class TE>
+		Lista<TL>::Elemento<TE>::~Elemento()
+		{
+			pProximo = NULL;
+			delete pInfo;
+		}
+
+		template<class TL>
+		template<class TE>
+		TE* Lista<TL>::Elemento<TE>::getElemento() const
+		{
+			return pInfo;
+		}
+
+		template<class TL>
+		template<class TE>
+		typename Lista<TL>::template Elemento<TE>* Lista<TL>::Elemento<TE>::getProximo() const
+		{
+			return pProximo;
+		}
+
+		template<class TL>
+		template<class TE>
+		void Lista<TL>::Elemento<TE>::setProx(Elemento<TE>* pProximo)
+		{
+			this->pProximo = pProximo;
+		}
+
+		template<class TL>
+		template<class TE>
+		void Lista<TL>::Elemento<TE>::incluir(TE* pElemento)
+		{
+			this->pInfo = pElemento;
+		}
+
+		// IMPLEMENTAÇÕES DE LISTA =================
 
 		template<class TL>
 		Lista<TL>::Lista()
@@ -81,7 +147,6 @@ namespace Escavadores_intrepidos {
 			if (p == NULL || pPrimeiro == NULL)
 				return;
 
-			// CASO oelemento a ser removido é o PRIMEIRO da lista
 			if (pPrimeiro->getElemento() == p)
 			{
 				Elemento<TL>* pDelete = pPrimeiro;
@@ -96,7 +161,6 @@ namespace Escavadores_intrepidos {
 				return;
 			}
 
-			// CASO o elemento a ser removido está no MEIO ou no FIM da lista
 			Elemento<TL>* temp = pPrimeiro;
 			while (temp->getProximo() != NULL)
 			{
@@ -124,7 +188,7 @@ namespace Escavadores_intrepidos {
 		}
 
 		template<class TL>
-		TL* Lista<TL>::operator[](int pos) //considero pesado para chamar varias vezes, eh de se pensar sobre
+		TL* Lista<TL>::operator[](int pos)
 		{
 			Elemento<TL>* temp = pPrimeiro;
 			for (int i = 0; i < pos && temp; i++)

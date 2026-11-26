@@ -4,8 +4,8 @@ namespace Escavadores_intrepidos {
 	namespace Entidades {
 		namespace Personagens {
 
-			Personagem::Personagem(ID id, const sf::Vector2f pos, const sf::Vector2f tam) :
-				Entidade(id, pos.x, pos.y),
+			Personagem::Personagem(const sf::Vector2f pos, const sf::Vector2f tam) :
+				Entidade(pos.x, pos.y),
 				chao(true),
 				velx(0),
 				max_velx(5.0f),

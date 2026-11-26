@@ -7,7 +7,7 @@ namespace Escavadores_intrepidos {
 
     Gerenciador_grafico* Ente::pGG = Gerenciador_grafico::getGerenciadorGrafico();
 
-    Ente::Ente(ID id) : id(id)
+    Ente::Ente()
     {
     }
 
@@ -26,11 +26,6 @@ namespace Escavadores_intrepidos {
         }
     }
 
-    const ID Ente::getID() const
-    {
-        return id;
-    }
-
     void Ente::setTextura(const string& idTextura, const sf::Vector2f& tam) {
         if (pGG) {
             sf::Texture* tex = pGG->getTextura(idTextura);
@@ -45,5 +40,10 @@ namespace Escavadores_intrepidos {
                 }
             }
         }
+    }
+
+    const void Ente::setGG(Gerenciador_grafico* GG) const
+    {
+        pGG = GG;
     }
 }

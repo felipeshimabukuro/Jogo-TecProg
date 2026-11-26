@@ -23,7 +23,7 @@ namespace Escavadores_intrepidos {
                 void atualizaLado();
                 void inicializa();
                 void executar();
-                void colisao(Entidades::Entidade* ent, sf::Vector2f ds) override;
+                void colisao(Entidade* ent, sf::Vector2f ds) override;
                 void danificar(Jogador* p);
                 //void mover();
                 void salvarDataBuffer();

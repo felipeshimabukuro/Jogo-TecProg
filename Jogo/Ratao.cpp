@@ -11,7 +11,7 @@ namespace Escavadores_intrepidos {
 			using namespace Gerenciadores;
 
 			Ratao::Ratao(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador* j2) :
-				Inimigo(ID::ratao, pos, tam, j1, j2),
+				Inimigo(pos, tam, j1, j2),
 				estado("IDLE"),
 				forca(15),                       // Dano
 				bater_cd(0),                     // Cooldown da próxima batida
@@ -290,6 +290,10 @@ namespace Escavadores_intrepidos {
 
 			void Ratao::danificar(Jogador* p)
 			{
+				if (p && batendo)
+				{
+					p->receberDano(forca);
+				}
 			}
 
 			void Ratao::salvarDataBuffer()
@@ -365,12 +369,12 @@ namespace Escavadores_intrepidos {
 				tempo_imune = ti;
 			}
 
-			void Ratao::setEstado(const std::string& est)
+			void Ratao::setEstado(const string& est)
 			{
 				estado = est;
 			}
 
-			list<Entidades::Projetil*>* Ratao::getProjeteisPendentes() {
+			list<Projetil*>* Ratao::getProjeteisPendentes() {
 				return &projeteisPendentes;
 			}
 

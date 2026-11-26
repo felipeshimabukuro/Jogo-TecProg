@@ -8,7 +8,7 @@ namespace Escavadores_intrepidos {
             int Magma::ticks(0);
 
             Magma::Magma(int x, int y, int largura, int altura, int dano, bool danoso, bool quebravel) :
-                Obstaculo(ID::magma, x, y, largura, altura, dano, danoso, quebravel),
+                Obstaculo(x, y, largura, altura, dano, danoso, quebravel),
                 max_ticks(60), dano(dano)
             {
                 inicializa();
@@ -54,7 +54,7 @@ namespace Escavadores_intrepidos {
                 if (ent == NULL || !ent->getAtivo())
                     return;
 
-                Personagens::Jogador* pJog = dynamic_cast<Personagens::Jogador*>(ent);
+                Jogador* pJog = dynamic_cast<Jogador*>(ent);
                 if (pJog != NULL)
                 {
                     obstaculizar(pJog);

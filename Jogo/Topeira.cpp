@@ -10,7 +10,7 @@ namespace Escavadores_intrepidos {
 			const int Topeira::tempo_tiro = 5 MINUTOS;
 
 			Topeira::Topeira(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador* j2) :
-				Inimigo(ID::topeira, pos, tam, j1, j2),
+				Inimigo(pos, tam, j1, j2),
 				cavando(false),
 				tiro_cd(0)
 			{
@@ -154,7 +154,7 @@ namespace Escavadores_intrepidos {
 				estado = est;
 			}
 
-			list<Entidades::Projetil*>* Topeira::getProjeteisPendentes() {
+			list<Projetil*>* Topeira::getProjeteisPendentes() {
 				return &projeteisPendentes;
 			}
 

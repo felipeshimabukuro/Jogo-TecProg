@@ -1,5 +1,4 @@
 #pragma once
-#include "Elemento.h"
 #include "Lista.h"
 #include "Entidade.h"
 #include "Gerenciador_grafico.h"

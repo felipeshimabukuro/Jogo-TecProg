@@ -19,7 +19,7 @@ namespace Escavadores_intrepidos {
 
 		Gerenciador_colisao::~Gerenciador_colisao()
 		{
-			pJog1 = nullptr;
+			pJog1 = NULL;
 			LIs.clear();
 			LOs.clear();
 			pColisao = NULL;
@@ -61,6 +61,7 @@ namespace Escavadores_intrepidos {
 				LE->incluir(pE);
 			}
 		}
+
 		void Gerenciador_colisao::adicionarInimigo(Inimigo* pi)
 		{
 			if (pi)
@@ -76,7 +77,7 @@ namespace Escavadores_intrepidos {
 			if (pi)
 			{
 				Entidade* pE = static_cast<Entidade*>(pi);
-				LIs.erase(std::remove(LIs.begin(), LIs.end(), pi), LIs.end());
+				LIs.erase(remove(LIs.begin(), LIs.end(), pi), LIs.end());
 				LE->remover(pE);
 			}
 		}
@@ -119,13 +120,13 @@ namespace Escavadores_intrepidos {
 			}
 		}
 
-		const sf::Vector2f Gerenciador_colisao::calcularColisao(Entidade* ent1, Entidade* ent2)
+		const sf::Vector2f Gerenciador_colisao::calcularColisao(Entidade* ent1, Entidade* ent2) const
 		{
 			if (!ent1 || !ent2) return sf::Vector2f(0.0f, 0.0f);
 			return calcularColisao(ent1->getPos(), ent1->getTam(), ent2->getPos(), ent2->getTam());
 		}
 
-		const sf::Vector2f Gerenciador_colisao::calcularColisao(const sf::Vector2f pos1, const sf::Vector2f tam1, const sf::Vector2f pos2, const sf::Vector2f tam2)
+		const sf::Vector2f Gerenciador_colisao::calcularColisao(const sf::Vector2f pos1, const sf::Vector2f tam1, const sf::Vector2f pos2, const sf::Vector2f tam2) const
 		{
 			sf::Vector2f distanciaPos
 			(
@@ -142,16 +143,38 @@ namespace Escavadores_intrepidos {
 			return sf::Vector2f(distanciaPos.x - SomaMetade.x, distanciaPos.y - SomaMetade.y);
 		}
 
+		const bool Gerenciador_colisao::verificaColisao(Entidade* pe1, Entidade* pe2) const
+		{
+			if (!pe1 || !pe2) return false;
+			sf::Vector2f ds = calcularColisao(pe1, pe2);
+			return (ds.x < 0.0f && ds.y < 0.0f);
+		}
+
+		const bool Gerenciador_colisao::verificaColisao(Entidade* pe1, Entidade* pe2, sf::Vector2f& ds) const
+		{
+			if (!pe1 || !pe2) return false;
+			ds = calcularColisao(pe1, pe2);
+			return (ds.x < 0.0f && ds.y < 0.0f);
+		}
+
+		const bool Gerenciador_colisao::verificaColisao(const sf::Vector2f pos1, const sf::Vector2f tam1, const sf::Vector2f pos2, const sf::Vector2f tam2) const
+		{
+			sf::Vector2f ds = calcularColisao(pos1, tam1, pos2, tam2);
+			return (ds.x < 0.0f && ds.y < 0.0f);
+		}
+
 		void Gerenciador_colisao::tratarColisaoJogadorInimigo()
 		{
 			if (pJog1 && pJog1->getAtivo())
 			{
-				for (auto* inim : LIs)
+				vector<Inimigo*>::iterator itIni;
+				for (itIni = LIs.begin(); itIni != LIs.end(); ++itIni)
 				{
+					Inimigo* inim = *itIni;
 					if (inim && inim->getAtivo())
 					{
-						sf::Vector2f ds = calcularColisao(pJog1, inim);
-						if (ds.x < 0.0f && ds.y < 0.0f)
+						sf::Vector2f ds;
+						if (verificaColisao(pJog1, inim, ds))
 						{
 							pJog1->colisao(inim, ds);
 							inim->colisao(pJog1, ds);
@@ -166,24 +189,26 @@ namespace Escavadores_intrepidos {
 								sf::Vector2f posHit(areaHit.left, areaHit.top);
 								sf::Vector2f tamHit(areaHit.width, areaHit.height);
 
-								sf::Vector2f dsHit = calcularColisao(pJog1->getPos(), pJog1->getTam(), posHit, tamHit);
-								if (dsHit.x < 0.0f && dsHit.y < 0.0f)
+								if (verificaColisao(pJog1->getPos(), pJog1->getTam(), posHit, tamHit))
 								{
-									pJog1->receberDano(boss->getForca());
+									boss->danificar(pJog1);
 								}
 							}
 						}
 					}
 				}
 			}
+
 			if (pJog2 && pJog2->getAtivo())
 			{
-				for (auto* inim : LIs)
+				vector<Inimigo*>::iterator itIni;
+				for (itIni = LIs.begin(); itIni != LIs.end(); ++itIni)
 				{
+					Inimigo* inim = *itIni;
 					if (inim && inim->getAtivo())
 					{
-						sf::Vector2f ds = calcularColisao(pJog2, inim);
-						if (ds.x < 0.0f && ds.y < 0.0f)
+						sf::Vector2f ds;
+						if (verificaColisao(pJog2, inim, ds))
 						{
 							pJog2->colisao(inim, ds);
 							inim->colisao(pJog2, ds);
@@ -198,10 +223,9 @@ namespace Escavadores_intrepidos {
 								sf::Vector2f posHit(areaHit.left, areaHit.top);
 								sf::Vector2f tamHit(areaHit.width, areaHit.height);
 
-								sf::Vector2f dsHit = calcularColisao(pJog2->getPos(), pJog2->getTam(), posHit, tamHit);
-								if (dsHit.x < 0.0f && dsHit.y < 0.0f)
+								if (verificaColisao(pJog2->getPos(), pJog2->getTam(), posHit, tamHit))
 								{
-									pJog2->receberDano(boss->getForca());
+									boss->danificar(pJog2);
 								}
 							}
 						}
@@ -214,12 +238,14 @@ namespace Escavadores_intrepidos {
 		{
 			if (pJog1 && pJog1->getAtivo())
 			{
-				for (auto* obs : LOs)
+				list<Obstaculo*>::iterator itObs;
+				for (itObs = LOs.begin(); itObs != LOs.end(); ++itObs)
 				{
+					Obstaculo* obs = *itObs;
 					if (obs && obs->getAtivo())
 					{
-						sf::Vector2f ds = calcularColisao(pJog1, obs);
-						if (ds.x < 0.0f && ds.y < 0.0f)
+						sf::Vector2f ds;
+						if (verificaColisao(pJog1, obs, ds))
 						{
 							pJog1->colisao(obs, ds);
 							obs->obstaculizar(pJog1);
@@ -230,12 +256,14 @@ namespace Escavadores_intrepidos {
 
 			if (pJog2 && pJog2->getAtivo())
 			{
-				for (auto* obs : LOs)
+				list<Obstaculo*>::iterator itObs;
+				for (itObs = LOs.begin(); itObs != LOs.end(); ++itObs)
 				{
+					Obstaculo* obs = *itObs;
 					if (obs && obs->getAtivo())
 					{
-						sf::Vector2f ds = calcularColisao(pJog2, obs);
-						if (ds.x < 0.0f && ds.y < 0.0f)
+						sf::Vector2f ds;
+						if (verificaColisao(pJog2, obs, ds))
 						{
 							pJog2->colisao(obs, ds);
 							obs->obstaculizar(pJog2);
@@ -247,17 +275,19 @@ namespace Escavadores_intrepidos {
 
 		void Gerenciador_colisao::tratarColisaoJogadorProjetil()
 		{
-			std::vector<Projetil*> projeteisParaRemover;
+			vector<Projetil*> projeteisParaRemover;
 
 			if (pJog1 && pJog1->getAtivo())
 			{
-				std::vector<Projetil*> projeteisAtuais(LPs.begin(), LPs.end());
-				for (auto proj : projeteisAtuais)
+				vector<Projetil*> projeteisAtuais(LPs.begin(), LPs.end());
+				vector<Projetil*>::iterator itProj;
+				for (itProj = projeteisAtuais.begin(); itProj != projeteisAtuais.end(); ++itProj)
 				{
+					Projetil* proj = *itProj;
 					if (proj && LPs.find(proj) != LPs.end())
 					{
-						sf::Vector2f ds = calcularColisao(proj, pJog1);
-						if (ds.x < 0.0f && ds.y < 0.0f)
+						sf::Vector2f ds;
+						if (verificaColisao(proj, pJog1, ds))
 						{
 							proj->colisao(pJog1, ds);
 							projeteisParaRemover.push_back(proj);
@@ -266,15 +296,18 @@ namespace Escavadores_intrepidos {
 					}
 				}
 			}
+
 			if (pJog2 && pJog2->getAtivo())
 			{
-				std::vector<Projetil*> projeteisAtuais(LPs.begin(), LPs.end());
-				for (auto proj : projeteisAtuais)
+				vector<Projetil*> projeteisAtuais(LPs.begin(), LPs.end());
+				vector<Projetil*>::iterator itProj;
+				for (itProj = projeteisAtuais.begin(); itProj != projeteisAtuais.end(); ++itProj)
 				{
+					Projetil* proj = *itProj;
 					if (proj && LPs.find(proj) != LPs.end())
 					{
-						sf::Vector2f ds = calcularColisao(proj, pJog2);
-						if (ds.x < 0.0f && ds.y < 0.0f)
+						sf::Vector2f ds;
+						if (verificaColisao(proj, pJog2, ds))
 						{
 							proj->colisao(pJog2, ds);
 							projeteisParaRemover.push_back(proj);
@@ -283,23 +316,31 @@ namespace Escavadores_intrepidos {
 					}
 				}
 			}
-			for (auto proj : projeteisParaRemover)
+
+			vector<Projetil*>::iterator itRem;
+			for (itRem = projeteisParaRemover.begin(); itRem != projeteisParaRemover.end(); ++itRem)
 			{
+				Projetil* proj = *itRem;
 				removerProjetil(proj);
 			}
 		}
+
 		void Gerenciador_colisao::tratarColisaoInimigoObstaculo()
 		{
-			for (auto* inim : LIs)
+			vector<Inimigo*>::iterator itIni;
+			for (itIni = LIs.begin(); itIni != LIs.end(); ++itIni)
 			{
+				Inimigo* inim = *itIni;
 				if (inim && inim->getAtivo())
 				{
-					for (auto* obs : LOs)
+					list<Obstaculo*>::iterator itObs;
+					for (itObs = LOs.begin(); itObs != LOs.end(); ++itObs)
 					{
+						Obstaculo* obs = *itObs;
 						if (obs && obs->getAtivo())
 						{
-							sf::Vector2f ds = calcularColisao(inim, obs);
-							if (ds.x < 0.0f && ds.y < 0.0f)
+							sf::Vector2f ds;
+							if (verificaColisao(inim, obs, ds))
 							{
 								inim->colisao(obs, ds);
 							}
@@ -311,19 +352,23 @@ namespace Escavadores_intrepidos {
 
 		void Gerenciador_colisao::tratarColisaoProjetilObstaculo()
 		{
-			std::vector<Projetil*> projeteisParaRemover;
+			vector<Projetil*> projeteisParaRemover;
 
-			std::vector<Projetil*> projeteisAtuais(LPs.begin(), LPs.end());
-			for (auto proj : projeteisAtuais)
+			vector<Projetil*> projeteisAtuais(LPs.begin(), LPs.end());
+			vector<Projetil*>::iterator itProj;
+			for (itProj = projeteisAtuais.begin(); itProj != projeteisAtuais.end(); ++itProj)
 			{
+				Projetil* proj = *itProj;
 				if (proj && LPs.find(proj) != LPs.end())
 				{
-					for (auto obs : LOs)
+					list<Obstaculo*>::iterator itObs;
+					for (itObs = LOs.begin(); itObs != LOs.end(); ++itObs)
 					{
+						Obstaculo* obs = *itObs;
 						if (obs && obs->getAtivo())
 						{
-							sf::Vector2f ds = calcularColisao(proj, obs);
-							if (ds.x < 0.0f && ds.y < 0.0f)
+							sf::Vector2f ds;
+							if (verificaColisao(proj, obs, ds))
 							{
 								proj->colisao(obs, ds);
 								projeteisParaRemover.push_back(proj);
@@ -333,46 +378,44 @@ namespace Escavadores_intrepidos {
 					}
 				}
 			}
-			for (auto proj : projeteisParaRemover)
+
+			vector<Projetil*>::iterator itRem;
+			for (itRem = projeteisParaRemover.begin(); itRem != projeteisParaRemover.end(); ++itRem)
 			{
+				Projetil* proj = *itRem;
 				removerProjetil(proj);
 			}
 		}
 
-		bool Gerenciadores::Gerenciador_colisao::posicaoLivre(sf::Vector2f pos, sf::Vector2f tam) {
-			std::list<Obstaculo*>::const_iterator itObs;
+		bool Gerenciador_colisao::posicaoLivre(sf::Vector2f pos, sf::Vector2f tam) {
+			list<Obstaculo*>::const_iterator itObs;
 			for (itObs = LOs.begin(); itObs != LOs.end(); ++itObs) {
 				Obstaculo* obs = *itObs;
 				if (obs && obs->getAtivo()) {
-					sf::Vector2f ds = calcularColisao(pos, tam, obs->getPos(), obs->getTam());
-					if (ds.x < 0.0f && ds.y < 0.0f) {
+					if (verificaColisao(pos, tam, obs->getPos(), obs->getTam())) {
 						return false;
 					}
 				}
 			}
 
-			std::vector<Personagens::Inimigo*>::const_iterator itIni;
+			vector<Inimigo*>::const_iterator itIni;
 			for (itIni = LIs.begin(); itIni != LIs.end(); ++itIni) {
-				Personagens::Inimigo* ini = *itIni;
+				Inimigo* ini = *itIni;
 				if (ini && ini->getAtivo()) {
-					sf::Vector2f ds = calcularColisao(pos, tam, ini->getPos(), ini->getTam());
-					if (ds.x < 0.0f && ds.y < 0.0f) {
+					if (verificaColisao(pos, tam, ini->getPos(), ini->getTam())) {
 						return false;
 					}
 				}
 			}
 
 			if (pChao) {
-				sf::Vector2f ds = calcularColisao(pos, tam, pChao->getPos(), pChao->getTam());
-				if (ds.x < 0.0f && ds.y < 0.0f) {
+				if (verificaColisao(pos, tam, pChao->getPos(), pChao->getTam())) {
 					return false;
 				}
 			}
 
 			return true;
 		}
-
-		//const bool verificaColisao(Entidade* pe1, Entidade* pe2) const;
 
 		void Gerenciador_colisao::executar()
 		{
@@ -387,7 +430,6 @@ namespace Escavadores_intrepidos {
 			tratarColisaoChao();
 		}
 
-
 		void Gerenciador_colisao::limparDestruidos()
 		{
 			if (pJog1 != NULL && !pJog1->getAtivo())
@@ -400,7 +442,7 @@ namespace Escavadores_intrepidos {
 			}
 
 			// 1. Limpar Obstáculos inativos
-			std::list<Obstaculo*>::iterator itObs = LOs.begin();
+			list<Obstaculo*>::iterator itObs = LOs.begin();
 			while (itObs != LOs.end())
 			{
 				Obstaculo* obs = *itObs;
@@ -415,10 +457,10 @@ namespace Escavadores_intrepidos {
 			}
 
 			// 2. Limpar Inimigos inativos
-			std::vector<Personagens::Inimigo*>::iterator itIni = LIs.begin();
+			vector<Inimigo*>::iterator itIni = LIs.begin();
 			while (itIni != LIs.end())
 			{
-				Personagens::Inimigo* ini = *itIni;
+				Inimigo* ini = *itIni;
 				if (ini != NULL && !ini->getAtivo())
 				{
 					itIni = LIs.erase(itIni);
@@ -430,7 +472,7 @@ namespace Escavadores_intrepidos {
 			}
 
 			// 3. Limpar Projéteis inativos
-			std::set<Projetil*>::iterator itProj = LPs.begin();
+			set<Projetil*>::iterator itProj = LPs.begin();
 			while (itProj != LPs.end())
 			{
 				Projetil* proj = *itProj;
@@ -452,9 +494,8 @@ namespace Escavadores_intrepidos {
 				Inimigo* inim = *itIni;
 				if (inim && inim->getAtivo())
 				{
-					if (inim->getID() == ID::topeira)
+					if (Topeira* top = dynamic_cast<Topeira*>(inim))
 					{
-						Topeira* top = dynamic_cast<Topeira*>(inim);
 						list<Projetil*>* pendentes = top->getProjeteisPendentes();
 						list<Projetil*>::iterator itProj = pendentes->begin();
 						while (itProj != pendentes->end())
@@ -467,9 +508,8 @@ namespace Escavadores_intrepidos {
 							itProj = pendentes->erase(itProj);
 						}
 					}
-					else if (inim->getID() == ID::ratao)
+					else if (Ratao* rat = dynamic_cast<Ratao*>(inim))
 					{
-						Ratao* rat = dynamic_cast<Ratao*>(inim);
 						list<Projetil*>* pendentes = rat->getProjeteisPendentes();
 						list<Projetil*>::iterator itProj = pendentes->begin();
 						while (itProj != pendentes->end())
@@ -482,12 +522,11 @@ namespace Escavadores_intrepidos {
 							itProj = pendentes->erase(itProj);
 						}
 					}
-
 				}
 			}
 		}
 
-		void Gerenciador_colisao::setChao(Entidades::Chao* chao) {
+		void Gerenciador_colisao::setChao(Chao* chao) {
 			pChao = chao;
 			Entidade* pE = static_cast<Entidade*>(chao);
 			LE->incluir(pE);
@@ -521,10 +560,10 @@ namespace Escavadores_intrepidos {
 				}
 			}
 
-			std::vector<Personagens::Inimigo*>::iterator itIni;
+			vector<Inimigo*>::iterator itIni;
 			for (itIni = LIs.begin(); itIni != LIs.end(); ++itIni)
 			{
-				Personagens::Inimigo* inim = *itIni;
+				Inimigo* inim = *itIni;
 
 				if (inim && inim->getAtivo())
 				{

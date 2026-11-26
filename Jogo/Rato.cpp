@@ -8,7 +8,7 @@ namespace Escavadores_intrepidos {
 			const int Rato::dist_atk = 180;
 
 			Rato::Rato(const sf::Vector2f pos, const sf::Vector2f tam, Jogador* j1, Jogador* j2) :
-				Inimigo(ID::rato, pos, tam, j1, j2)
+				Inimigo(pos, tam, j1, j2)
 			{
 				boss = false;
 				inicializarVida(15);

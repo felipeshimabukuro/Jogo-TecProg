@@ -3,7 +3,7 @@
 namespace Escavadores_intrepidos {
 	namespace Fases {
 
-		Fase::Fase(int numJogadores, Jogador* pJ1, Jogador* pJ2) :Ente(ID::fase),
+		Fase::Fase(int numJogadores, Jogador* pJ1, Jogador* pJ2) :Ente(),
 			maxTopeiras(5),
 			contTopeiras(0),
 			maxPlataformas(900),
@@ -50,9 +50,9 @@ namespace Escavadores_intrepidos {
 
 		void Fase::blocosColocados() {
 			if (pJogador1 != NULL) {
-				std::list<Obstaculo*>* pendentes = pJogador1->getBlocosPendentes();
+				list<Obstaculo*>* pendentes = pJogador1->getBlocosPendentes();
 
-				std::list<Obstaculo*>::iterator it = pendentes->begin();
+				list<Obstaculo*>::iterator it = pendentes->begin();
 				while (it != pendentes->end()) {
 					Obstaculo* bloco = *it;
 
@@ -70,8 +70,8 @@ namespace Escavadores_intrepidos {
 				}
 			}
 			if (pJogador2 != NULL) {
-				std::list<Obstaculo*>* pendentes2 = pJogador2->getBlocosPendentes();
-				std::list<Obstaculo*>::iterator it2 = pendentes2->begin();
+				list<Obstaculo*>* pendentes2 = pJogador2->getBlocosPendentes();
+				list<Obstaculo*>::iterator it2 = pendentes2->begin();
 				while (it2 != pendentes2->end()) {
 					Obstaculo* bloco = *it2;
 					if (bloco != NULL) {
@@ -177,7 +177,7 @@ namespace Escavadores_intrepidos {
 					for (int i = 0; i < lista_ents.getTamanho(); i++) {
 						Entidade* ent = lista_ents[i];
 						if (ent && ent->getAtivo()) {
-							if (dynamic_cast<Personagens::Inimigo*>(ent)) {
+							if (dynamic_cast<Inimigo*>(ent)) {
 								temInimigoVivo = true;
 								break;
 							}
@@ -195,7 +195,7 @@ namespace Escavadores_intrepidos {
 					}
 					else if (!jogadorVivo) {
 						faseConcluida = true;
-						textoFimDeFase.setString("Game Over!\nPontos do Time: " + std::to_string(Personagens::Jogador::getPontos()));
+						textoFimDeFase.setString("Game Over!\nPontos do Time: " + to_string(Jogador::getPontos()));
 					}
 
 					if (!faseConcluida) {
@@ -203,7 +203,7 @@ namespace Escavadores_intrepidos {
 							pJogador1 = NULL;
 							pEv->setJogador1(NULL);
 							for (int i = 0; i < lista_ents.getTamanho(); i++) {
-								Personagens::Inimigo* ini = dynamic_cast<Personagens::Inimigo*>(lista_ents[i]);
+								Inimigo* ini = dynamic_cast<Inimigo*>(lista_ents[i]);
 								if (ini) ini->setJogador1(NULL);
 							}
 						}
@@ -211,7 +211,7 @@ namespace Escavadores_intrepidos {
 							pJogador2 = NULL;
 							pEv->setJogador2(NULL);
 							for (int i = 0; i < lista_ents.getTamanho(); i++) {
-								Personagens::Inimigo* ini = dynamic_cast<Personagens::Inimigo*>(lista_ents[i]);
+								Inimigo* ini = dynamic_cast<Inimigo*>(lista_ents[i]);
 								if (ini) ini->setJogador2(NULL);
 							}
 						}

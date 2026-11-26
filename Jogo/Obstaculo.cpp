@@ -5,8 +5,8 @@ namespace Escavadores_intrepidos {
     namespace Entidades {
         namespace Obstaculos {
 
-            Obstaculo::Obstaculo(ID id, int x, int y, int larg, int alt, int dano, bool danoso, bool queb) :
-                Entidade(id, x, y),
+            Obstaculo::Obstaculo(int x, int y, int larg, int alt, int dano, bool danoso, bool queb) :
+                Entidade(x, y),
                 largura(larg),
                 altura(alt),
                 dano(dano),

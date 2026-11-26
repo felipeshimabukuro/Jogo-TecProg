@@ -6,8 +6,8 @@ namespace Escavadores_intrepidos {
 
 		const float Entidade::gravidade = 0.9f;
 
-		Entidade::Entidade(ID id, float xx, float yy) :
-			Ente(id),
+		Entidade::Entidade(float xx, float yy) :
+			Ente(),
 			x(xx),
 			y(yy),
 			ativo(true),
@@ -31,7 +31,6 @@ namespace Escavadores_intrepidos {
 
 		void Entidade::salvarDataBuffer()
 		{
-			//buffer << static_cast<int>(id) << " ";
 			buffer << x << " ";
 			buffer << y << " ";
 			buffer << ativo << " ";
