@@ -6,7 +6,7 @@ namespace Escavadores_intrepidos {
         using namespace Personagens;
 
         Chao::Chao(const sf::Vector2f pos, const sf::Vector2f tam) :
-            Entidade(pos.x, pos.y), max_ticks(60), ticks(0)
+            Entidade(pos.x, pos.y), max_ticks(45), ticks(0), curar(false)
         {
             x = pos.x;
             y = pos.y;
@@ -26,18 +26,25 @@ namespace Escavadores_intrepidos {
         {
             aplicarGravidade();
             desGravitar();
-        }
-
-        void Chao::colisao(Entidade* ent, sf::Vector2f ds)
-        {
-        }
-
-        void Chao::ajudar(Jogador* p) {
-            ticks++;
-            if (ticks == max_ticks) {
-                ticks = 0;
-                p->operator++();
+            
+            if (!curar)
+            {
+                if (ticks < max_ticks)
+                {
+                    ticks++;
+                }
+                else if (ticks == max_ticks)
+                {
+                    curar = true;
+                }
             }
+        }
+
+        void Chao::ajudar(Jogador* p) 
+        {
+            if(p) p->operator++();
+            curar = false;
+            ticks = 0;
         }
 
         void Chao::salvarDataBuffer()
@@ -48,7 +55,7 @@ namespace Escavadores_intrepidos {
 
         void Chao::salvar()
         {
-            buffer.str(""); // Limpa dados de saves anteriores no buffer
+            buffer.str("");
             buffer.clear();
 
             salvarDataBuffer();
@@ -69,6 +76,11 @@ namespace Escavadores_intrepidos {
             y -= vely;
             vely = 0.0f;
             setPos(sf::Vector2f(x, y));
+        }
+
+        const bool Chao::getCurar() const
+        {
+            return curar;
         }
     }
 }

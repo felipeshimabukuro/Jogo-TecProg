@@ -547,6 +547,7 @@ namespace Escavadores_intrepidos {
 				{
 					pJog1->setPos(sf::Vector2f(pJog1->getPos().x, topoChao - pJog1->getTam().y));
 					pJog1->setChao(true);
+					if (pChao->getCurar()) pChao->ajudar(pJog1);
 				}
 			}
 
@@ -557,6 +558,7 @@ namespace Escavadores_intrepidos {
 				{
 					pJog2->setPos(sf::Vector2f(pJog2->getPos().x, topoChao - pJog2->getTam().y));
 					pJog2->setChao(true);
+					if (pChao->getCurar()) pChao->ajudar(pJog2);
 				}
 			}
 

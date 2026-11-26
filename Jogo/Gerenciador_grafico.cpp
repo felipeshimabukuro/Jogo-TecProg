@@ -91,15 +91,22 @@ namespace Escavadores_intrepidos {
 				return true;
 			}
 
-			sf::Texture textura;
-			if (!textura.loadFromFile(caminho))
+			try
 			{
-				cout << "Sem caminho: " << caminho << endl;
+				sf::Texture textura;
+				if (!textura.loadFromFile(caminho))
+				{
+					throw runtime_error("Sem caminho: " + caminho);
+				}
+
+				mapaTexturas[id] = textura;
+				return true;
+			}
+			catch (const exception& e)
+			{
+				cerr << e.what() << endl;
 				return false;
 			}
-
-			mapaTexturas[id] = textura;
-			return true;
 		}
 
 		sf::Texture* Gerenciador_grafico::getTextura(const string& id)
