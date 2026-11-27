@@ -143,13 +143,6 @@ namespace Escavadores_intrepidos {
 			return sf::Vector2f(distanciaPos.x - SomaMetade.x, distanciaPos.y - SomaMetade.y);
 		}
 
-		const bool Gerenciador_colisao::verificaColisao(Entidade* pe1, Entidade* pe2) const
-		{
-			if (!pe1 || !pe2) return false;
-			sf::Vector2f ds = calcularColisao(pe1, pe2);
-			return (ds.x < 0.0f && ds.y < 0.0f);
-		}
-
 		const bool Gerenciador_colisao::verificaColisao(Entidade* pe1, Entidade* pe2, sf::Vector2f& ds) const
 		{
 			if (!pe1 || !pe2) return false;
@@ -163,7 +156,7 @@ namespace Escavadores_intrepidos {
 			return (ds.x < 0.0f && ds.y < 0.0f);
 		}
 
-		void Gerenciador_colisao::tratarColisaoJogadorInimigo()
+		void Gerenciador_colisao::tratarColisaoJogsInimigs()
 		{
 			if (pJog1 && pJog1->getAtivo())
 			{
@@ -234,7 +227,7 @@ namespace Escavadores_intrepidos {
 			}
 		}
 
-		void Gerenciador_colisao::tratarColisaoJogadorObstaculo()
+		void Gerenciador_colisao::tratarColisaoJogsObstacs()
 		{
 			if (pJog1 && pJog1->getAtivo())
 			{
@@ -273,7 +266,7 @@ namespace Escavadores_intrepidos {
 			}
 		}
 
-		void Gerenciador_colisao::tratarColisaoJogadorProjetil()
+		void Gerenciador_colisao::tratarColisaoJogsProjeteis()
 		{
 			vector<Projetil*> projeteisParaRemover;
 
@@ -325,7 +318,7 @@ namespace Escavadores_intrepidos {
 			}
 		}
 
-		void Gerenciador_colisao::tratarColisaoInimigoObstaculo()
+		void Gerenciador_colisao::tratarColisaoInimigsObstacs()
 		{
 			vector<Inimigo*>::iterator itIni;
 			for (itIni = LIs.begin(); itIni != LIs.end(); ++itIni)
@@ -350,7 +343,7 @@ namespace Escavadores_intrepidos {
 			}
 		}
 
-		void Gerenciador_colisao::tratarColisaoProjetilObstaculo()
+		void Gerenciador_colisao::tratarColisaoProjeteisObstacs()
 		{
 			vector<Projetil*> projeteisParaRemover;
 
@@ -422,11 +415,11 @@ namespace Escavadores_intrepidos {
 			if (pJog1) pJog1->resetarChao();
 			if (pJog2) pJog2->resetarChao();
 			tratarTiro();
-			tratarColisaoJogadorInimigo();
-			tratarColisaoJogadorObstaculo();
-			tratarColisaoJogadorProjetil();
-			tratarColisaoInimigoObstaculo();
-			tratarColisaoProjetilObstaculo();
+			tratarColisaoJogsInimigs();
+			tratarColisaoJogsObstacs();
+			tratarColisaoJogsProjeteis();
+			tratarColisaoInimigsObstacs();
+			tratarColisaoProjeteisObstacs();
 			tratarColisaoChao();
 		}
 

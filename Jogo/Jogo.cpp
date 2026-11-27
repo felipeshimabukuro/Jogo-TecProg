@@ -15,6 +15,7 @@ namespace Escavadores_intrepidos {
 
     Jogo::Jogo() :
         faseAtual(NULL),
+        pMenu(NULL),
         voltarMenuFlag(false),
         carregarSaveFlag(false),
         faseID(0),
@@ -22,6 +23,7 @@ namespace Escavadores_intrepidos {
         pJogador2(NULL)
     {
         pGG = Gerenciador_grafico::getGerenciadorGrafico();
+        pMenu = new Menu(this);
         Gerenciador_eventos::getGerenciadorEventos()->setJogo(this);
         executar();
     }
@@ -33,6 +35,10 @@ namespace Escavadores_intrepidos {
             faseAtual = NULL;
             pJogador1 = NULL;
             pJogador2 = NULL;
+        }
+        if (pMenu) {
+            delete pMenu;
+            pMenu = NULL;
         }
     }
 
@@ -102,14 +108,12 @@ namespace Escavadores_intrepidos {
                         pJogador1 = NULL;
                         pJogador2 = NULL;
 
-                        Menu menuRanking(this);
-                        menuRanking.registrarRanking(pontosFinais, qtdJog);
+                        pMenu->registrarRanking(pontosFinais, qtdJog);
                     }
                 }
             }
             else {
-                Menu menuPrincipal(this);
-                menuPrincipal.executar();
+                pMenu->executar();
 
                 if (carregarSaveFlag == true) {
                     carregarSaveFlag = false;
@@ -200,6 +204,13 @@ namespace Escavadores_intrepidos {
         }
         else {
             pJogador2 = NULL;
+        }
+    }
+
+    void Jogo::pausar()
+    {
+        if (pMenu) {
+            pMenu->executarTelaPause();
         }
     }
 

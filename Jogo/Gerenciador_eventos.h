@@ -29,7 +29,6 @@ namespace Escavadores_intrepidos {
 			void setJogador1(Jogador* pJ1);
 			void setJogador2(Jogador* pJ2);
 			void verificarTeclaPressionada(sf::Keyboard::Key tecla);
-			void verificaTeclaSolta(sf::Keyboard::Key tecla);
 			void executar();
 			void setJogo(Jogo* p);
 			bool deveSairDaFase();

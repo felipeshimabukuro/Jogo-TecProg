@@ -14,7 +14,8 @@ namespace Escavadores_intrepidos {
 		Gerenciador_eventos::Gerenciador_eventos() :
 			pJogador1(NULL),
 			pJogador2(NULL),
-			pJogo(NULL)
+			pJogo(NULL),
+			pMenu(NULL)
 		{
 		}
 
@@ -25,6 +26,7 @@ namespace Escavadores_intrepidos {
 			pJogador1 = NULL;
 			pJogador2 = NULL;
 			pJogo = NULL;
+			pMenu = NULL;
 		}
 
 		Gerenciador_eventos* Gerenciador_eventos::getGerenciadorEventos()
@@ -61,6 +63,7 @@ namespace Escavadores_intrepidos {
 				}
 				return;
 			}
+
 			//jogador
 			if (pJogador1) {
 				if (tecla == sf::Keyboard::A || tecla == sf::Keyboard::S || tecla == sf::Keyboard::D || tecla == sf::Keyboard::W) {
@@ -80,21 +83,16 @@ namespace Escavadores_intrepidos {
 					pJogo->solicitarCarregamento();
 				}
 			}
+
 			if (tecla == sf::Keyboard::Escape)
 			{
 				if (pJogo) {
-					Menu menuPause(pJogo);
-					menuPause.executarTelaPause();
+					pJogo->pausar();
 				}
 				else {
 					pGG->fechaJanela();
 				}
 			}
-		}
-
-		void Gerenciador_eventos::verificaTeclaSolta(sf::Keyboard::Key tecla)
-		{
-
 		}
 
 		void Gerenciador_eventos::executar()
@@ -105,10 +103,6 @@ namespace Escavadores_intrepidos {
 				if (evento.type == sf::Event::KeyPressed)
 				{
 					verificarTeclaPressionada(evento.key.code);
-				}
-				else if (evento.type == sf::Event::KeyReleased)
-				{
-					verificaTeclaSolta(evento.key.code);
 				}
 				else if (evento.type == sf::Event::Closed)
 				{

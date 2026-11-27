@@ -1,7 +1,6 @@
 #include "Bibliotecas.h"
 #include "Ratao.h"
 #include "Proj_boss.h"
-#include "Gerenciador_colisao.h"
 #define SEGUNDOS *60
 #define COR_DEFAULT sf::Color(140, 20, 20)
 
@@ -63,16 +62,11 @@ namespace Escavadores_intrepidos {
 				if (dir == 1)
 					spawn_x = x_batida + largura_batida - 20;
 
-				//mudar para o novo ///////////////////////////////////////////////////
-				Gerenciador_colisao* pGC = Gerenciador_colisao::getGerenciadorColisao();
-				if (!pGC)
-					return;
-
-				Proj_boss* novoProjetil = new Proj_boss(dir, static_cast<int>(spawn_x), static_cast<int>(spawn_y));
+				Proj_boss* novoProjetil = new Proj_boss(dir, spawn_x, spawn_y);
 				if (novoProjetil)
 				{
 					novoProjetil->setFragmentos(3 + (ind % 3));
-					pGC->adicionarProjetil(novoProjetil);
+					projeteisPendentes.push_back(novoProjetil);
 				}
 			}
 
@@ -249,11 +243,22 @@ namespace Escavadores_intrepidos {
 
 				if (num_vidas <= 0) // n sei se isso vai no gerenciador ou aqui, mas por enquanto ta aqui msm
 				{
-					Gerenciador_colisao* pGC = Gerenciador_colisao::getGerenciadorColisao();
-					if (pGC)
-					{
-						pGC->removerInimigo(this);
-					}
+					ativo = false;
+				}
+			}
+
+			void Ratao::receberDano(int dano)
+			{
+				if (tempo_imune > 0 || !ativo)
+				{
+					return;
+				}
+
+				Inimigo::receberDano(dano);
+
+				if (ativo)
+				{
+					tempo_imune = 1 SEGUNDOS;
 				}
 			}
 

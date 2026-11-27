@@ -31,22 +31,16 @@ namespace Escavadores_intrepidos {
 			static Gerenciador_colisao* pColisao;
 			Gerenciador_colisao();
 
-			//Jogador = Jogs
-			//Verificar UML e mudar nome funções
-			//Tirar autos
-			//Usar verificarColisao
-
-			void tratarColisaoJogadorInimigo();
-			void tratarColisaoJogadorObstaculo();
-			void tratarColisaoJogadorProjetil();
-			void tratarColisaoInimigoObstaculo();
-			void tratarColisaoProjetilObstaculo();
+			void tratarColisaoJogsInimigs();
+			void tratarColisaoJogsObstacs();
+			void tratarColisaoJogsProjeteis();
+			void tratarColisaoInimigsObstacs();
+			void tratarColisaoProjeteisObstacs();
 			void tratarColisaoChao();
 
 			const sf::Vector2f calcularColisao(Entidade* ent1, Entidade* ent2) const;
 			const sf::Vector2f calcularColisao(const sf::Vector2f pos1, const sf::Vector2f tam1, const sf::Vector2f pos2, const sf::Vector2f tam2) const;
 
-			const bool verificaColisao(Entidade* pe1, Entidade* pe2) const;
 			const bool verificaColisao(Entidade* pe1, Entidade* pe2, sf::Vector2f& ds) const;
 			const bool verificaColisao(const sf::Vector2f pos1, const sf::Vector2f tam1, const sf::Vector2f pos2, const sf::Vector2f tam2) const;
 

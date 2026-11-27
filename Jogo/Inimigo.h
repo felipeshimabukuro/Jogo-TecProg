@@ -35,7 +35,7 @@ namespace Escavadores_intrepidos {
 				void movimentoAleatorio();
 				virtual void atualizaLado();
 				void salvarDataBuffer();
-				void receberDano(int dano);
+				virtual void receberDano(int dano);
 				void colisao(Entidade* ent, sf::Vector2f ds);
 				const bool getBoss() const;
 				virtual void danificar(Jogador* p) = 0;

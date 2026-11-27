@@ -40,7 +40,7 @@ namespace Escavadores_intrepidos {
 				void idle();
 				void movimentar();
 				void bater();
-				void atualizaLado() override;
+				void atualizaLado();
 				void executar();
 				void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f));
 				const sf::FloatRect getHitboxBatida() const;
@@ -60,6 +60,7 @@ namespace Escavadores_intrepidos {
 				void setTempoImune(const int ti);
 				void setEstado(const string& est);
 				string getArquivoSave() const;
+				void receberDano(int dano);
 			};
 		}
 	}
