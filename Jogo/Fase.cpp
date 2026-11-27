@@ -99,9 +99,12 @@ namespace Escavadores_intrepidos {
 			pGC->setChao(chao);
 		}
 
-		void Fase::criarPlataforma(sf::Vector2f pos)
+		void Fase::criarPlataforma(sf::Vector2f pos, bool danoso)
 		{
 			Plataforma* terra = new Plataforma(pos.x, pos.y, GRID, GRID, 0, false, true);
+			if (danoso) {
+				terra->setDanoso(true);
+			}
 			pGC->adicionarObstaculo(terra);
 			terra->setAtivo(1);
 		}
@@ -230,6 +233,7 @@ namespace Escavadores_intrepidos {
 
 				if (!faseConcluida) {
 					lista_ents.desenharTodas(pGG);
+					desenharPontuacao();
 				}
 				else {
 					pGG->getWindow()->draw(textoFimDeFase);
@@ -238,6 +242,24 @@ namespace Escavadores_intrepidos {
 
 				pGG->mostrarJanela();
 			}
+		}
+
+		void Fase::desenharPontuacao()
+		{
+			sf::RenderWindow* window = pGG->getWindow();
+			if (!window) return;
+
+			textoPontuacao.setFont(fonteTexto);
+			textoPontuacao.setCharacterSize(28);
+			textoPontuacao.setFillColor(sf::Color::White);
+			textoPontuacao.setString("Pontos: " + to_string(Jogador::getPontos()));
+
+			float larguraTexto = textoPontuacao.getLocalBounds().width;
+			float posX = static_cast<float>(window->getSize().x) - larguraTexto - 20.0f;
+			float posY = 15.0f;
+
+			textoPontuacao.setPosition(posX, posY);
+			window->draw(textoPontuacao);
 		}
 	}
 }

@@ -258,7 +258,7 @@ namespace Escavadores_intrepidos {
 
 				if (ativo)
 				{
-					tempo_imune = 1 SEGUNDOS;
+					tempo_imune = 0.5 SEGUNDOS;
 				}
 			}
 

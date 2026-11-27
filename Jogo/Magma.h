@@ -21,6 +21,7 @@ namespace Escavadores_intrepidos {
 				void salvar();
 				void salvarDataBuffer();
 				static void setTicks(const int t);
+				void setDanoso(const bool d);
 				string getArquivoSave() const;
 			};
 		}

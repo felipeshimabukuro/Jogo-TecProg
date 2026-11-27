@@ -39,6 +39,8 @@ namespace Escavadores_intrepidos {
 			int numJogadores;
 			sf::Text textoFimDeFase;
 			sf::Font fonteTexto;
+			sf::Text textoPontuacao;
+			void desenharPontuacao();
 
 			void blocosColocados();
 			void criarCenario();
@@ -49,7 +51,7 @@ namespace Escavadores_intrepidos {
 			void criarChao(sf::Vector2f pos);
 			void criarTopeira(sf::Vector2f pos);
 			void posJogador(sf::Vector2f pos);
-			void criarPlataforma(sf::Vector2f pos);
+			void criarPlataforma(sf::Vector2f pos, bool danoso = false);
 
 		public:
 			Fase(int numJogadores, Jogador* pJ1, Jogador* pJ2);

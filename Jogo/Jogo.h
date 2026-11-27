@@ -23,6 +23,7 @@ namespace Escavadores_intrepidos {
 		bool carregarSaveFlag;
 		Jogador* pJogador1;
 		Jogador* pJogador2;
+
 	public:
 		Jogo();
 		~Jogo();

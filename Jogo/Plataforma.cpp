@@ -37,7 +37,7 @@ namespace Escavadores_intrepidos {
 
 			void Plataforma::salvarDataBuffer() {
 				Obstaculo::salvarDataBuffer();
-				buffer << ticks;
+				buffer << ticks << " " << danoso;
 			}
 
 			void Plataforma::obstaculizar(Jogador* p) {
@@ -62,6 +62,21 @@ namespace Escavadores_intrepidos {
 			void Plataforma::setTicks(const int p)
 			{
 				ticks = p;
+			}
+
+			void Plataforma::setDanoso(const bool d)
+			{
+				danoso = d;
+				if (danoso) {
+					dano = 5;
+					quebravel = false;
+					sprite.setColor(sf::Color::Red);
+				}
+				else {
+					dano = 0;
+					quebravel = true;
+					sprite.setColor(sf::Color::White);
+				}
 			}
 
 			string Plataforma::getArquivoSave() const

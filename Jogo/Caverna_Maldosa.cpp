@@ -33,9 +33,12 @@ namespace Escavadores_intrepidos {
         {
         }
 
-        void Caverna_Maldosa::criarMagma(sf::Vector2f pos)
+        void Caverna_Maldosa::criarMagma(sf::Vector2f pos, bool danoso)
         {
             Magma* magma = new Magma(pos.x, pos.y, GRID, GRID, 5, true, false);
+            if (!danoso) {
+                magma->setDanoso(false);
+            }
             pGC->adicionarObstaculo(magma);
             magma->setAtivo(true);
         }
@@ -189,17 +192,19 @@ namespace Escavadores_intrepidos {
                     }
                     case 1: // Plataforma
                     {
-                        int ticks;
-                        ss >> x >> y >> ativo >> ticks;
-                        criarPlataforma(sf::Vector2f(x, y));
+                        int ticks = 0;
+                        bool danoso = false;
+                        ss >> x >> y >> ativo >> ticks >> danoso;
+                        criarPlataforma(sf::Vector2f(x, y), danoso);
                         Plataforma::setTicks(ticks);
                         break;
                     }
                     case 2: // Magma
                     {
-                        int ticks;
-                        ss >> x >> y >> ativo >> ticks;
-                        criarMagma(sf::Vector2f(x, y));
+                        int ticks = 0;
+                        bool danoso = true;
+                        ss >> x >> y >> ativo >> ticks >> danoso;
+                        criarMagma(sf::Vector2f(x, y), danoso);
                         Magma::setTicks(ticks);
                         break;
                     }

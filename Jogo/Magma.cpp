@@ -65,7 +65,7 @@ namespace Escavadores_intrepidos {
             {
                 aplicarGravidade();
                 desGravitar();
-                if (!rand() % 200) {
+                if (!rand() % 100) {
                     danoso = false;
                     dano = 0;
                     sprite.setColor(sf::Color::Green);
@@ -81,11 +81,25 @@ namespace Escavadores_intrepidos {
             void Magma::salvarDataBuffer()
             {
                 Obstaculo::salvarDataBuffer();
+                buffer << ticks << " " << danoso;
             }
 
             void Magma::setTicks(const int t)
             {
                 ticks = t;
+            }
+
+            void Magma::setDanoso(const bool d)
+            {
+                danoso = d;
+                if (!danoso) {
+                    dano = 0;
+                    sprite.setColor(sf::Color::Green);
+                }
+                else {
+                    dano = 5;
+                    sprite.setColor(sf::Color::White);
+                }
             }
 
             string Magma::getArquivoSave() const

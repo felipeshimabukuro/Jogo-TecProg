@@ -16,7 +16,7 @@ namespace Escavadores_intrepidos {
 			~Projetil();
 			virtual void trajetoria();
 			virtual void salvar() = 0;
-			void salvarDataBuffer();
+			virtual void salvarDataBuffer();
 			void executar();
 			virtual void colisao(Entidade* ent, sf::Vector2f ds = sf::Vector2f(0.0f, 0.0f)) = 0;
 			void setVelX(const float vx);

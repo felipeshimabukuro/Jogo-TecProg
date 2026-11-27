@@ -13,7 +13,7 @@ namespace Escavadores_intrepidos {
             int contMagma;
 
         protected:
-            void criarMagma(sf::Vector2f pos);
+            void criarMagma(sf::Vector2f pos, bool danoso = true);
             void criarRato(sf::Vector2f pos);
 
             void criarFundo();

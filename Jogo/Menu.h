@@ -27,6 +27,7 @@ namespace Escavadores_intrepidos {
 
         void atualizarOpcoesBotoes(const vector<string>& opcoes, float posYInicial = 250.0f);
         void carregarExibicaoRanking();
+
     public:
         Menu(Jogo* pJogo = NULL);
         ~Menu();

@@ -26,7 +26,7 @@ namespace Escavadores_intrepidos {
 				virtual ~Personagem();
 
 				virtual void desenhar(sf::RenderWindow* window);
-				void salvarDataBuffer();
+				virtual void salvarDataBuffer();
 				virtual void mover() = 0;
 				virtual void salvar() = 0;
 				virtual void executar() = 0;

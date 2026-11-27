@@ -19,6 +19,7 @@ namespace Escavadores_intrepidos {
 				void salvarDataBuffer();
 				void obstaculizar(Jogador* p);
 				static void setTicks(const int t);
+				void setDanoso(const bool d);
 				string getArquivoSave() const;
 			};
 		}

@@ -199,9 +199,10 @@ namespace Escavadores_intrepidos {
                     }
                     case 1: // Plataforma
                     {
-                        int ticks;
-                        ss >> x >> y >> ativo >> ticks;
-                        criarPlataforma(sf::Vector2f(x, y));
+                        int ticks = 0;
+                        bool danoso = false;
+                        ss >> x >> y >> ativo >> ticks >> danoso;
+                        criarPlataforma(sf::Vector2f(x, y), danoso);
                         Plataforma::setTicks(ticks);
                         break;
                     }

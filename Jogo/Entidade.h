@@ -17,7 +17,7 @@ namespace Escavadores_intrepidos {
 			float vely;
 			float max_vely;
 
-			void salvarDataBuffer();
+			virtual void salvarDataBuffer();
 
 		public:
 			Entidade(float xx = 0.0, float yy = 0.0);
